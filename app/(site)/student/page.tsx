@@ -308,7 +308,7 @@ export default function DashboardPage() {
             <FileUp /> Impor Data
           </Button>
           <Button 
-            onClick={() => window.location.href = '/input-student'}
+            onClick={() => window.location.href = '/student/input'}
             variant="primary-red"
           >
             <Plus /> Tambah
