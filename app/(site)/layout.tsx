@@ -76,6 +76,9 @@ export default function SiteLayout({
                 </h1>
               </div>
               <div className='flex items-center gap-2'>
+                <img 
+                  src="/images/male-user.png"
+                />
                 <span className='font-bold'>
                   Nama Pengguna
                 </span>
@@ -94,7 +97,7 @@ export default function SiteLayout({
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Batalkan</AlertDialogCancel>
-                      <AlertDialogAction onClick={handleLogout}>Lanjutkan</AlertDialogAction>
+                      <AlertDialogAction onClick={handleLogout} className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90">Lanjutkan</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
