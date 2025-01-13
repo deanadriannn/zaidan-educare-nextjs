@@ -1,14 +1,6 @@
 "use client"
 
 import * as React from "react"
-import {
-  Home,
-  Database,
-  CreditCard,
-  ChartPie,
-  BellRing,
-  type Icon as LucideIcon
-} from "lucide-react"
 import { NavMain } from "@/components/nav-main"
 import {
   Sidebar,

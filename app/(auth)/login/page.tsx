@@ -79,7 +79,11 @@ export default function LoginPage() {
                       Username <span className="text-red-500 text-sm">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="admin" {...field} className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50" />
+                      <Input 
+                        placeholder="admin"
+                        {...field}
+                        className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50 h-14"
+                      />
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
@@ -98,7 +102,7 @@ export default function LoginPage() {
                         <Input 
                           placeholder="*****" {...field} 
                           type={showPassword ? "text" : "password"}
-                          className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50"
+                          className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50 h-14"
                         />
                         <TooltipProvider>
                           <Tooltip>
