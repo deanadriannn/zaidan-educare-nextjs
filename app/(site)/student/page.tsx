@@ -23,6 +23,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -39,6 +40,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Non-Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -55,6 +57,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -68,6 +71,7 @@ const data: Student[] = [
   {
     id: "4",
     nis: "1234",
+    status: "Aktif",
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
@@ -87,6 +91,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -103,6 +108,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -120,6 +126,7 @@ const data: Student[] = [
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
     tempatLahir: "Jakarta",
+    status: "Aktif",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
     namaWali: "Vi",
@@ -135,6 +142,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -151,6 +159,7 @@ const data: Student[] = [
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
     kelas: "XII RPL",
+    status: "Non-Aktif",
     tempatLahir: "Jakarta",
     tanggalLahir: "2000-01-01",
     alamatRumah: "Jl. Lorem Ipsum",
@@ -174,6 +183,7 @@ const data: Student[] = [
     hubungan: "Ibu",
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
+    status: "Aktif",
     nomorTeleponWali: "08123456789",
     foto: ""
   },
@@ -189,6 +199,7 @@ const data: Student[] = [
     namaWali: "Vi",
     hubungan: "Ibu",
     jenisKelaminWali: "Perempuan",
+    status: "Aktif",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: ""
@@ -204,6 +215,7 @@ const data: Student[] = [
     alamatRumah: "Jl. Lorem Ipsum",
     namaWali: "Vi",
     hubungan: "Ibu",
+    status: "Aktif",
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
@@ -284,7 +296,7 @@ export default function DashboardPage() {
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4">
+      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[60vh]">
         <div className="flex justify-end gap-4">
           <Button variant="primary-red">
             <CircleArrowUp /> Naik Kelas
@@ -302,6 +314,7 @@ export default function DashboardPage() {
             <Plus /> Tambah
           </Button>
         </div>
+        {/* <DataTable columns={columns} data={data} /> */}
         <DataTable columns={columns} data={data} />
       </Card>
     </>

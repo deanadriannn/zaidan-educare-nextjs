@@ -78,6 +78,7 @@ export default function SiteLayout({
               <div className='flex items-center gap-2'>
                 <img 
                   src="/images/male-user.png"
+                  className="w-14"
                 />
                 <span className='font-bold'>
                   Nama Pengguna
@@ -106,22 +107,24 @@ export default function SiteLayout({
           </Card>
         </div>
         {children}
-        <Card className="mx-4 mt-4 mb-1 flex h-16 shrink-0 justify-center items-center gap-2 transition-[width,height] ease-linear bg-white rounded-xl">
-          <span className='mr-4'>
-            Zaidan Educare @ 2025
-          </span>
-          <div className='flex items-center justify-center gap-2'>
-            {footerContent.map((content) => (
-              <a href={content.url} key={content.url} target="_blank">
-                <img 
-                  src={content.icon} 
-                  alt="Footer Icon"
-                  className="w-8 h-8" 
-                />
-              </a>
-            ))}
-          </div>
-        </Card>
+        <div className='bg-[#F2F3F4] w-full sticky bottom-0 pb-1 z-30'>
+          <Card className="mx-4 mt-4 mb-1 flex h-16 shrink-0 justify-center items-center gap-2 transition-[width,height] ease-linear bg-white rounded-xl">
+            <span className='mr-4'>
+              Zaidan Educare @ 2025
+            </span>
+            <div className='flex items-center justify-center gap-2'>
+              {footerContent.map((content) => (
+                <a href={content.url} key={content.url} target="_blank">
+                  <img 
+                    src={content.icon} 
+                    alt="Footer Icon"
+                    className="w-8 h-8" 
+                  />
+                </a>
+              ))}
+            </div>
+          </Card>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )

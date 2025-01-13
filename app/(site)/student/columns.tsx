@@ -4,13 +4,15 @@ import { Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
 
 export type Student = {
   id: string
   nis: string
   nama: string
-  jenisKelamin: string
   kelas: string
+  status: "Aktif" | "Non-Aktif"
+  jenisKelamin: string
   tempatLahir: string
   tanggalLahir: string
   alamatRumah: string
@@ -54,71 +56,81 @@ export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "nis",
     header: "NIS",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "nama",
     header: "Nama",
-    size: 400
-  },
-  {
-    accessorKey: "jenisKelamin",
-    header: "Jenis Kelamin",
-    size: 400
+    size: 300,
   },
   {
     accessorKey: "kelas",
     header: "Kelas",
-    size: 400
+    size: 300
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    size: 300
+  },
+  {
+    accessorKey: "jenisKelamin",
+    header: "Jenis Kelamin",
+    size: 300
   },
   {
     accessorKey: "tempatLahir",
     header: "Tempat Lahir",
-    size: 400
+    size: 300,
   },
   {
     accessorKey: "tanggalLahir",
     header: "Tanggal Lahir",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "alamatRumah",
     header: "Alamat Rumah",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "namaWali",
     header: "Nama Wali",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "hubungan",
-    header: "Hubungan",
-    size: 400
+    header: "Hubungan Wali",
+    size: 300
   },
   {
     accessorKey: "jenisKelaminWali",
     header: "Jenis Kelamin Wali",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "emailWali",
     header: "Email Wali",
-    size: 400
+    size: 300
   },
   {
     accessorKey: "nomorTeleponWali",
     header: "Nomor Telepon Wali",
-    size: 400
+    size: 300
   },
-  {
-    accessorKey: "foto",
-    header: "Foto",
-    size: 400
-  },
+  // {
+  //   accessorKey: "foto",
+  //   header: "Foto",
+  //   size: 300
+  // },
   {
     id: "aksi",
-    header: "Aksi",
+    header: () => (
+      <div className="flex justify-center items-center gap-2">
+        <p>Aksi</p>
+      </div>
+    ),
+    accessorKey: "aksi",
     cell: ({ row }) => {
       const student = row.original
  
@@ -130,12 +142,12 @@ export const columns: ColumnDef<Student>[] = [
           <Button size="icon" variant="ghost">
             <Trash2 className="text-destructive"/>
           </Button>
+          <Switch
+            checked={student.status === "Aktif"}
+          />
         </div>
       )
     },
     size: 200,
-    meta: {
-      headerClassName: "text-center sticky right-0 z-10",
-    },
   },
 ]
