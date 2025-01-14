@@ -20,38 +20,35 @@ import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 
-const userSchema = z.object({
-  nama: z.string().min(1, "Nama wajib diisi"),
-  foto: z
-  .instanceof(File).optional(),
-  username: z.string().min(1, "Username wajib diisi"),
-  password: z.string().min(1, "Password wajib diisi"),
-  role: z.enum(["ketua_yayasan", "bendahara", "administrator"], {
-    required_error: "Role wajib diisi",
+const jenisBiayaPendidikanSchema = z.object({
+  nama_tagihan: z.string().min(1, "Nama wajib diisi"),
+  waktu_pembayaran: z.enum(["bulanan", "tahunan", "1x"], {
+    required_error: "Waktu pembayaran wajib diisi",
+  }),
+  status_cicilan: z.enum(["ya", "tidak"], {
+    required_error: "Status cicilan wajib diisi",
   }),
 })
 
-type UserFormValues = z.infer<typeof userSchema>
+type JenisBiayaPendidikanFormValues = z.infer<typeof jenisBiayaPendidikanSchema>
 
-export default function UserForm() {
+export default function JenisBiayaPendidikanForm() {
   const router = useRouter()
   const pathname = usePathname()
 
-  const form = useForm<UserFormValues>({
-    resolver: zodResolver(userSchema),
+  const form = useForm<JenisBiayaPendidikanFormValues>({
+    resolver: zodResolver(jenisBiayaPendidikanSchema),
     defaultValues: {
-      nama: "",
-      foto: undefined,
-      username: "",
-      password: "",
-      role: undefined,
+      nama_tagihan: "",
+      waktu_pembayaran: undefined,
+      status_cicilan: undefined,
     },
   })
 
-  function onSubmit(values: UserFormValues) {
+  function onSubmit(values: JenisBiayaPendidikanFormValues) {
     console.log("Form Values:", values)
-    toast.success(`Data pengguna aplikasi berhasil ditambahkan ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/user")
+    toast.success(`Data jenis biaya pendidikan berhasil ditambahkan ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
+    router.push("/jenis-biaya-pendidikan")
   }
 
   return (
@@ -61,7 +58,7 @@ export default function UserForm() {
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/user")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Formulir Penambahan Data Pengguna Aplikasi</span>
+          <span className="text-lg font-bold">Formulir Penambahan Data Jenis Biaya Pendidikan</span>
         </div>
       </CardHeader>
 
@@ -71,7 +68,7 @@ export default function UserForm() {
             {/* NAMA */}
             <FormField
               control={form.control}
-              name="nama"
+              name="nama_tagihan"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -82,10 +79,10 @@ export default function UserForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Nama <span className="text-destructive">*</span>
+                      Nama Tagihan <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama" {...field} />
+                      <Input placeholder="Masukkan Nama Tagihan" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -93,38 +90,10 @@ export default function UserForm() {
               }}
             />
 
-            {/* FOTO */}
+            {/* Waktu Pembayaran */}
             <FormField
               control={form.control}
-              name="foto"
-              render={({ field: { value, onChange, ...fieldProps } }) => {
-                return (
-                  <FormItem>
-                    <FormLabel 
-                      className="text-muted-foreground text-lg font-bold"
-                    >
-                      Foto
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        {...fieldProps}
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) =>
-                          onChange(event.target.files && event.target.files[0])
-                        }
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-
-            {/* USERNAME */}
-            <FormField
-              control={form.control}
-              name="username"
+              name="waktu_pembayaran"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -135,57 +104,7 @@ export default function UserForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Username <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Masukkan Username" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-
-            {/* PASSWORD */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <FormItem>
-                    <FormLabel 
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Password <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Masukkan Password" {...field} type="password" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-
-            {/* ROLE */}
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <FormItem>
-                    <FormLabel 
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Role <span className="text-destructive">*</span>
+                      Waktu Pembayaran <span className="text-destructive">*</span>
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -194,9 +113,42 @@ export default function UserForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="ketua_yayasan">Ketua Yayasan</SelectItem>
-                        <SelectItem value="bendahara">Bendahara</SelectItem>
-                        <SelectItem value="administrator">Administrator</SelectItem>
+                        <SelectItem value="bulanan">Bulanan</SelectItem>
+                        <SelectItem value="tahunan">Tahunan</SelectItem>
+                        <SelectItem value="1x">1x</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+
+            {/* STATUS CICILAN  */}
+            <FormField
+              control={form.control}
+              name="status_cicilan"
+              render={({ field }) => {
+                const { error } = useFormField()
+                return (
+                  <FormItem>
+                    <FormLabel 
+                      className={cn(
+                        error ? "text-destructive": "text-muted-foreground",
+                        "text-lg font-bold"
+                      )}
+                    >
+                      Status Cicilan <span className="text-destructive">*</span>
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih Salah Satu" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="ya">Ya</SelectItem>
+                        <SelectItem value="tidak">Tidak</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

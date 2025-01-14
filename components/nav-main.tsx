@@ -58,7 +58,7 @@ export function NavMain({
                     {item.items?.map((subItem: any) => (
                       <SidebarMenuSubItem key={subItem.title}>
                         {/* @ts-ignore */}
-                        <SidebarMenuSubButton asChild tooltip={subItem.title} className="h-10">
+                        <SidebarMenuSubButton asChild tooltip={subItem.title} className="h-10" isActive={pathname.includes(subItem.url)}>
                           <a href={subItem.url}>
                             <span>{subItem.title}</span>
                           </a>

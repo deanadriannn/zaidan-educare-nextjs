@@ -7,34 +7,34 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 
-export type User = {
+export type JenisBiayaPendidikan = {
   id: string
-  username: string
-  nama: string
-  role: "Ketua Yayasan" | "Bendahara" | "Administrator"
+  nama_tagihan: string
+  waktu_pembayaran: string
+  status_cicilan: "Ya" | "Tidak"
 }
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   {
-    accessorKey: "username",
+    accessorKey: "nama_tagihan",
     header: () => (
       <div className="pl-4">
-        <p>Username</p>
+        <p>Nama Tagihan</p>
       </div>
     ),
     cell: ({ row }) => (
       <div className="pl-4">
-        <p>{row.original.username}</p>
+        <p>{row.original.nama_tagihan}</p>
       </div>
     )
   },
   {
-    accessorKey: "nama",
-    header: "Nama",
+    accessorKey: "waktu_pembayaran",
+    header: "Waktu Pembayaran",
   },
   {
-    accessorKey: "role",
-    header: "Role",
+    accessorKey: "status_cicilan",
+    header: "Status Cicilan",
   },
   {
     id: "aksi",
@@ -45,16 +45,16 @@ export const columns: ColumnDef<User>[] = [
     ),
     accessorKey: "aksi",
     cell: ({ row }) => {
-      const user = row.original
+      const jenisBiayaPendidikan = row.original
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data pengguna aplikasi berhasil dihapus")
+        toast.success("Data jenis biaya pendidikan berhasil dihapus")
       }
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/user/edit/" + user.id)}>
+          <Button size="icon" variant="ghost" onClick={() => router.push("/jenis-biaya-pendidikan/edit/" + jenisBiayaPendidikan.id)}>
             <Pencil className="text-yellow-500"/>
           </Button>
           <AlertDialog>
@@ -65,7 +65,7 @@ export const columns: ColumnDef<User>[] = [
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Apakah Anda yakin untuk menghapus data pengguna?</AlertDialogTitle>
+                <AlertDialogTitle>Apakah Anda yakin untuk menghapus data jenis biaya pendidikan?</AlertDialogTitle>
                 <AlertDialogDescription>
                 </AlertDialogDescription>
               </AlertDialogHeader>

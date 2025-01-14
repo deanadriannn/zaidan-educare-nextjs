@@ -156,6 +156,8 @@ export const columns: ColumnDef<Student>[] = [
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Apakah Anda yakin untuk menghapus data siswa?</AlertDialogTitle>
+                <AlertDialogDescription>
+                </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel className="bg-[#608BC1] text-white hover:bg-[#4B6F9A] hover:text-white">

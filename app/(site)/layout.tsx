@@ -55,6 +55,8 @@ export default function SiteLayout({
     '/student/input': 'Master - Data Siswa',
     '/user': 'Master - Data Pengguna Aplikasi',
     '/user/input': 'Master - Data Pengguna Aplikasi',
+    '/jenis-biaya-pendidikan': 'Master - Data Jenis Biaya Pendidikan',
+    '/jenis-biaya-pendidikan/input': 'Master - Data Jenis Biaya Pendidikan',
   }
 
   if (/^\/student\/edit\/\d+$/.test(pathname)) {

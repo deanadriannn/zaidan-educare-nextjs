@@ -97,11 +97,11 @@ const data: DataType = {
         title: "Data Transaksi Penerimaan",
         url: "#",
         icon: "/sidebar/database.svg",
-        activeParams: "data",
+        activeParams: "jenis",
         items: [
           {
             title: "Jenis Biaya Pendidikan",
-            url: "#",
+            url: "/jenis-biaya-pendidikan",
           },
           {
             title: "Bank Penerima",
