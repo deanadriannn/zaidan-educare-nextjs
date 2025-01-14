@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
 } from '@tanstack/react-table'
 import { Button } from "@/components/ui/button"
-import { User } from './columns'
+import { User } from '@/types/data'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {

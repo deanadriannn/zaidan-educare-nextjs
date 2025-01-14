@@ -1,7 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { BankPenerimaTransfer, columns } from "./columns";
+import { columns } from "./columns";
+import { BankPenerimaTransfer } from "@/types/data"
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";

@@ -3,8 +3,6 @@
 import { CircleCheck, CircleX, Eye, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { 
@@ -18,19 +16,9 @@ import {
   AlertDialogTitle, 
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
+import { TagihanSiswaColumns } from "@/types/data"
 
-export type TagihanSiswa = {
-  id: string
-  nis: string
-  namaSiswa: string
-  kelas: string
-  daftarTagihan: string[]
-  nominalDpp: number
-  nominalProgram: number
-  nominalBulanan: number
-}
-
-export const columns: ColumnDef<TagihanSiswa>[] = [
+export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   {
     accessorKey: "nis",
     header: () => (
@@ -148,7 +136,7 @@ export const columns: ColumnDef<TagihanSiswa>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
+          <Button size="icon" variant="ghost" onClick={() => router.push("/tagihan-siswa/" + student.id)}>
             <Eye className="text-[#5787e1]" />
           </Button>
         </div>

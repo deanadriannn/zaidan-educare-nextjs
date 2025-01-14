@@ -1,13 +1,14 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { JenisBiayaPendidikan, columns } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
+import { JenisBiayaPendidikan } from "@/types/data"
 
 const data: JenisBiayaPendidikan[] = [
   {
@@ -15,30 +16,35 @@ const data: JenisBiayaPendidikan[] = [
     namaTagihan: "SPP",
     waktuPembayaran: "Bulanan",
     statusCicilan: "Ya",
+    nominal: 500000
   }, 
   {
     id: "2",
     namaTagihan: "Uang Gedung",
     waktuPembayaran: "Tahunan",
     statusCicilan: "Tidak",
+    nominal: 1000000
   }, 
   {
     id: "3",
     namaTagihan: "Uang Pangkal",
     waktuPembayaran: "1x",
     statusCicilan: "Tidak",
+    nominal: 5000000
   },
   {
     id: "4",
     namaTagihan: "Uang Kegiatan",
     waktuPembayaran: "Bulanan",
     statusCicilan: "Ya",
+    nominal: 100000
   },
   {
     id: "5",
     namaTagihan: "Uang Seragam",
     waktuPembayaran: "1x",
     statusCicilan: "Tidak",
+    nominal: 500000
   }
 ]
 

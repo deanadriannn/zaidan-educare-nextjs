@@ -1,7 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, columns } from "./columns";
+import { columns } from "./columns";
+import { User } from "@/types/data";
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";

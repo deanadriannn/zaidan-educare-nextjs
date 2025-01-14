@@ -5,14 +5,18 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
-
-export type BankPenerimaTransfer = {
-  id: string
-  namaBank: string
-  nomorRekening: string
-  namaPemilikRekening: string
-}
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog"
+import { BankPenerimaTransfer } from "@/types/data"
 
 export const columns: ColumnDef<BankPenerimaTransfer>[] = [
   {

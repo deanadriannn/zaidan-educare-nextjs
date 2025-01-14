@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
 } from '@tanstack/react-table'
 import { Button } from "@/components/ui/button"
-import { TagihanSiswa } from './columns'
+import { TagihanSiswaColumns } from '@/types/data'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
@@ -19,7 +19,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-const getCommonPinningStyles = (column: Column<TagihanSiswa>): CSSProperties => {
+const getCommonPinningStyles = (column: Column<TagihanSiswaColumns>): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
     isPinned === 'left' && column.getIsLastColumn('left')

@@ -1,7 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { TagihanSiswa, columns } from "./columns";
+import { columns } from "./columns";
+import { TagihanSiswaColumns } from "@/types/data";
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -16,66 +17,56 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const data: TagihanSiswa[] = [
+const data: TagihanSiswaColumns[] = [
   {
-    id: '1',
-    nis: '1234567890',
-    namaSiswa: 'John Doe',
-    kelas: 'Kelas 1',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    id: "1",
+    nis: "123456",
+    namaSiswa: "John Doe",
+    kelas: "Kelas 1",
+    daftarTagihan: ["DPP", "Buku Paket"],
     nominalDpp: 1000000,
     nominalProgram: 500000,
-    nominalBulanan: 100000,
+    nominalBulanan: 200000
   },
   {
-    id: '2',
-    nis: '1234567891',
-    namaSiswa: 'Jane Doe',
-    kelas: 'Kelas 2',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    id: "2",
+    nis: "123457",
+    namaSiswa: "Jane Doe",
+    kelas: "Kelas 2",
+    daftarTagihan: ["DPP", "Buku Paket"],
     nominalDpp: 1000000,
     nominalProgram: 500000,
-    nominalBulanan: 100000,
+    nominalBulanan: 200000
   },
   {
-    id: '3',
-    nis: '1234567892',
-    namaSiswa: 'John Smith',
-    kelas: 'Kelas 3',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    id: "3",
+    nis: "123458",
+    namaSiswa: "John Smith",
+    kelas: "Kelas 3",
+    daftarTagihan: ["DPP", "Buku Paket"],
     nominalDpp: 1000000,
     nominalProgram: 500000,
-    nominalBulanan: 100000,
+    nominalBulanan: 200000
   },
   {
-    id: '4',
-    nis: '1234567893',
-    namaSiswa: 'Jane Smith',
-    kelas: 'Kelas 4',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    id: "4",
+    nis: "123459",
+    namaSiswa: "Jane Smith",
+    kelas: "Kelas 4",
+    daftarTagihan: ["DPP", "Buku Paket"],
     nominalDpp: 1000000,
     nominalProgram: 500000,
-    nominalBulanan: 100000,
+    nominalBulanan: 200000
   },
   {
-    id: '5',
-    nis: '1234567894',
-    namaSiswa: 'John Doe Jr.',
-    kelas: 'Kelas 5',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    id: "5",
+    nis: "123460",
+    namaSiswa: "John Doe Jr.",
+    kelas: "Kelas 5",
+    daftarTagihan: ["DPP", "Buku Paket"],
     nominalDpp: 1000000,
     nominalProgram: 500000,
-    nominalBulanan: 100000,
-  },
-  {
-    id: '6',
-    nis: '1234567895',
-    namaSiswa: 'Jane Doe Jr.',
-    kelas: 'Kelas 6',
-    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 100000,
+    nominalBulanan: 200000
   }
 ]
 

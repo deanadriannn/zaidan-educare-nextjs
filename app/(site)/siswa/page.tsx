@@ -1,7 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Student, columns } from "./columns";
+import { columns } from "./columns";
+import { StudentInfo } from "@/types/data";
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -16,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const data: Student[] = [
+const data: StudentInfo[] = [
   {
     id: "1",
     nis: "1234",
@@ -32,7 +33,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "2",
@@ -49,7 +51,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "3",
@@ -66,7 +69,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "4",
@@ -83,7 +87,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "5",
@@ -100,7 +105,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "6",
@@ -117,7 +123,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "7",
@@ -134,7 +141,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "8",
@@ -151,7 +159,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "9",
@@ -168,7 +177,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "10",
@@ -185,7 +195,8 @@ const data: Student[] = [
     emailWali: "email@example.com",
     status: "Aktif",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "11",
@@ -202,7 +213,8 @@ const data: Student[] = [
     status: "Aktif",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
   {
     id: "12",
@@ -219,7 +231,8 @@ const data: Student[] = [
     jenisKelaminWali: "Perempuan",
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
-    foto: ""
+    foto: "",
+    tahunMasuk: "2019"
   },
 ]
 

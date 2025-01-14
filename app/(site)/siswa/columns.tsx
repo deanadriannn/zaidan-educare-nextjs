@@ -7,27 +7,20 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog"
+import { StudentInfo } from "@/types/data"
 
-export type Student = {
-  id: string
-  nis: string
-  nama: string
-  kelas: string
-  status: "Aktif" | "Non-Aktif"
-  jenisKelamin: string
-  tempatLahir: string
-  tanggalLahir: string
-  alamatRumah: string
-  namaWali: string
-  hubungan: string
-  jenisKelaminWali: string
-  emailWali: string
-  nomorTeleponWali: string
-  foto: string
-}
-
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<StudentInfo>[] = [
   {
     id: "select",
     header: ({ table }) => (
