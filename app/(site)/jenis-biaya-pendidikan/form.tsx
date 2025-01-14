@@ -21,11 +21,11 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useForm
 import { cn } from "@/lib/utils"
 
 const jenisBiayaPendidikanSchema = z.object({
-  nama_tagihan: z.string().min(1, "Nama tagihan wajib diisi"),
-  waktu_pembayaran: z.enum(["bulanan", "tahunan", "1x"], {
+  namaTagihan: z.string().min(1, "Nama tagihan wajib diisi"),
+  waktuPembayaran: z.enum(["bulanan", "tahunan", "1x"], {
     required_error: "Waktu pembayaran wajib diisi",
   }),
-  status_cicilan: z.enum(["ya", "tidak"], {
+  statusCicilan: z.enum(["ya", "tidak"], {
     required_error: "Status cicilan wajib diisi",
   }),
 })
@@ -39,9 +39,9 @@ export default function JenisBiayaPendidikanForm() {
   const form = useForm<JenisBiayaPendidikanFormValues>({
     resolver: zodResolver(jenisBiayaPendidikanSchema),
     defaultValues: {
-      nama_tagihan: "",
-      waktu_pembayaran: undefined,
-      status_cicilan: undefined,
+      namaTagihan: "",
+      waktuPembayaran: undefined,
+      statusCicilan: undefined,
     },
   })
 
@@ -68,7 +68,7 @@ export default function JenisBiayaPendidikanForm() {
             {/* NAMA TAGIHAN */}
             <FormField
               control={form.control}
-              name="nama_tagihan"
+              name="namaTagihan"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -93,7 +93,7 @@ export default function JenisBiayaPendidikanForm() {
             {/* Waktu Pembayaran */}
             <FormField
               control={form.control}
-              name="waktu_pembayaran"
+              name="waktuPembayaran"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -127,7 +127,7 @@ export default function JenisBiayaPendidikanForm() {
             {/* STATUS CICILAN  */}
             <FormField
               control={form.control}
-              name="status_cicilan"
+              name="statusCicilan"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (

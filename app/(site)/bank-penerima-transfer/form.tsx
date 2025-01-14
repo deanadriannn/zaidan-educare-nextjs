@@ -21,9 +21,9 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useForm
 import { cn } from "@/lib/utils"
 
 const bankPenerimaTransferSchema = z.object({
-  nama_bank: z.string().min(1, "Nama bank wajib diisi"),
-  nomor_rekening: z.string().min(1, "Nomor rekening wajib diisi"),
-  nama_pemilik_rekening: z.string().min(1, "Nama pemilik rekening wajib diisi"),
+  namaBank: z.string().min(1, "Nama bank wajib diisi"),
+  nomorRekening: z.string().min(1, "Nomor rekening wajib diisi"),
+  namaPemilikRekening: z.string().min(1, "Nama pemilik rekening wajib diisi"),
 })
 
 type BankPenerimaTransferFormValues = z.infer<typeof bankPenerimaTransferSchema>
@@ -35,9 +35,9 @@ export default function BankPenerimaTransferForm() {
   const form = useForm<BankPenerimaTransferFormValues>({
     resolver: zodResolver(bankPenerimaTransferSchema),
     defaultValues: {
-      nama_bank: "",
-      nomor_rekening: "",
-      nama_pemilik_rekening: "",
+      namaBank: "",
+      nomorRekening: "",
+      namaPemilikRekening: "",
     },
   })
 
@@ -64,7 +64,7 @@ export default function BankPenerimaTransferForm() {
             {/* NAMA BANK */}
             <FormField
               control={form.control}
-              name="nama_bank"
+              name="namaBank"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -89,7 +89,7 @@ export default function BankPenerimaTransferForm() {
             {/* NOMOR REKENING */}
             <FormField
               control={form.control}
-              name="nomor_rekening"
+              name="nomorRekening"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -114,7 +114,7 @@ export default function BankPenerimaTransferForm() {
             {/* NAMA PEMILIK REKENING */}
             <FormField
               control={form.control}
-              name="nama_pemilik_rekening"
+              name="namaPemilikRekening"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (

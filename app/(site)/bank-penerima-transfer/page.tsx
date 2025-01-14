@@ -12,27 +12,27 @@ import { Plus, Search } from "lucide-react";
 const data: BankPenerimaTransfer[] = [
   {
     id: '1',
-    nama_bank: 'Bank BCA',
-    nomor_rekening: '1234567890',
-    nama_pemilik_rekening: 'John Doe'
+    namaBank: 'Bank BCA',
+    nomorRekening: '1234567890',
+    namaPemilikRekening: 'John Doe'
   },
   {
     id: '2',
-    nama_bank: 'Bank Mandiri',
-    nomor_rekening: '0987654321',
-    nama_pemilik_rekening: 'Jane Doe'
+    namaBank: 'Bank Mandiri',
+    nomorRekening: '0987654321',
+    namaPemilikRekening: 'Jane Doe'
   },
   {
     id: '3',
-    nama_bank: 'Bank BNI',
-    nomor_rekening: '1234567890',
-    nama_pemilik_rekening: 'John Doe'
+    namaBank: 'Bank BNI',
+    nomorRekening: '1234567890',
+    namaPemilikRekening: 'John Doe'
   },
   {
     id: '4',
-    nama_bank: 'Bank BRI',
-    nomor_rekening: '0987654321',
-    nama_pemilik_rekening: 'Jane Doe'
+    namaBank: 'Bank BRI',
+    nomorRekening: '0987654321',
+    namaPemilikRekening: 'Jane Doe'
   }
 ]
 

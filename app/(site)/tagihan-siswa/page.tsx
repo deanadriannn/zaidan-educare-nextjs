@@ -1,13 +1,13 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Student, columns } from "./columns";
+import { TagihanSiswa, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CircleArrowUp, FileDown, FileUp, Plus, Search, Upload } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -16,223 +16,78 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const data: Student[] = [
+const data: TagihanSiswa[] = [
   {
-    id: "1",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
+    id: '1',
+    nis: '1234567890',
+    namaSiswa: 'John Doe',
+    kelas: 'Kelas 1',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
   },
   {
-    id: "2",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Non-Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
+    id: '2',
+    nis: '1234567891',
+    namaSiswa: 'Jane Doe',
+    kelas: 'Kelas 2',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
   },
   {
-    id: "3",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
+    id: '3',
+    nis: '1234567892',
+    namaSiswa: 'John Smith',
+    kelas: 'Kelas 3',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
   },
   {
-    id: "4",
-    nis: "1234",
-    status: "Aktif",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
+    id: '4',
+    nis: '1234567893',
+    namaSiswa: 'Jane Smith',
+    kelas: 'Kelas 4',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
   },
   {
-    id: "5",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
+    id: '5',
+    nis: '1234567894',
+    namaSiswa: 'John Doe Jr.',
+    kelas: 'Kelas 5',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
   },
   {
-    id: "6",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "7",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    status: "Aktif",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "8",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "9",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Non-Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "10",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    status: "Aktif",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "11",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    status: "Aktif",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
-  {
-    id: "12",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    status: "Aktif",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: ""
-  },
+    id: '6',
+    nis: '1234567895',
+    namaSiswa: 'Jane Doe Jr.',
+    kelas: 'Kelas 6',
+    daftarTagihan: ['DPP', 'Program', 'Bulanan'],
+    nominalDpp: 1000000,
+    nominalProgram: 500000,
+    nominalBulanan: 100000,
+  }
 ]
 
-export default function StudentPage() {
+export default function TagihanSiswaPage() {
   const [name, setName] = useState('')
-  const [nis, setNis] = useState('')
   const [kelas, setKelas] = useState('')
 
 
   const handleFilter = (e: any) => {
     e.preventDefault()
     console.log('Filtering')
-    console.log(name, nis, kelas)
+    console.log(name, kelas)
   }
   
   return (
@@ -244,27 +99,14 @@ export default function StudentPage() {
         <form onSubmit={handleFilter}>
           <CardContent className="flex justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
-              <Label htmlFor="nama" className="text-md">Nama</Label>
+              <Label htmlFor="nama" className="text-md">Nama Siswa</Label>
               <div className="w-full relative">
                 <Input
                   id="nama"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Temukan Nama..."
-                />
-                <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
-              </div>
-            </div>
-            <div className="w-full flex flex-col space-y-2">
-              <Label htmlFor="nis" className="text-md">NIS</Label>
-              <div className="w-full relative">
-                <Input
-                  id="nis"
-                  type="text"
-                  value={nis}
-                  onChange={(e) => setNis(e.target.value)}
-                  placeholder="Temukan NIS..."
+                  placeholder="Temukan Nama Siswa..."
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
@@ -273,18 +115,19 @@ export default function StudentPage() {
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
               <Select onValueChange={(value) => setKelas(value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Pilih Kelas..." />
+                  <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                  <SelectItem value="6">6</SelectItem>
+                  <SelectItem value="1">Kelas 1</SelectItem>
+                  <SelectItem value="2">Kelas 2</SelectItem>
+                  <SelectItem value="3">Kelas 3</SelectItem>
+                  <SelectItem value="4">Kelas 4</SelectItem>
+                  <SelectItem value="5">Kelas 5</SelectItem>
+                  <SelectItem value="6">Kelas 6</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+            <div className="w-full flex flex-col space-y-2"></div>
           </CardContent>
           <CardFooter className="flex justify-end gap-4">
             <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50]">
@@ -298,23 +141,13 @@ export default function StudentPage() {
       </Card>
       <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
         <div className="flex justify-end gap-4">
-          <Button variant="primary-red">
-            <CircleArrowUp /> Naik Kelas
-          </Button>
-          <Button variant="primary-red">
-            <FileDown /> Unduh Template Import
-          </Button>
-          <Button variant="primary-red">
-            <FileUp /> Impor Data
-          </Button>
           <Button 
-            onClick={() => window.location.href = '/siswa/input'}
+            onClick={() => window.location.href = '/tagihan-siswa/input'}
             variant="primary-red"
           >
             <Plus /> Tambah
           </Button>
         </div>
-        {/* <DataTable columns={columns} data={data} /> */}
         <DataTable columns={columns} data={data} />
       </Card>
     </>

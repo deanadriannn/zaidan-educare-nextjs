@@ -12,33 +12,33 @@ import { Plus, Search } from "lucide-react";
 const data: JenisBiayaPendidikan[] = [
   {
     id: "1",
-    nama_tagihan: "SPP",
-    waktu_pembayaran: "Bulanan",
-    status_cicilan: "Ya",
+    namaTagihan: "SPP",
+    waktuPembayaran: "Bulanan",
+    statusCicilan: "Ya",
   }, 
   {
     id: "2",
-    nama_tagihan: "Uang Gedung",
-    waktu_pembayaran: "Tahunan",
-    status_cicilan: "Tidak",
+    namaTagihan: "Uang Gedung",
+    waktuPembayaran: "Tahunan",
+    statusCicilan: "Tidak",
   }, 
   {
     id: "3",
-    nama_tagihan: "Uang Pangkal",
-    waktu_pembayaran: "1x",
-    status_cicilan: "Tidak",
+    namaTagihan: "Uang Pangkal",
+    waktuPembayaran: "1x",
+    statusCicilan: "Tidak",
   },
   {
     id: "4",
-    nama_tagihan: "Uang Kegiatan",
-    waktu_pembayaran: "Bulanan",
-    status_cicilan: "Ya",
+    namaTagihan: "Uang Kegiatan",
+    waktuPembayaran: "Bulanan",
+    statusCicilan: "Ya",
   },
   {
     id: "5",
-    nama_tagihan: "Uang Seragam",
-    waktu_pembayaran: "1x",
-    status_cicilan: "Tidak",
+    namaTagihan: "Uang Seragam",
+    waktuPembayaran: "1x",
+    statusCicilan: "Tidak",
   }
 ]
 

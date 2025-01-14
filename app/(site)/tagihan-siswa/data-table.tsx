@@ -10,11 +10,8 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table'
-import { Pencil, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Student } from './columns'
+import { TagihanSiswa } from './columns'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
@@ -22,7 +19,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-const getCommonPinningStyles = (column: Column<Student>): CSSProperties => {
+const getCommonPinningStyles = (column: Column<TagihanSiswa>): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
     isPinned === 'left' && column.getIsLastColumn('left')

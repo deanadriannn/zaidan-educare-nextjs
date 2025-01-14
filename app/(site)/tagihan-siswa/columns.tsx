@@ -1,69 +1,53 @@
 "use client"
 
-import { CircleCheck, CircleX, Pencil, Trash2 } from "lucide-react"
+import { CircleCheck, CircleX, Eye, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog"
 
-export type Student = {
+export type TagihanSiswa = {
   id: string
   nis: string
-  nama: string
+  namaSiswa: string
   kelas: string
-  status: "Aktif" | "Non-Aktif"
-  jenisKelamin: string
-  tempatLahir: string
-  tanggalLahir: string
-  alamatRumah: string
-  namaWali: string
-  hubungan: string
-  jenisKelaminWali: string
-  emailWali: string
-  nomorTeleponWali: string
-  foto: string
+  daftarTagihan: string[]
+  nominalDpp: number
+  nominalProgram: number
+  nominalBulanan: number
 }
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<TagihanSiswa>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex justify-center items-center gap-2">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-        <p className="font-bold">Select All</p>
+    accessorKey: "nis",
+    header: () => (
+      <div className="pl-4">
+        <p>NIS</p>
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex justify-center items-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
+      <div className="pl-4">
+        <p>{row.original.nis}</p>
       </div>
     ),
-    size: 200,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "nis",
-    header: "NIS",
     size: 300
   },
   {
-    accessorKey: "nama",
-    header: "Nama",
+    accessorKey: "namaSiswa",
+    header: "Nama Siswa",
     size: 300,
   },
   {
@@ -72,60 +56,52 @@ export const columns: ColumnDef<Student>[] = [
     size: 300
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "daftarTagihan",
+    header: "Daftar Tagihan",
     size: 300
   },
   {
-    accessorKey: "jenisKelamin",
-    header: "Jenis Kelamin",
+    accessorKey: "nominalDpp",
+    header: "Nominal DPP",
+    cell: ({ row }) => {
+      const nominalDpp = parseFloat(row.getValue("nominalDpp"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "IDR",
+      }).format(nominalDpp)
+ 
+      return <div className="font-medium">{formatted}</div>
+    },
     size: 300
   },
   {
-    accessorKey: "tempatLahir",
-    header: "Tempat Lahir",
+    accessorKey: "nominalProgram",
+    header: "Nominal Program",
+    cell: ({ row }) => {
+      const nominalProgram = parseFloat(row.getValue("nominalProgram"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "IDR",
+      }).format(nominalProgram)
+ 
+      return <div className="font-medium">{formatted}</div>
+    },
     size: 300,
   },
   {
-    accessorKey: "tanggalLahir",
-    header: "Tanggal Lahir",
+    accessorKey: "nominalBulanan",
+    header: "Nominal Bulanan",
+    cell: ({ row }) => {
+      const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "IDR",
+      }).format(nominalBulanan)
+ 
+      return <div className="font-medium">{formatted}</div>
+    },
     size: 300
   },
-  {
-    accessorKey: "alamatRumah",
-    header: "Alamat Rumah",
-    size: 300
-  },
-  {
-    accessorKey: "namaWali",
-    header: "Nama Wali",
-    size: 300
-  },
-  {
-    accessorKey: "hubungan",
-    header: "Hubungan Wali",
-    size: 300
-  },
-  {
-    accessorKey: "jenisKelaminWali",
-    header: "Jenis Kelamin Wali",
-    size: 300
-  },
-  {
-    accessorKey: "emailWali",
-    header: "Email Wali",
-    size: 300
-  },
-  {
-    accessorKey: "nomorTeleponWali",
-    header: "Nomor Telepon Wali",
-    size: 300
-  },
-  // {
-  //   accessorKey: "foto",
-  //   header: "Foto",
-  //   size: 300
-  // },
   {
     id: "aksi",
     header: () => (
@@ -139,12 +115,12 @@ export const columns: ColumnDef<Student>[] = [
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data siswa berhasil dihapus")
+        toast.success("Data tagihan biaya pendidikan berhasil dihapus")
       }
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
+          <Button size="icon" variant="ghost" onClick={() => router.push("/tagihan-siswa/edit/" + student.id)}>
             <Pencil className="text-yellow-500"/>
           </Button>
           <AlertDialog>
@@ -155,7 +131,7 @@ export const columns: ColumnDef<Student>[] = [
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Apakah Anda yakin untuk menghapus data siswa?</AlertDialogTitle>
+                <AlertDialogTitle>Apakah Anda yakin untuk menghapus data tagihan biaya pendidikan?</AlertDialogTitle>
                 <AlertDialogDescription>
                 </AlertDialogDescription>
               </AlertDialogHeader>
@@ -172,9 +148,9 @@ export const columns: ColumnDef<Student>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <Switch
-            checked={student.status === "Aktif"}
-          />
+          <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
+            <Eye className="text-[#5787e1]" />
+          </Button>
         </div>
       )
     },

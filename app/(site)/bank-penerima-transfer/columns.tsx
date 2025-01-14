@@ -9,14 +9,14 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 export type BankPenerimaTransfer = {
   id: string
-  nama_bank: string
-  nomor_rekening: string
-  nama_pemilik_rekening: string
+  namaBank: string
+  nomorRekening: string
+  namaPemilikRekening: string
 }
 
 export const columns: ColumnDef<BankPenerimaTransfer>[] = [
   {
-    accessorKey: "nama_bank",
+    accessorKey: "namaBank",
     header: () => (
       <div className="pl-4">
         <p>Nama Bank</p>
@@ -24,16 +24,16 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
     ),
     cell: ({ row }) => (
       <div className="pl-4">
-        <p>{row.original.nama_bank}</p>
+        <p>{row.original.namaBank}</p>
       </div>
     )
   },
   {
-    accessorKey: "nomor_rekening",
+    accessorKey: "nomorRekening",
     header: "Nomor Rekening",
   },
   {
-    accessorKey: "nama_pemilik_rekening",
+    accessorKey: "namaPemilikRekening",
     header: "Nama Pemilik Rekening",
   },
   {

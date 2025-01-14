@@ -9,14 +9,14 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 
 export type JenisBiayaPendidikan = {
   id: string
-  nama_tagihan: string
-  waktu_pembayaran: string
-  status_cicilan: "Ya" | "Tidak"
+  namaTagihan: string
+  waktuPembayaran: string
+  statusCicilan: "Ya" | "Tidak"
 }
 
 export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   {
-    accessorKey: "nama_tagihan",
+    accessorKey: "namaTagihan",
     header: () => (
       <div className="pl-4">
         <p>Nama Tagihan</p>
@@ -24,16 +24,16 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
     ),
     cell: ({ row }) => (
       <div className="pl-4">
-        <p>{row.original.nama_tagihan}</p>
+        <p>{row.original.namaTagihan}</p>
       </div>
     )
   },
   {
-    accessorKey: "waktu_pembayaran",
+    accessorKey: "waktuPembayaran",
     header: "Waktu Pembayaran",
   },
   {
-    accessorKey: "status_cicilan",
+    accessorKey: "statusCicilan",
     header: "Status Cicilan",
   },
   {
