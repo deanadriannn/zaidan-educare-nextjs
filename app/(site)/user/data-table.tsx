@@ -1,7 +1,7 @@
 "use client"
 
 import React, { CSSProperties, useState } from 'react'
-import "../site.css"
+import '../site.css'
 import {
   Column,
   ColumnDef,
@@ -10,11 +10,8 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table'
-import { Pencil, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Student } from './columns'
+import { User } from './columns'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
@@ -22,7 +19,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-const getCommonPinningStyles = (column: Column<Student>): CSSProperties => {
+const getCommonPinningStyles = (column: Column<User>): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
     isPinned === 'left' && column.getIsLastColumn('left')
@@ -84,9 +81,10 @@ export function DataTable<TData, TValue>({
     <div className="p-2">
       <div className="table-container">
         <table
-          style={{
-            width: table.getTotalSize(),
-          }}
+          // style={{
+          //   width: table.getTotalSize(),
+          // }}
+          className='w-full'
         >
           <thead>
             {table.getHeaderGroups().map(headerGroup => (

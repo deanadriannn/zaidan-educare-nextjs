@@ -125,7 +125,7 @@ export default function EditStudent() {
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/student")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Tambah Data Siswa</span>
+          <span className="text-lg font-bold">Formulir Pengubahan Data Siswa</span>
         </div>
       </CardHeader>
 

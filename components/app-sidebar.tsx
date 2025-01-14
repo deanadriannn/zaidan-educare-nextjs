@@ -111,7 +111,7 @@ const data: DataType = {
       },
       {
         title: "Data Pengguna Aplikasi",
-        url: "#",
+        url: "/user",
         icon: "/sidebar/push-notifications.svg",
       },
     ]

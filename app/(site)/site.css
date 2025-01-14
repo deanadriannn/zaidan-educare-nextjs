@@ -1,3 +1,53 @@
 html {
-  font-size: 14px;
+  /* font-size: 14px; */
+  font-family: sans-serif;
+}
+
+.table-container {
+  border: 1px solid lightgray;
+  overflow-x: scroll;
+  width: 100%;
+  position: relative;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  display: grid;
+  border-radius: 10px;
+}
+
+table {
+  /* box-shadow and borders will not work with positon: sticky otherwise */
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+
+th {
+  background-color: #f9f6f6;
+  border-bottom: 1px solid lightgray;
+  font-weight: bold;
+  height: 40px;
+  padding: 2px 4px;
+  position: relative;
+  text-align: left;
+  color: #5c5c5d;
+}
+
+td {
+  background-color: white;
+  padding: 2px 4px;
+}
+
+.resizer {
+  background: rgba(0, 0, 0, 0.5);
+  cursor: col-resize;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  touch-action: none;
+  user-select: none;
+  width: 5px;
+}
+
+.resizer.isResizing {
+  background: blue;
+  opacity: 1;
 }

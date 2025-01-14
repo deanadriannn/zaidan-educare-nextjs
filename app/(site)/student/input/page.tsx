@@ -125,7 +125,7 @@ export default function InputStudent() {
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/student")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Tambah Data Siswa</span>
+          <span className="text-lg font-bold">Formulir Penambahan Data Siswa</span>
         </div>
       </CardHeader>
 
@@ -245,7 +245,7 @@ export default function InputStudent() {
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="laki-laki" className="h-6 w-6" />
+                            <RadioGroupItem value="laki_laki" className="h-6 w-6" />
                           </FormControl>
                           <FormLabel className="font-normal text-md">
                             Laki-laki
@@ -343,24 +343,24 @@ export default function InputStudent() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1-A">1-A</SelectItem>
-                        <SelectItem value="1-B">1-B</SelectItem>
-                        <SelectItem value="1-C">1-C</SelectItem>
-                        <SelectItem value="2-A">2-A</SelectItem>
-                        <SelectItem value="2-B">2-B</SelectItem>
-                        <SelectItem value="2-C">2-C</SelectItem>
-                        <SelectItem value="3-A">3-A</SelectItem>
-                        <SelectItem value="3-B">3-B</SelectItem>
-                        <SelectItem value="3-C">3-C</SelectItem>
-                        <SelectItem value="4-A">4-A</SelectItem>
-                        <SelectItem value="4-B">4-B</SelectItem>
-                        <SelectItem value="4-C">4-C</SelectItem>
-                        <SelectItem value="5-A">5-A</SelectItem>
-                        <SelectItem value="5-B">5-B</SelectItem>
-                        <SelectItem value="5-C">5-C</SelectItem>
-                        <SelectItem value="6-A">6-A</SelectItem>
-                        <SelectItem value="6-B">6-B</SelectItem>
-                        <SelectItem value="6-C">6-C</SelectItem>
+                        <SelectItem value="1_A">1-A</SelectItem>
+                        <SelectItem value="1_B">1-B</SelectItem>
+                        <SelectItem value="1_C">1-C</SelectItem>
+                        <SelectItem value="2_A">2-A</SelectItem>
+                        <SelectItem value="2_B">2-B</SelectItem>
+                        <SelectItem value="2_C">2-C</SelectItem>
+                        <SelectItem value="3_A">3-A</SelectItem>
+                        <SelectItem value="3_B">3-B</SelectItem>
+                        <SelectItem value="3_C">3-C</SelectItem>
+                        <SelectItem value="4_A">4-A</SelectItem>
+                        <SelectItem value="4_B">4-B</SelectItem>
+                        <SelectItem value="4_C">4-C</SelectItem>
+                        <SelectItem value="5_A">5-A</SelectItem>
+                        <SelectItem value="5_B">5-B</SelectItem>
+                        <SelectItem value="5_C">5-C</SelectItem>
+                        <SelectItem value="6_A">6-A</SelectItem>
+                        <SelectItem value="6_B">6-B</SelectItem>
+                        <SelectItem value="6_C">6-C</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -525,7 +525,7 @@ export default function InputStudent() {
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="laki-laki" className="h-6 w-6" />
+                            <RadioGroupItem value="laki_laki" className="h-6 w-6" />
                           </FormControl>
                           <FormLabel className="font-normal text-md">
                             Laki-laki

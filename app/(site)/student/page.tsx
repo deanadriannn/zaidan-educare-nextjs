@@ -223,7 +223,7 @@ const data: Student[] = [
   },
 ]
 
-export default function DashboardPage() {
+export default function StudentPage() {
   const [name, setName] = useState('')
   const [nis, setNis] = useState('')
   const [kelas, setKelas] = useState('')
@@ -296,7 +296,7 @@ export default function DashboardPage() {
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[60vh]">
+      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
         <div className="flex justify-end gap-4">
           <Button variant="primary-red">
             <CircleArrowUp /> Naik Kelas
