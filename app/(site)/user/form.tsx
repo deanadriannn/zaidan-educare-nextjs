@@ -50,7 +50,7 @@ export default function UserForm() {
 
   function onSubmit(values: UserFormValues) {
     console.log("Form Values:", values)
-    toast.success(`Data pengguna aplikasi berhasil ditambahkan ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
+    toast.success(`Data pengguna aplikasi berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/user")
   }
 
@@ -61,7 +61,7 @@ export default function UserForm() {
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/user")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Formulir Penambahan Data Pengguna Aplikasi</span>
+          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Pengguna Aplikasi`}</span>
         </div>
       </CardHeader>
 
@@ -208,7 +208,7 @@ export default function UserForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]">
+            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/user")}>
               <CircleX className="mr-2" />
               Batal
             </Button>

@@ -9,6 +9,6 @@ export interface NavItem {
   title: string
   url: string
   icon?: string
-  activeParams?: string
+  activeParams?: string[]
   items?: SubItem[]    // sub-menu opsional
 }

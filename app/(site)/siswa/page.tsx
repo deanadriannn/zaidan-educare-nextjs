@@ -308,7 +308,7 @@ export default function StudentPage() {
             <FileUp /> Impor Data
           </Button>
           <Button 
-            onClick={() => window.location.href = '/student/input'}
+            onClick={() => window.location.href = '/siswa/input'}
             variant="primary-red"
           >
             <Plus /> Tambah

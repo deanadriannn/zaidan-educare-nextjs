@@ -116,17 +116,17 @@ export default function StudentForm() {
     console.log("Form Values:", values)
     console.log("Photo:", acceptedFiles)
     toast.success(`Data siswa berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/student")
+    router.push("/siswa")
   }
 
   return (
     <Card className="mx-4 mt-4 px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/student")}>
+          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/siswa")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Formulir Penambahan Data Siswa</span>
+          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Siswa`}</span>
         </div>
       </CardHeader>
 
@@ -601,7 +601,7 @@ export default function StudentForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]">
+            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/siswa")}>
               <CircleX className="mr-2" />
               Batal
             </Button>

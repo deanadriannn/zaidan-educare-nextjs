@@ -53,7 +53,7 @@ const data: DataType = {
       },
       {
         title: "Transaksi Tagihan Siswa",
-        url: "#",
+        url: "/tagihan-siswa",
         icon: "/sidebar/bill.svg"
       },
       {
@@ -90,22 +90,22 @@ const data: DataType = {
       },
       {
         title: "Data Siswa",
-        url: "/student",
+        url: "/siswa",
         icon: "/sidebar/database.svg"
       },
       {
         title: "Data Transaksi Penerimaan",
         url: "#",
         icon: "/sidebar/database.svg",
-        activeParams: "jenis",
+        activeParams: ["jenis-biaya-pendidikan", "bank-penerima-transfer"],
         items: [
           {
             title: "Jenis Biaya Pendidikan",
             url: "/jenis-biaya-pendidikan",
           },
           {
-            title: "Bank Penerima",
-            url: "#",
+            title: "Bank Penerima Transfer",
+            url: "/bank-penerima-transfer",
           },
         ],
       },

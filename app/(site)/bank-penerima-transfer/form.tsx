@@ -20,55 +20,51 @@ import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 
-const jenisBiayaPendidikanSchema = z.object({
-  nama_tagihan: z.string().min(1, "Nama tagihan wajib diisi"),
-  waktu_pembayaran: z.enum(["bulanan", "tahunan", "1x"], {
-    required_error: "Waktu pembayaran wajib diisi",
-  }),
-  status_cicilan: z.enum(["ya", "tidak"], {
-    required_error: "Status cicilan wajib diisi",
-  }),
+const bankPenerimaTransferSchema = z.object({
+  nama_bank: z.string().min(1, "Nama bank wajib diisi"),
+  nomor_rekening: z.string().min(1, "Nomor rekening wajib diisi"),
+  nama_pemilik_rekening: z.string().min(1, "Nama pemilik rekening wajib diisi"),
 })
 
-type JenisBiayaPendidikanFormValues = z.infer<typeof jenisBiayaPendidikanSchema>
+type BankPenerimaTransferFormValues = z.infer<typeof bankPenerimaTransferSchema>
 
-export default function JenisBiayaPendidikanForm() {
+export default function BankPenerimaTransferForm() {
   const router = useRouter()
   const pathname = usePathname()
 
-  const form = useForm<JenisBiayaPendidikanFormValues>({
-    resolver: zodResolver(jenisBiayaPendidikanSchema),
+  const form = useForm<BankPenerimaTransferFormValues>({
+    resolver: zodResolver(bankPenerimaTransferSchema),
     defaultValues: {
-      nama_tagihan: "",
-      waktu_pembayaran: undefined,
-      status_cicilan: undefined,
+      nama_bank: "",
+      nomor_rekening: "",
+      nama_pemilik_rekening: "",
     },
   })
 
-  function onSubmit(values: JenisBiayaPendidikanFormValues) {
+  function onSubmit(values: BankPenerimaTransferFormValues) {
     console.log("Form Values:", values)
-    toast.success(`Data jenis biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/jenis-biaya-pendidikan")
+    toast.success(`Data bank penerima transfer berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
+    router.push("/bank-penerima-transfer")
   }
 
   return (
     <Card className="mx-4 mt-4 px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/jenis-biaya-pendidikan")}>
+          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/bank-penerima-transfer")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Jenis Biaya Pendidikan`}</span>
+          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Bank Penerima Transfer`}</span>
         </div>
       </CardHeader>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 gap-8 mt-4">
-            {/* NAMA TAGIHAN */}
+            {/* NAMA BANK */}
             <FormField
               control={form.control}
-              name="nama_tagihan"
+              name="nama_bank"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -79,10 +75,10 @@ export default function JenisBiayaPendidikanForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Nama Tagihan <span className="text-destructive">*</span>
+                      Nama Bank <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama Tagihan" {...field} />
+                      <Input placeholder="Masukkan Nama Bank" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -90,10 +86,10 @@ export default function JenisBiayaPendidikanForm() {
               }}
             />
 
-            {/* Waktu Pembayaran */}
+            {/* NOMOR REKENING */}
             <FormField
               control={form.control}
-              name="waktu_pembayaran"
+              name="nomor_rekening"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -104,30 +100,21 @@ export default function JenisBiayaPendidikanForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Waktu Pembayaran <span className="text-destructive">*</span>
+                      Nomor Rekening <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="bulanan">Bulanan</SelectItem>
-                        <SelectItem value="tahunan">Tahunan</SelectItem>
-                        <SelectItem value="1x">1x</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Input placeholder="Masukkan Nomor Rekening" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )
               }}
             />
 
-            {/* STATUS CICILAN  */}
+            {/* NAMA PEMILIK REKENING */}
             <FormField
               control={form.control}
-              name="status_cicilan"
+              name="nama_pemilik_rekening"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
@@ -138,29 +125,23 @@ export default function JenisBiayaPendidikanForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Status Cicilan <span className="text-destructive">*</span>
+                      Nama Pemilik Rekening <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="ya">Ya</SelectItem>
-                        <SelectItem value="tidak">Tidak</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Input placeholder="Masukkan Nama Pemilik Rekening" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )
               }}
             />
+
+            
           </div>
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/jenis-biaya-pendidikan")}>
+            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/bank-penerima-transfer")}>
               <CircleX className="mr-2" />
               Batal
             </Button>

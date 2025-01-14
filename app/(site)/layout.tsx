@@ -51,20 +51,10 @@ export default function SiteLayout({
   const pathname = usePathname()
   const locationName: Record<string, string> = {
     '/': 'Dasbor',
-    '/student': 'Master - Data Siswa',
-    '/student/input': 'Master - Data Siswa',
+    '/siswa': 'Master - Data Siswa',
     '/user': 'Master - Data Pengguna Aplikasi',
-    '/user/input': 'Master - Data Pengguna Aplikasi',
     '/jenis-biaya-pendidikan': 'Master - Data Jenis Biaya Pendidikan',
-    '/jenis-biaya-pendidikan/input': 'Master - Data Jenis Biaya Pendidikan',
-  }
-
-  if (/^\/student\/edit\/\d+$/.test(pathname)) {
-    locationName[pathname] = 'Formulir Perubahan Data Siswa';
-  }
-
-  if (/^\/user\/edit\/\d+$/.test(pathname)) {
-    locationName[pathname] = 'Formulir Perubahan Data Pengguna Aplikasi';
+    '/bank-penerima-transfer': 'Master - Data Bank Penerima Transfer',
   }
 
   const handleLogout = () => {
@@ -86,7 +76,15 @@ export default function SiteLayout({
                   <SidebarTrigger className="-ml-1" />
                   <Separator orientation="vertical" className="mr-2 h-4" />
                   <h1 className="text-lg font-semibold">
-                    {locationName[pathname]}
+                    {Object.keys(locationName)
+                      .sort((a, b) => b.length - a.length) // Prioritaskan rute dengan panjang terpanjang
+                      .find((key) => pathname.startsWith(key)) // Cari rute yang cocok berdasarkan awalan
+                      ? locationName[
+                          Object.keys(locationName)
+                            .sort((a, b) => b.length - a.length)
+                            .find((key) => pathname.startsWith(key)) as string
+                        ]
+                      : "Halaman Tidak Ditemukan"}
                   </h1>
                 </div>
                 <div className='flex items-center gap-2'>

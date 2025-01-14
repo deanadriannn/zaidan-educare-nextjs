@@ -144,7 +144,7 @@ export const columns: ColumnDef<Student>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/student/edit/" + student.id)}>
+          <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
             <Pencil className="text-yellow-500"/>
           </Button>
           <AlertDialog>
