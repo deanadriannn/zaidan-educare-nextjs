@@ -33,7 +33,7 @@ const userSchema = z.object({
 
 type StudentFormValues = z.infer<typeof userSchema>
 
-export default function InputUser() {
+export default function EditUser() {
   const router = useRouter()
 
   const form = useForm<StudentFormValues>({
@@ -49,7 +49,7 @@ export default function InputUser() {
 
   function onSubmit(values: StudentFormValues) {
     console.log("Form Values:", values)
-    toast.success("Data pengguna aplikasi berhasil ditambahkan")
+    toast.success("Data pengguna aplikasi berhasil diperbarui")
     router.push("/user")
   }
 

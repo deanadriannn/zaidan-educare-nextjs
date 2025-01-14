@@ -61,6 +61,10 @@ export default function SiteLayout({
     locationName[pathname] = 'Formulir Perubahan Data Siswa';
   }
 
+  if (/^\/user\/edit\/\d+$/.test(pathname)) {
+    locationName[pathname] = 'Formulir Perubahan Data Pengguna Aplikasi';
+  }
+
   const handleLogout = () => {
     window.location.href = "/login"
   }
