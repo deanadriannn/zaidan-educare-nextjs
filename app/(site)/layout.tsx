@@ -22,6 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import "./site.css"
 
 const footerContent = [
   {
@@ -51,11 +52,15 @@ export default function SiteLayout({
   const locationName: Record<string, string> = {
     '/': 'Dasbor',
     '/student': 'Pengelolaan Data Siswa',
-    '/input-student': 'Formulir Penambahan Data Siswa'
+    '/student/input': 'Formulir Penambahan Data Siswa',
+  }
+
+  if (/^\/student\/edit\/\d+$/.test(pathname)) {
+    locationName[pathname] = 'Formulir Perubahan Data Siswa';
   }
 
   const handleLogout = () => {
-    window.location.href = "/auth/login"
+    window.location.href = "/login"
   }
 
   return (

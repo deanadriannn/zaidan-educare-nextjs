@@ -51,6 +51,7 @@ export default function LoginPage() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
+    window.location.href = "/"
   }
 
   return (
