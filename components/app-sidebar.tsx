@@ -20,7 +20,7 @@ export interface DataType {
 }
 
 // TODO: Get role from auth here
-const currentUser = "Bendahara"
+const currentUser = "Administrator"
 const data: DataType = {
   navMain: {
     "Ketua Yayasan": [
