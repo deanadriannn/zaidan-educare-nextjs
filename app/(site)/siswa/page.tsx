@@ -249,13 +249,13 @@ export default function StudentPage() {
   }
   
   return (
-    <div>
-      <Card className="mx-4 mt-4">
+    <>
+      <Card className="md:mx-4 mt-4">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">Filters</CardTitle>
         </CardHeader>
         <form onSubmit={handleFilter}>
-          <CardContent className="flex justify-center items-center gap-4">
+          <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="nama" className="text-md">Nama</Label>
               <div className="w-full relative">
@@ -309,8 +309,8 @@ export default function StudentPage() {
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4">
-        <div className="flex justify-end gap-4">
+      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
+        <div className="flex flex-col md:flex-row justify-end gap-4">
           <Button variant="primary-red">
             <CircleArrowUp /> Naik Kelas
           </Button>
@@ -327,9 +327,8 @@ export default function StudentPage() {
             <Plus /> Tambah
           </Button>
         </div>
-        {/* <DataTable columns={columns} data={data} /> */}
         <DataTable columns={columns} data={data} />
       </Card>
-    </div>
+    </>
   )
 }

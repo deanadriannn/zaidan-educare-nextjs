@@ -99,7 +99,6 @@ export default function JenisBiayaPendidikanPage() {
             <Plus /> Tambah
           </Button>
         </div>
-        {/* <DataTable columns={columns} data={data} /> */}
         <DataTable columns={columns} data={data} />
       </Card>
     </>
