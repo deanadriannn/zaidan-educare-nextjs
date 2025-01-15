@@ -66,10 +66,11 @@ export default function SiteLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <div className="flex flex-col w-full h-full min-h-screen">
+        <div className="flex flex-col w-full min-h-screen">
+          {/* HEADER */}
           <div className='bg-[#F2F3F4] w-full sticky top-0 pt-1 z-30'>
             <Card 
-              className="mx-4 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear 
+              className="md:mx-4 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear 
                 group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12"
             >
               <div className='flex justify-between items-center w-full bg-white h-full rounded-xl px-4'>
@@ -91,10 +92,10 @@ export default function SiteLayout({
                 <div className='flex items-center gap-2'>
                   <img 
                     src="/images/male-user.png"
-                    className="w-14"
+                    className="w-12 hidden md:block"
                   />
                   <span className='font-bold'>
-                    Nama Pengguna
+                    Mr. Iyus
                   </span>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
@@ -119,11 +120,15 @@ export default function SiteLayout({
               </div>
             </Card>
           </div>
+
+          {/* MAIN CONTENT */}
           <div className="flex-1">
             {children}
           </div>
+
+          {/* FOOTER */}
           <div className='bg-[#F2F3F4] w-full sticky bottom-0 pb-1 z-30'>
-            <Card className="mx-4 mt-4 mb-1 flex h-16 shrink-0 justify-center items-center gap-2 transition-[width,height] ease-linear bg-white rounded-xl">
+            <Card className="md:mx-4 mt-4 mb-1 flex h-16 shrink-0 justify-center items-center gap-2 transition-[width,height] ease-linear bg-white rounded-xl">
               <span className='mr-4'>
                 Zaidan Educare @ 2025
               </span>
