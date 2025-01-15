@@ -1,7 +1,7 @@
 "use client"
 
 import React, { CSSProperties, useState } from 'react'
-import '../site.css'
+import "@/app/(site)/site.css"
 import {
   Column,
   ColumnDef,
@@ -11,15 +11,24 @@ import {
   getPaginationRowModel,
 } from '@tanstack/react-table'
 import { Button } from "@/components/ui/button"
-import { User } from '@/types/data'
+import { 
+  TagihanSiswaColumns,
+  BankPenerimaTransfer,
+  JenisBiayaPendidikan,
+  StudentInfo,
+  User,
+} from '@/types/data'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-const getCommonPinningStyles = (column: Column<User>): CSSProperties => {
+const getCommonPinningStyles = (
+  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User>
+): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
     isPinned === 'left' && column.getIsLastColumn('left')
@@ -45,6 +54,10 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const pathname = usePathname()
+
+  const tableWithFullWidth = ["/jenis-biaya-pendidikan", "/bank-penerima-transfer", "/user"]
+
   const [columnPinning, setColumnPinning] = useState({
     left: [],
     right: ["aksi"] as string[],
@@ -81,10 +94,11 @@ export function DataTable<TData, TValue>({
     <div className="p-2">
       <div className="table-container">
         <table
-          // style={{
-          //   width: table.getTotalSize(),
-          // }}
-          className='w-full'
+          style={{
+            width: tableWithFullWidth.includes(pathname)
+              ? "100%"
+              : table.getTotalSize(),
+          }}
         >
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
