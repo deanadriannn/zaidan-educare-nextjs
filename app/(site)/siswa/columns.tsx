@@ -52,67 +52,67 @@ export const columns: ColumnDef<StudentInfo>[] = [
   {
     accessorKey: "nis",
     header: "NIS",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "nama",
     header: "Nama",
-    size: 300,
+    size: 200,
   },
   {
     accessorKey: "kelas",
     header: "Kelas",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "status",
     header: "Status",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "jenisKelamin",
     header: "Jenis Kelamin",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "tempatLahir",
     header: "Tempat Lahir",
-    size: 300,
+    size: 200,
   },
   {
     accessorKey: "tanggalLahir",
     header: "Tanggal Lahir",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "alamatRumah",
     header: "Alamat Rumah",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "namaWali",
     header: "Nama Wali",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "hubungan",
     header: "Hubungan Wali",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "jenisKelaminWali",
     header: "Jenis Kelamin Wali",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "emailWali",
     header: "Email Wali",
-    size: 300
+    size: 200
   },
   {
     accessorKey: "nomorTeleponWali",
     header: "Nomor Telepon Wali",
-    size: 300
+    size: 200
   },
   // {
   //   accessorKey: "foto",

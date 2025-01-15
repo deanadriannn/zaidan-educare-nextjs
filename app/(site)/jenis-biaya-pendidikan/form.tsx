@@ -52,13 +52,13 @@ export default function JenisBiayaPendidikanForm() {
   }
 
   return (
-    <Card className="mx-4 mt-4 px-10 py-4">
+    <Card className="md:mx-4 mt-4 px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/jenis-biaya-pendidikan")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Jenis Biaya Pendidikan`}</span>
+          <span className="text-md md:text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Jenis Biaya Pendidikan`}</span>
         </div>
       </CardHeader>
 

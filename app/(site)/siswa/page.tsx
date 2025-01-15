@@ -309,7 +309,7 @@ export default function StudentPage() {
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
+      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4">
         <div className="flex flex-col md:flex-row justify-end gap-4">
           <Button variant="primary-red">
             <CircleArrowUp /> Naik Kelas

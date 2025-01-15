@@ -51,7 +51,7 @@ export default function UserPage() {
   
   return (
     <>
-      <Card className="mx-4 mt-4">
+      <Card className="md:mx-4 mt-4">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">Filters</CardTitle>
         </CardHeader>
@@ -97,7 +97,7 @@ export default function UserPage() {
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
+      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
         <div className="flex justify-end gap-4">
           <Button 
             onClick={() => window.location.href = '/user/input'}

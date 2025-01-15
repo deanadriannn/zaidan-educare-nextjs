@@ -77,7 +77,7 @@ export default function SiteLayout({
                 <div className="flex items-center gap-2">
                   <SidebarTrigger className="-ml-1" />
                   <Separator orientation="vertical" className="mr-2 h-4" />
-                  <h1 className="text-lg font-semibold">
+                  <h1 className="text-sm md:text-lg font-semibold">
                     {Object.keys(locationName)
                       .sort((a, b) => b.length - a.length) // Prioritaskan rute dengan panjang terpanjang
                       .find((key) => pathname.startsWith(key)) // Cari rute yang cocok berdasarkan awalan
@@ -94,7 +94,7 @@ export default function SiteLayout({
                     src="/images/male-user.png"
                     className="w-12 hidden md:block"
                   />
-                  <span className='font-bold'>
+                  <span className='font-bold text-sm md:text-lg'>
                     Mr. Iyus
                   </span>
                   <AlertDialog>

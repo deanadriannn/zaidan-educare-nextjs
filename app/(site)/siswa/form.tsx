@@ -120,13 +120,13 @@ export default function StudentForm() {
   }
 
   return (
-    <Card className="mx-4 mt-4 px-10 py-4">
+    <Card className="md:mx-4 mt-4 px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/siswa")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Siswa`}</span>
+          <span className="text-md md:text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Siswa`}</span>
         </div>
       </CardHeader>
 
@@ -165,7 +165,7 @@ export default function StudentForm() {
                   </div>
                 )}
               </div>
-              <div className="font-semibold text-lg text-muted-foreground">
+              <div className="font-semibold text-lg text-muted-foreground text-center md:text-start">
                 Disarankan upload foto dengan rasio 1:1
               </div>
             </div>
