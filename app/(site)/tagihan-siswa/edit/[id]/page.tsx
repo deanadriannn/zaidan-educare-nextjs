@@ -1,8 +1,8 @@
-import StudentForm from "../../form"
+import TagihanSiswaForm from "../../form"
 
 const StudentEdit = () => {
   return (
-    <StudentForm />
+    <TagihanSiswaForm />
   )
 }
 
