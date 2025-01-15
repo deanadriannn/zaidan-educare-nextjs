@@ -14,8 +14,92 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useRouter } from "next/navigation";
+import { ColumnDef } from "@tanstack/react-table"
+import { DataTable } from "@/components/data-table";
 
-const exampleData: any = {
+type StudentInfo = {
+  nama: string;
+  kelas: string;
+  nis: string;
+  tahunMasuk: number;
+  namaWali: string;
+  hubunganWali: string;
+  emailWali: string;
+  nomorTeleponWali: string;
+};
+
+// Tipe untuk jenis biaya pendidikan
+export type PaymentInfo = {
+  jenisPembayaran: string;
+  waktuPembayaran: string; // Contoh: "Bulanan", "Tahunan", dll.
+  statusCicilan: "Ya" | "Tidak"; // true jika "Ya", false jika "Tidak"
+  nominal: number; // Nominal biaya dalam angka
+};
+
+// Tipe utama untuk siswa dan daftar tagihan
+type Student = {
+  biodata: StudentInfo;
+  daftarTagihan: PaymentInfo[];
+};
+
+const columns: ColumnDef<PaymentInfo>[] = [
+  {
+    accessorKey: "jenisPembayaran",
+    header: () => (
+      <div className="pl-4">
+        <p>Jenis Pembayaran</p>
+      </div>
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="pl-4">
+          <p>{row.original.jenisPembayaran}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "waktuPembayaran",
+    header: "Waktu Pembayaran",
+    cell: ({ row }) => {
+      return (
+        <div>
+          <p>{row.original.waktuPembayaran}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "statusCicilan",
+    header: "Status Cicilan",
+    cell: ({ row }) => {
+      return (
+        <div>
+          <p>{row.original.statusCicilan}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "nominal",
+    header: "Nominal",
+    cell: ({ row }) => {
+      const nominal = parseFloat(row.getValue("nominal"))
+      const formatted = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+      }).format(nominal)
+      return (
+        <div>
+          <p>{formatted}</p>
+        </div>
+      )
+    },
+  },
+]
+
+const exampleData: Student = {
   biodata: {
     nama: "Rizki Anugrah",
     kelas: "3-B",
@@ -30,31 +114,31 @@ const exampleData: any = {
     {
       jenisPembayaran: "DPP",
       waktuPembayaran: "1x",
-      statusCicilan: true,
+      statusCicilan: "Tidak",
       nominal: 15000000,
     },
     {
       jenisPembayaran: "SPP",
       waktuPembayaran: "Bulanan",
-      statusCicilan: false,
+      statusCicilan: "Ya",
       nominal: 600000,
     },
     {
       jenisPembayaran: "Makan Siang",
       waktuPembayaran: "Bulanan",
-      statusCicilan: false,
+      statusCicilan: "Tidak",
       nominal: 200000,
     },
     {
       jenisPembayaran: "Jemputan",
       waktuPembayaran: "Bulanan",
-      statusCicilan: false,
+      statusCicilan: "Ya",
       nominal: 150000,
     },
     {
       jenisPembayaran: "Kamping",
       waktuPembayaran: "Tahunan",
-      statusCicilan: true,
+      statusCicilan: "Ya",
       nominal: 1500000,
     },
   ],
@@ -97,7 +181,14 @@ export default function TagihanSiswaPage() {
         </div>
         <div className="grid grid-cols-6 gap-y-2 font-normal text-lg mt-2">
           <h1 className="font-extrabold text-xl col-span-6">Daftar Tagihan</h1>
-          
+          <div className="col-span-6">
+            <DataTable 
+              columns={columns} 
+              data={exampleData.daftarTagihan} 
+              pagination={false} 
+              showTotalData={false}
+            />
+          </div>
         </div>
       </CardContent>
     </Card>

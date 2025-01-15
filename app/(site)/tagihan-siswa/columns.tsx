@@ -53,9 +53,10 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal DPP",
     cell: ({ row }) => {
       const nominalDpp = parseFloat(row.getValue("nominalDpp"))
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
+        minimumFractionDigits: 0
       }).format(nominalDpp)
  
       return <div className="font-medium">{formatted}</div>
@@ -67,9 +68,10 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal Program",
     cell: ({ row }) => {
       const nominalProgram = parseFloat(row.getValue("nominalProgram"))
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
+        minimumFractionDigits: 0
       }).format(nominalProgram)
  
       return <div className="font-medium">{formatted}</div>
@@ -81,9 +83,10 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal Bulanan",
     cell: ({ row }) => {
       const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
+        minimumFractionDigits: 0
       }).format(nominalBulanan)
  
       return <div className="font-medium">{formatted}</div>

@@ -20,14 +20,17 @@ import {
 } from '@/types/data'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { PaymentInfo } from '@/app/(site)/tagihan-siswa/[id]/page'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  pagination?: boolean
+  showTotalData?: boolean
 }
 
 const getCommonPinningStyles = (
-  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User>
+  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User | PaymentInfo>
 ): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
@@ -53,10 +56,21 @@ const getCommonPinningStyles = (
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination = true,
+  showTotalData = true,
 }: DataTableProps<TData, TValue>) {
   const pathname = usePathname()
 
-  const tableWithFullWidth = ["/jenis-biaya-pendidikan", "/bank-penerima-transfer", "/user"]
+  const tableWithFullWidthPatterns = [
+    /^\/jenis-biaya-pendidikan$/,
+    /^\/bank-penerima-transfer$/,
+    /^\/user$/,
+    /^\/tagihan-siswa\/\d+$/, // Mencocokkan /tagihan-siswa/{id} di mana {id} adalah angka
+  ];
+  
+  const isFullWidth = (pathname: string) => {
+    return tableWithFullWidthPatterns.some((pattern) => pattern.test(pathname));
+  };
 
   const [columnPinning, setColumnPinning] = useState({
     left: [],
@@ -95,7 +109,7 @@ export function DataTable<TData, TValue>({
       <div className="table-container">
         <table
           style={{
-            width: tableWithFullWidth.includes(pathname)
+            width: isFullWidth(pathname)
               ? "100%"
               : table.getTotalSize(),
           }}
@@ -150,36 +164,40 @@ export function DataTable<TData, TValue>({
           </tbody>
         </table>
       </div>
-      <div className='mt-4'>
-        <span className='font-semibold text-[#5E5E5E]'>
-          Menampilkan {firstRowIndex}–{lastRowIndex} dari {totalRows} data
-        </span>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-          className="hover:bg-transparent text-[#ea3323] hover:text-[#ea3423d7] disabled:text-muted-foreground"
-        >
-          <ChevronLeft />
-        </Button>
-        <div className='bg-[#ea3323] w-8 h-8 rounded-lg flex justify-center items-center'>
-          <span className='text-white'>
-            {pageIndex + 1}
+      {showTotalData && (
+        <div className='mt-4'>
+          <span className='font-semibold text-[#5E5E5E]'>
+            Menampilkan {firstRowIndex}–{lastRowIndex} dari {totalRows} data
           </span>
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-          className="hover:bg-transparent text-[#ea3323] hover:text-[#ea3423d7] disabled:text-muted-foreground"
-        >
-          <ChevronRight />
-        </Button>
-      </div>
+      )}
+      {pagination && (
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            className="hover:bg-transparent text-[#ea3323] hover:text-[#ea3423d7] disabled:text-muted-foreground"
+          >
+            <ChevronLeft />
+          </Button>
+          <div className='bg-[#ea3323] w-8 h-8 rounded-lg flex justify-center items-center'>
+            <span className='text-white'>
+              {pageIndex + 1}
+            </span>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            className="hover:bg-transparent text-[#ea3323] hover:text-[#ea3423d7] disabled:text-muted-foreground"
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
