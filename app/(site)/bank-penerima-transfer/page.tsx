@@ -70,25 +70,26 @@ export default function BankPenerimaTransferPage() {
             <div className="w-full md:flex flex-col space-y-2 hidden"></div>
             <div className="w-full md:flex flex-col space-y-2 hidden"></div>
           </CardContent>
-          <CardFooter className="flex justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50]">
+          <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
+            <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
               RESET
             </Button>
-            <Button type="submit" variant="primary-red">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
               <Search /> Cari
             </Button>
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4 min-h-[50vh]">
-        <div className="flex justify-end gap-4">
+      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
+        <CardContent className="flex justify-end gap-4">
           <Button 
             onClick={() => window.location.href = '/bank-penerima-transfer/input'}
             variant="primary-red"
+            className="w-full md:w-fit"
           >
             <Plus /> Tambah
           </Button>
-        </div>
+        </CardContent>
         <DataTable columns={columns} data={data} />
       </Card>
     </>

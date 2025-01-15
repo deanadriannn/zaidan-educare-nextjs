@@ -105,7 +105,7 @@ export function DataTable<TData, TValue>({
   const totalRows = table.getPrePaginationRowModel().rows.length
 
   return (
-    <div className="p-2">
+    <div className="px-6">
       <div className="table-container">
         <table
           style={{

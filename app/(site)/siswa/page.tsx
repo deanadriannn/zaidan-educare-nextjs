@@ -299,18 +299,18 @@ export default function StudentPage() {
               </Select>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50]">
+          <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
+            <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
               RESET
             </Button>
-            <Button type="submit" variant="primary-red">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
               <Search /> Cari
             </Button>
           </CardFooter>
         </form>
       </Card>
-      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 px-4 pt-4">
-        <div className="flex flex-col md:flex-row justify-end gap-4">
+      <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
+        <CardContent className="flex flex-col md:flex-row justify-end gap-4">
           <Button variant="primary-red">
             <CircleArrowUp /> Naik Kelas
           </Button>
@@ -326,7 +326,7 @@ export default function StudentPage() {
           >
             <Plus /> Tambah
           </Button>
-        </div>
+        </CardContent>
         <DataTable columns={columns} data={data} />
       </Card>
     </>
