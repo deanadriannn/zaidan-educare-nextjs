@@ -21,12 +21,14 @@ import {
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { PaymentInfo } from '@/app/(site)/tagihan-siswa/[id]/page'
+import { cn } from '@/lib/utils'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   pagination?: boolean
   showTotalData?: boolean
+  className?: string
 }
 
 const getCommonPinningStyles = (
@@ -58,6 +60,7 @@ export function DataTable<TData, TValue>({
   data,
   pagination = true,
   showTotalData = true,
+  className,
 }: DataTableProps<TData, TValue>) {
   const pathname = usePathname()
 
@@ -105,7 +108,7 @@ export function DataTable<TData, TValue>({
   const totalRows = table.getPrePaginationRowModel().rows.length
 
   return (
-    <div className="px-6">
+    <div className={cn("px-6", className)}>
       <div className="table-container">
         <table
           style={{

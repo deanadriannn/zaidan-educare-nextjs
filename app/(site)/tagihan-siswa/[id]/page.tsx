@@ -148,47 +148,46 @@ export default function TagihanSiswaPage() {
   const router = useRouter()
   
   return (
-    <Card className="mx-4 mt-4 px-10 py-4">
+    <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/tagihan-siswa")}>
             <ArrowLeft />
           </Button>
-          <span className="text-lg font-bold">Informasi Data Tagihan Biaya Pendidikan Setiap Siswa</span>
+          <span className="text-md md:text-lg font-bold">Informasi Data Tagihan Biaya Pendidikan Setiap Siswa</span>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 px-0 font-spartan">
-        <div className="grid grid-cols-6 gap-y-2 font-normal text-lg">
+      <CardContent className="flex flex-col gap-4 font-spartan px-0">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-2 font-normal text-lg">
           <p className="col-span-1">Nama Siswa</p>
-          <p className="col-span-5">{exampleData['biodata'].nama}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nama}</p>
           <p className="col-span-1">Kelas</p>
-          <p className="col-span-5">{exampleData['biodata'].kelas}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].kelas}</p>
         </div>
-        <div className="grid grid-cols-6 gap-y-2 font-normal text-lg mt-2">
-          <h1 className="font-extrabold text-xl col-span-6">Biodata Siswa</h1>
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-2 font-normal text-lg mt-2">
+          <h1 className="font-extrabold text-xl col-span-2 lg:col-span-3 xl:col-span-4">Biodata Siswa</h1>
           <p className="col-span-1">NIS</p>
-          <p className="col-span-5">{exampleData['biodata'].nis}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nis}</p>
           <p className="col-span-1">Tahun Masuk</p>
-          <p className="col-span-5">{exampleData['biodata'].tahunMasuk}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].tahunMasuk}</p>
           <p className="col-span-1">Nama Wali</p>
-          <p className="col-span-5">{exampleData['biodata'].namaWali}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].namaWali}</p>
           <p className="col-span-1">Hubungan Wali</p>
-          <p className="col-span-5">{exampleData['biodata'].hubunganWali}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].hubunganWali}</p>
           <p className="col-span-1">Email Wali</p>
-          <p className="col-span-5">{exampleData['biodata'].emailWali}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].emailWali}</p>
           <p className="col-span-1">Nomor Telepon Wali</p>
-          <p className="col-span-5">{exampleData['biodata'].nomorTeleponWali}</p>
+          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nomorTeleponWali}</p>
         </div>
-        <div className="grid grid-cols-6 gap-y-2 font-normal text-lg mt-2">
-          <h1 className="font-extrabold text-xl col-span-6">Daftar Tagihan</h1>
-          <div className="col-span-6">
-            <DataTable 
-              columns={columns} 
-              data={exampleData.daftarTagihan} 
-              pagination={false} 
-              showTotalData={false}
-            />
-          </div>
+        <div className="font-normal text-lg mt-2">
+          <h1 className="font-extrabold text-xl mb-2">Daftar Tagihan</h1>
+          <DataTable 
+            columns={columns} 
+            data={exampleData.daftarTagihan} 
+            pagination={false} 
+            showTotalData={false}
+            className="px-0"
+          />
         </div>
       </CardContent>
     </Card>
