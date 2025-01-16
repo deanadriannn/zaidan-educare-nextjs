@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/data-table";
+import { formatToIDR } from "@/lib/utils";
 
 type StudentInfo = {
   nama: string;
@@ -85,11 +86,7 @@ const columns: ColumnDef<PaymentInfo>[] = [
     header: "Nominal",
     cell: ({ row }) => {
       const nominal = parseFloat(row.getValue("nominal"))
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0
-      }).format(nominal)
+      const formatted = formatToIDR(nominal)
       return (
         <div>
           <p>{formatted}</p>

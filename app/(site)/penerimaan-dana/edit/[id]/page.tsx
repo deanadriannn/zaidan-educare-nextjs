@@ -1,4 +1,4 @@
-import PenerimaanDanaForm from "../../form"
+import PenerimaanDanaForm from "../../form-edit"
 
 const StudentEdit = () => {
   return (

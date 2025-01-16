@@ -17,6 +17,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
 import { TagihanSiswaColumns } from "@/types/data"
+import { formatToIDR } from "@/lib/utils"
 
 export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   {
@@ -53,11 +54,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal DPP",
     cell: ({ row }) => {
       const nominalDpp = parseFloat(row.getValue("nominalDpp"))
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0
-      }).format(nominalDpp)
+      const formatted = formatToIDR(nominalDpp)
  
       return <div className="font-medium">{formatted}</div>
     },
@@ -68,11 +65,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal Program",
     cell: ({ row }) => {
       const nominalProgram = parseFloat(row.getValue("nominalProgram"))
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0
-      }).format(nominalProgram)
+      const formatted = formatToIDR(nominalProgram)
  
       return <div className="font-medium">{formatted}</div>
     },
@@ -83,11 +76,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
     header: "Nominal Bulanan",
     cell: ({ row }) => {
       const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0
-      }).format(nominalBulanan)
+      const formatted = formatToIDR(nominalBulanan)
  
       return <div className="font-medium">{formatted}</div>
     },

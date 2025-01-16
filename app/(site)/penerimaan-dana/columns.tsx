@@ -17,6 +17,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
 import { PenerimaanDanaColumns } from "@/types/data"
+import { formatToIDR } from "@/lib/utils"
 
 export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   {
@@ -66,11 +67,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
     header: "Nominal",
     cell: ({ row }) => {
       const nominal = parseFloat(row.getValue("nominal"))
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0
-      }).format(nominal)
+      const formatted = formatToIDR(nominal)
  
       return <div className="font-medium">{formatted}</div>
     },

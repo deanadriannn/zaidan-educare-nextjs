@@ -107,7 +107,7 @@ type PaymentItem = {
   nominal: number;
 };
 
-export default function TagihanSiswaForm() {
+export default function PenerimaanDanaForm() {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -176,7 +176,7 @@ export default function TagihanSiswaForm() {
   function onSubmit(values: tagihanSiswaFormValues) {
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
-    toast.success(`Data tagihan biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
+    toast.success(`Data traksaksi pembayaran biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/tagihan-siswa")
   }
 
@@ -309,7 +309,7 @@ export default function TagihanSiswaForm() {
           </div>
 
           {/* TABEL INPUT DATA TAGIHAN BIAYA PENDIDIKAN */}
-          <div className="table-container">
+          <div className="overflow-auto w-full grid grid-cols-1">
             <table className="w-full border text-left text-sm">
               <thead>
                 <tr className="border-b bg-gray-50 text-sm font-semibold">
@@ -317,7 +317,7 @@ export default function TagihanSiswaForm() {
                   <th className="p-2">Waktu Pembayaran</th>
                   <th className="p-2">Status Cicilan</th>
                   <th className="p-2">Nominal</th>
-                  <th className="p-2 text-center sticky right-0 z-10">Aksi</th>
+                  <th className="p-2 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -368,7 +368,7 @@ export default function TagihanSiswaForm() {
                     </td>
 
                     {/* Tombol Hapus Baris */}
-                    <td className="p-2 text-center sticky right-0 z-10">
+                    <td className="p-2 text-center">
                       <Button
                         variant="destructive"
                         size="icon"
