@@ -15,3 +15,12 @@ export function formatToIDR(value: number) {
 
   return formatted
 }
+
+export function formatDateToIndonesia(date: Date) {
+  const tanggal = date
+  const formatted = new Intl.DateTimeFormat("id-ID", {
+    dateStyle: "long"
+  }).format(tanggal)
+
+  return formatted
+}

@@ -232,6 +232,22 @@ export default function PenerimaanDanaForm() {
     });
   };
 
+  const handleMetodePembayaranChange = (index: number, value: string) => {
+    setPaymentItems((prev) => {
+      const newItems = [...prev];
+      newItems[index].metodePembayaran = value;
+      return newItems;
+    });
+  }
+
+  const handleNamaBankChange = (index: number, value: string) => {
+    setPaymentItems((prev) => {
+      const newItems = [...prev];
+      newItems[index].namaBank = value;
+      return newItems;
+    });
+  }
+
   const handleNominalChange = (index: number, value: string) => {
     const parsed = parseInt(value) || 0;
     setPaymentItems((prev) => {
@@ -244,6 +260,9 @@ export default function PenerimaanDanaForm() {
   function onSubmit(values: tagihanSiswaFormValues) {
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
+
+    // Cek apakah 
+
     toast.success("Data traksaksi pembayaran biaya pendidikan berhasil ditambahkan")
     router.push("/penerimaan-dana")
   }
@@ -258,14 +277,14 @@ export default function PenerimaanDanaForm() {
           <span 
             className="text-md md:text-lg font-bold"
           >
-            {`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Tagihan Biaya Pendidikan`}
+            Formulir Penambahan Data Pembayaran Biaya Pendidikan
           </span>
         </div>
       </CardHeader>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col gap-4">
             {/* AUTO COMPLETE SEARCH SISWA */}
             <FormField
               control={form.control}
@@ -516,6 +535,7 @@ export default function PenerimaanDanaForm() {
                         onValueChange={(val) =>
                           handleSelectJenisPembayaran(index, val)
                         }
+                        required
                       >
                         <SelectTrigger className="w-44">
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -557,8 +577,8 @@ export default function PenerimaanDanaForm() {
                     <td className="p-2">
                       <Select
                         value={item.metodePembayaran}
-                        onValueChange={(val) =>
-                          handleSelectJenisPembayaran(index, val)
+                        onValueChange={(val) => 
+                          handleMetodePembayaranChange(index, val)
                         }
                       >
                         <SelectTrigger className="w-44">
@@ -579,26 +599,31 @@ export default function PenerimaanDanaForm() {
 
                     {/* Nama Bank */}
                     <td className="p-2">
-                      <Select
-                        value={item.namaBank}
-                        onValueChange={(val) =>
-                          handleSelectJenisPembayaran(index, val)
-                        }
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {namaBankContoh.map((option) => (
-                            <SelectItem
-                              key={option.value}
-                              value={option.value}
-                            >
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      {/* Jika metode pembayaran adalah transfer, tampilkan pilihan nama bank */}
+                      {item.metodePembayaran === "transfer" ? (
+                        <Select
+                          value={item.namaBank}
+                          onValueChange={(val) => 
+                            handleNamaBankChange(index, val)
+                          }
+                        >
+                          <SelectTrigger className="w-44">
+                            <SelectValue placeholder="Pilih Salah Satu" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {namaBankContoh.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ): (
+                        <div></div>
+                      )}
                     </td>
 
                     {/* Tombol Hapus Baris */}

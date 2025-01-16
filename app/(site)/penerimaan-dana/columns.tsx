@@ -17,7 +17,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
 import { PenerimaanDanaColumns } from "@/types/data"
-import { formatToIDR } from "@/lib/utils"
+import { formatDateToIndonesia, formatToIDR } from "@/lib/utils"
 
 export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   {
@@ -29,9 +29,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
     ),
     cell: ({ row }) => {
       const tanggalTransaksi = row.original.tanggalTransaksi
-      const formatted = new Intl.DateTimeFormat("id-ID", {
-        dateStyle: "long"
-      }).format(tanggalTransaksi)
+      const formatted = formatDateToIndonesia(tanggalTransaksi)
  
       return <div className="pl-4">{formatted}</div>
     },
@@ -87,7 +85,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
     ),
     accessorKey: "aksi",
     cell: ({ row }) => {
-      const student = row.original
+      const dana = row.original
       const router = useRouter()
 
       const handleDelete = () => {
@@ -96,7 +94,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/penerimaan-dana/edit/" + student.id)}>
+          <Button size="icon" variant="ghost" onClick={() => router.push("/penerimaan-dana/edit/" + dana.id)}>
             <Pencil className="text-yellow-500"/>
           </Button>
           <AlertDialog>
