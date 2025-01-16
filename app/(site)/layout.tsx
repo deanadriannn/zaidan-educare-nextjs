@@ -55,7 +55,8 @@ export default function SiteLayout({
     '/user': 'Master - Data Pengguna Aplikasi',
     '/jenis-biaya-pendidikan': 'Master - Data Jenis Biaya Pendidikan',
     '/bank-penerima-transfer': 'Master - Data Bank Penerima Transfer',
-    '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan'
+    '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan',
+    '/penerimaan-dana': 'Penerimaan Dana',
   }
 
   const handleLogout = () => {

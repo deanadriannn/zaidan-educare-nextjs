@@ -16,59 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-const data: TagihanSiswaColumns[] = [
-  {
-    id: "1",
-    nis: "123456",
-    namaSiswa: "John Doe",
-    kelas: "Kelas 1",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  },
-  {
-    id: "2",
-    nis: "123457",
-    namaSiswa: "Jane Doe",
-    kelas: "Kelas 2",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  },
-  {
-    id: "3",
-    nis: "123458",
-    namaSiswa: "John Smith",
-    kelas: "Kelas 3",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  },
-  {
-    id: "4",
-    nis: "123459",
-    namaSiswa: "Jane Smith",
-    kelas: "Kelas 4",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  },
-  {
-    id: "5",
-    nis: "123460",
-    namaSiswa: "John Doe Jr.",
-    kelas: "Kelas 5",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  }
-]
+import { kelasSelectOptions, tagihanSiswaData } from "@/lib/data";
 
 export default function TagihanSiswaPage() {
   const [name, setName] = useState('')
@@ -109,12 +57,9 @@ export default function TagihanSiswaPage() {
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">Kelas 1</SelectItem>
-                  <SelectItem value="2">Kelas 2</SelectItem>
-                  <SelectItem value="3">Kelas 3</SelectItem>
-                  <SelectItem value="4">Kelas 4</SelectItem>
-                  <SelectItem value="5">Kelas 5</SelectItem>
-                  <SelectItem value="6">Kelas 6</SelectItem>
+                  {kelasSelectOptions.map((option) => (
+                    <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -140,7 +85,7 @@ export default function TagihanSiswaPage() {
             <Plus /> Tambah
           </Button>
         </CardContent>
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={tagihanSiswaData} />
       </Card>
     </>
   )

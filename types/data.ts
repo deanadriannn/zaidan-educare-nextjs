@@ -1,3 +1,5 @@
+import { string } from "zod"
+
 export type User = {
   id: string
   username: string
@@ -39,6 +41,12 @@ export type BankPenerimaTransfer = {
   namaPemilikRekening: string
 }
 
+export type TagihanSiswa = {
+  biodata: StudentInfo
+  jenisBiayaPendidikan: JenisBiayaPendidikan[]
+}
+
+// COLUMNS TYPE
 export type TagihanSiswaColumns = {
   id: string
   nis: string
@@ -50,7 +58,13 @@ export type TagihanSiswaColumns = {
   nominalBulanan: number
 }
 
-export type TagihanSiswa = {
-  biodata: StudentInfo
-  jenisBiayaPendidikan: JenisBiayaPendidikan[]
+export type PenerimaanDanaColumns = {
+  id: string
+  tanggalTransaksi: Date
+  nis: string
+  namaSiswa: string
+  kelas: string
+  jenisPembayaran: string
+  nominal: number
+  metodePembayaran: string
 }

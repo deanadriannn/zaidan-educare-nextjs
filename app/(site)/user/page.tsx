@@ -16,27 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-const data: User[] = [
-  {
-    id: '1',
-    username: 'johndoe',
-    nama: 'John Doe',
-    role: 'Ketua Yayasan'
-  },
-  {
-    id: '2',
-    username: 'janedoe',
-    nama: 'Jane Doe',
-    role: 'Bendahara'
-  },
-  {
-    id: '3',
-    username: 'johndoejr',
-    nama: 'John Doe Jr.',
-    role: 'Administrator'
-  }
-]
+import { penggunaAplikasiData, penggunaAplikasiSelectOptions } from "@/lib/data";
 
 export default function UserPage() {
   const [name, setName] = useState('')
@@ -77,9 +57,9 @@ export default function UserPage() {
                   <SelectValue placeholder="Semua Role" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ketua_yayasan">Ketua Yayasan</SelectItem>
-                  <SelectItem value="bendahara">Bendahara</SelectItem>
-                  <SelectItem value="administrator">Administrator</SelectItem>
+                  {penggunaAplikasiSelectOptions.map((option) => (
+                    <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -108,7 +88,7 @@ export default function UserPage() {
           </Button>
         </CardContent>
         {/* <DataTable columns={columns} data={data} /> */}
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={penggunaAplikasiData} />
       </Card>
     </>
   )

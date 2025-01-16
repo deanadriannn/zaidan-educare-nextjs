@@ -9,33 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
-
-const data: BankPenerimaTransfer[] = [
-  {
-    id: '1',
-    namaBank: 'Bank BCA',
-    nomorRekening: '1234567890',
-    namaPemilikRekening: 'John Doe'
-  },
-  {
-    id: '2',
-    namaBank: 'Bank Mandiri',
-    nomorRekening: '0987654321',
-    namaPemilikRekening: 'Jane Doe'
-  },
-  {
-    id: '3',
-    namaBank: 'Bank BNI',
-    nomorRekening: '1234567890',
-    namaPemilikRekening: 'John Doe'
-  },
-  {
-    id: '4',
-    namaBank: 'Bank BRI',
-    nomorRekening: '0987654321',
-    namaPemilikRekening: 'Jane Doe'
-  }
-]
+import { bankData } from "@/lib/data";
 
 export default function BankPenerimaTransferPage() {
   const [name, setName] = useState('')
@@ -90,7 +64,7 @@ export default function BankPenerimaTransferPage() {
             <Plus /> Tambah
           </Button>
         </CardContent>
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={bankData} />
       </Card>
     </>
   )

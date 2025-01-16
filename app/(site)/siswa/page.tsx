@@ -16,225 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-const data: StudentInfo[] = [
-  {
-    id: "1",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "2",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Non-Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "3",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "4",
-    nis: "1234",
-    status: "Aktif",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "5",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "6",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "7",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    status: "Aktif",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "8",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "9",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    status: "Non-Aktif",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "10",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    status: "Aktif",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "11",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    jenisKelaminWali: "Perempuan",
-    status: "Aktif",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-  {
-    id: "12",
-    nis: "1234",
-    nama: "John Doe",
-    jenisKelamin: "Laki-laki",
-    kelas: "XII RPL",
-    tempatLahir: "Jakarta",
-    tanggalLahir: "2000-01-01",
-    alamatRumah: "Jl. Lorem Ipsum",
-    namaWali: "Vi",
-    hubungan: "Ibu",
-    status: "Aktif",
-    jenisKelaminWali: "Perempuan",
-    emailWali: "email@example.com",
-    nomorTeleponWali: "08123456789",
-    foto: "",
-    tahunMasuk: "2019"
-  },
-]
+import { kelasSelectOptions, siswaData } from "@/lib/data";
 
 export default function StudentPage() {
   const [name, setName] = useState('')
@@ -289,12 +71,9 @@ export default function StudentPage() {
                   <SelectValue placeholder="Pilih Kelas..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                  <SelectItem value="6">6</SelectItem>
+                  {kelasSelectOptions.map((option) => (
+                    <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -327,7 +106,7 @@ export default function StudentPage() {
             <Plus /> Tambah
           </Button>
         </CardContent>
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={siswaData} />
       </Card>
     </>
   )

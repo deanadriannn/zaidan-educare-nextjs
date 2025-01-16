@@ -32,7 +32,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 const getCommonPinningStyles = (
-  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User | PaymentInfo>
+  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User | PaymentInfo | any>
 ): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
