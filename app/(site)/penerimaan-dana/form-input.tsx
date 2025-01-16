@@ -31,7 +31,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 
-type tagihanSiswaFormValues = z.infer<typeof tagihanSiswaSchema>
+type penerimaanDanaFormValues = z.infer<typeof penerimaanDanaSchema>
 
 // TODO: Simpan data siswa dari database ke sini
 const exampleData = [
@@ -153,7 +153,7 @@ const namaBankContoh = [
   },
 ] as const;
 
-const tagihanSiswaSchema = z.object({
+const penerimaanDanaSchema = z.object({
   namaSiswa: z.string({
     required_error: "Nama siswa harus dipilih",
   }),
@@ -187,8 +187,8 @@ export default function PenerimaanDanaForm() {
     },
   ]);
 
-  const form = useForm<tagihanSiswaFormValues>({
-    resolver: zodResolver(tagihanSiswaSchema),
+  const form = useForm<penerimaanDanaFormValues>({
+    resolver: zodResolver(penerimaanDanaSchema),
     defaultValues: {
       tanggalTransaksi: undefined,
     },
@@ -257,7 +257,7 @@ export default function PenerimaanDanaForm() {
     });
   };
 
-  function onSubmit(values: tagihanSiswaFormValues) {
+  function onSubmit(values: penerimaanDanaFormValues) {
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
 
@@ -567,6 +567,7 @@ export default function PenerimaanDanaForm() {
                     <td className="p-2">
                       <Input
                         type="number"
+                        min={0}
                         className="w-28"
                         value={item.nominal || ""}
                         onChange={(e) => handleNominalChange(index, e.target.value)}

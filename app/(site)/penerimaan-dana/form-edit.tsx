@@ -1,11 +1,10 @@
 "use client";
 
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
 import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -29,71 +28,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { format } from "date-fns";
 
-type tagihanSiswaFormValues = z.infer<typeof tagihanSiswaSchema>
-
-// TODO: Simpan data siswa dari database ke sini
-const exampleData = [
-  { 
-    label: "Abdul", 
-    value: "Abdul",
-    kelas: '3-A',
-    nis: '123589',
-  },
-  {
-    label: "Budi",
-    value: "Budi",
-    kelas: '1-B',
-    nis: '123590',
-  },
-  {
-    label: "Cici",
-    value: "Cici",
-    kelas: '2-C',
-    nis: '123591',
-  },
-  {
-    label: "Dodi",
-    value: "Dodi",
-    kelas: '5-D',
-    nis: '123592',
-  },
-  {
-    label: "Euis",
-    value: "Euis",
-    kelas: '6-E',
-    nis: '123593',
-  }
-] as const
-
-const jenisPembayaranContoh = [
-  {
-    jenisPembayaran: "DPP",
-    waktuPembayaran: "1x",
-    statusCicilan: "Ya",
-  },
-  {
-    jenisPembayaran: "SPP",
-    waktuPembayaran: "Bulanan",
-    statusCicilan: "Ya",
-  },
-  {
-    jenisPembayaran: "Makan Siang",
-    waktuPembayaran: "Harian",
-    statusCicilan: "Tidak",
-  },
-  {
-    jenisPembayaran: "Jemputan",
-    waktuPembayaran: "Bulanan",
-    statusCicilan: "Ya",
-  },
-  {
-    jenisPembayaran: "Kamping",
-    waktuPembayaran: "Tahunan",
-    statusCicilan: "Tidak",
-  },
-] as const;
+type tagihanSiswaFormValues = z.infer<typeof penerimaanDanaSchema>
 
 const metodePembayaranContoh = [
   {
@@ -153,98 +89,34 @@ const namaBankContoh = [
   },
 ] as const;
 
-const tagihanSiswaSchema = z.object({
-  namaSiswa: z.string({
-    required_error: "Nama siswa harus dipilih",
-  }),
-  tanggalTransaksi: z.date({
-    required_error: "Tanggal transaksi tidak boleh kosong",
-  }),
+const penerimaanDanaSchema = z.object({
+  nominal: z.number({
+    required_error: "Nominal harus diisi",
+    invalid_type_error: "Nominal harus berupa angka",
+  })
+  .positive("Nominal tidak boleh negatif atau nol"),
+  metodePembayaran: z
+  .string({
+    required_error: "Metode pembayaran harus diisi",
+  })
+  .min(1, "Metode pembayaran harus diisi"),
+  namaBank: z.string().optional(), 
 })
-
-type PaymentItem = {
-  jenisPembayaran: string;
-  waktuPembayaran: string;
-  statusCicilan: "Ya" | "Tidak" | "";
-  nominal: number;
-  metodePembayaran: string;
-  namaBank: string;
-};
 
 export default function PenerimaanDanaForm() {
   const router = useRouter()
-  const pathname = usePathname()
-
-  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>([
-    // Boleh awali dengan 1 baris “kosong” atau sesuai kebutuhan
-    {
-      jenisPembayaran: "",
-      waktuPembayaran: "",
-      statusCicilan: "",
-      nominal: 0,
-      metodePembayaran: "",
-      namaBank: "",
-    },
-  ]);
 
   const form = useForm<tagihanSiswaFormValues>({
-    resolver: zodResolver(tagihanSiswaSchema),
+    resolver: zodResolver(penerimaanDanaSchema),
     defaultValues: {
-      tanggalTransaksi: undefined,
+      metodePembayaran: "",
+      namaBank: ""
     },
   })
 
-  const handleAddRow = () => {
-    setPaymentItems((prev) => [
-      ...prev,
-      {
-        jenisPembayaran: "",
-        waktuPembayaran: "",
-        statusCicilan: "",
-        nominal: 0,
-        metodePembayaran: "",
-        namaBank: "",
-      },
-    ]);
-  };
-
-  // Fungsi untuk menghapus baris tertentu
-  const handleRemoveRow = (index: number) => {
-    setPaymentItems((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSelectJenisPembayaran = (index: number, val: string) => {
-    // Cari data master
-    const found = jenisPembayaranContoh.find(
-      (item) => item.jenisPembayaran === val
-    );
-    if (!found) return;
-
-    setPaymentItems((prev) => {
-      const newItems = [...prev];
-      newItems[index] = {
-        ...newItems[index],
-        jenisPembayaran: found.jenisPembayaran,
-        waktuPembayaran: found.waktuPembayaran,
-        statusCicilan: found.statusCicilan,
-      };
-      return newItems;
-    });
-  };
-
-  const handleNominalChange = (index: number, value: string) => {
-    const parsed = parseInt(value) || 0;
-    setPaymentItems((prev) => {
-      const newItems = [...prev];
-      newItems[index].nominal = parsed;
-      return newItems;
-    });
-  };
-
   function onSubmit(values: tagihanSiswaFormValues) {
     console.log("Form Values:", values)
-    console.log("Data Tagihan:", paymentItems)
-    toast.success("Data traksaksi pembayaran biaya pendidikan berhasil ditambahkan")
+    toast.success("Data traksaksi pembayaran biaya pendidikan berhasil diperbarui")
     router.push("/penerimaan-dana")
   }
 
@@ -263,331 +135,165 @@ export default function PenerimaanDanaForm() {
         </div>
       </CardHeader>
 
+      <div className="mt-4 flex flex-col gap-4 font-spartan">
+        {/* NAMA SISWA */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Nama</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            John
+          </p>
+        </div>
+
+        {/* KELAS SISWA */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Kelas</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            1-A
+          </p>
+        </div>
+
+        {/* NIS SISWA */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">NIS</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            1234445
+          </p>
+        </div>
+
+        {/* TANGGAL TRANSAKSI */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Tanggal Transaksi</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            9 September 2021
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-8 flex flex-col gap-4 font-spartan">
+        <h1 className="font-bold text-black text-xl">Daftar Transaksi Pembayaran</h1>
+
+        {/* JENIS PEMBAYARAN */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Jenis Pembayaran</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            SPP Januari
+          </p>
+        </div>
+
+        {/* WAKTU PEMBAYARAN */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Waktu Pembayaran</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            1x
+          </p>
+        </div>
+
+        {/* STATUS CICILAN */}
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Status Cicilan</Label>
+          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+            Ya
+          </p>
+        </div>
+      </div>
+
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* AUTO COMPLETE SEARCH SISWA */}
-            <FormField
-              control={form.control}
-              name="namaSiswa"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <div className="flex flex-col">
-                    <FormItem className="flex flex-col">
-                      <FormLabel 
-                        className={cn(
-                          error ? "text-destructive": "text-muted-foreground",
-                          "text-lg font-bold"
-                        )}
-                      >
-                        Nama Siswa <span className="text-destructive">*</span>
-                      </FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                "w-full md:w-[200px] justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? exampleData.find(
-                                    (siswa) => siswa.value === field.value
-                                  )?.label
-                                : "Pilih Nama Siswa"}
-                              <ChevronsUpDown className="opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            <CommandInput
-                              placeholder="Cari nama siswa..."
-                              className="h-9"
-                            />
-                            <CommandList>
-                              <CommandEmpty>Tidak menemukan nama siswa.</CommandEmpty>
-                              <CommandGroup>
-                                {exampleData.map((siswa) => (
-                                  <CommandItem
-                                    value={siswa.label}
-                                    key={siswa.value}
-                                    onSelect={() => {
-                                      form.setValue("namaSiswa", siswa.value)
-                                    }}
-                                  >
-                                    {siswa.label}
-                                    <Check
-                                      className={cn(
-                                        "ml-auto",
-                                        siswa.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-
-                    {/* DATA SISWA YANG TERISI OTOMATIS */}
-                    <div className="mt-4 flex flex-col gap-4 font-spartan pl-1">
-                      {/* KELAS SISWA */}
-                      <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-                        <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">Kelas</Label>
-                        <p className="text-lg text-black col-span-1">
-                          {field.value
-                            ? exampleData.find(
-                                (siswa) => siswa.value === field.value
-                              )?.kelas
-                            : ""}
-                        </p>
-                      </div>
-
-                      {/* NIS SISWA */}
-                      <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-                        <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">NIS</Label>
-                        <p className="text-lg text-black col-span-1">
-                          {field.value
-                            ? exampleData.find(
-                                (siswa) => siswa.value === field.value
-                              )?.nis
-                            : ""}
-                        </p>
-                      </div>
-                    </div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 font-spartan mt-4">
+          <FormField
+            control={form.control}
+            name="nominal"
+            render={({ field }) => {
+              const { error } = useFormField()
+              return (
+                <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                  <FormLabel 
+                    className={cn(
+                      error ? "text-destructive": "text-muted-foreground",
+                      "text-lg font-semibold col-span-1 md:col-span-3"
+                    )}
+                  >
+                    Nominal
+                  </FormLabel>
+                  <div className="col-span-1 md:col-span-3">
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        {...field}
+                        value={field.value || ""} // Untuk mencegah warning controlled/uncontrolled
+                        onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
                   </div>
-                )
-              }}
-            />
+                </FormItem>
+              )
+            }}
+          />
 
+          <FormField
+            control={form.control}
+            name="metodePembayaran"
+            render={({ field }) => {
+              const { error } = useFormField()
+              return (
+                <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                  <FormLabel 
+                    className={cn(
+                      error ? "text-destructive": "text-muted-foreground",
+                      "text-lg font-semibold col-span-1 md:col-span-3"
+                    )}
+                  >
+                    Metode Pembayaran
+                  </FormLabel>
+                  <div className="col-span-1 md:col-span-3">
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Pilih Salah Satu" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {metodePembayaranContoh.map((option) => (
+                          <SelectItem
+                            key={option.value}
+                            value={option.value}
+                          >
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )
+            }}
+          />
+
+          {form.watch("metodePembayaran") === "transfer" && (
             <FormField
               control={form.control}
-              name="tanggalTransaksi"
+              name="namaBank"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <FormItem className="flex flex-col">
-                    <FormLabel
+                  <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                    <FormLabel 
                       className={cn(
                         error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
+                        "text-lg font-semibold col-span-1 md:col-span-3"
                       )}
                     >
-                      Tanggal Transaksi <span className="text-destructive">*</span>
+                      Nama Bank
                     </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
+                    <div className="col-span-1 md:col-span-3">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full md:w-[200px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Masukkan tanggal lahir</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Salah Satu" />
+                          </SelectTrigger>
                         </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-          </div>
-
-          {/* JUDUL DAFTAR TAGIHAN YANG SUDAH DITAMBAHKAN */}
-          <h2 className="font-bold mb-2">
-            Daftar Tagihan
-          </h2>
-
-          {/* TABEL DAFTAR TAGIHAN YANG DITAMBAHKAN - READ ONLY */}
-          <div className="table-container">
-            <table className="w-full border text-left text-sm">
-              <thead>
-                <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2">Jenis Pembayaran</th>
-                  <th className="p-2">Waktu Pembayaran</th>
-                  <th className="p-2">Status Cicilan</th>
-                  <th className="p-2">Nominal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paymentItems.map((item, index) => {
-                  const formatted = formatToIDR(item.nominal)
-                  return (
-                    <tr key={index} className="border-b">
-                      {/* Pilih Jenis Pembayaran */}
-                      <td className="p-2">
-                        {item.jenisPembayaran ? item.jenisPembayaran : "-"}
-                      </td>
-  
-                      {/* Waktu Pembayaran (read-only) */}
-                      <td className="p-2">
-                        {item.waktuPembayaran ? item.waktuPembayaran : "-"}
-                      </td>
-  
-                      {/* Status Cicilan (read-only) */}
-                      <td className="p-2">
-                        {item.statusCicilan ? item.statusCicilan : "-"}
-                      </td>
-  
-                      {/* Nominal (masih input, jika mau diisi manual) */}
-                      <td className="p-2">
-                        {item.nominal ? formatted : "-"}
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* TOTAL PEMBAYARAN */}
-          <div className="flex flex-col justify-start items-start mb-2">
-            <h2 className="font-bold">
-              Total Pembayaran
-            </h2>
-            <p>
-              {formatToIDR(
-                paymentItems.reduce((acc, item) => acc + item.nominal, 0)
-              )}
-            </p>
-          </div>
-
-          {/* TOMBOL TAMBAH BARIS */}
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="font-bold">
-              Daftar Transasi Pembayaran
-            </h2>
-            <Button variant="primary-red" onClick={handleAddRow} type="button">
-              <Plus />
-            </Button>
-          </div>
-
-          {/* TABEL INPUT DATA TAGIHAN BIAYA PENDIDIKAN */}
-          <div className="table-container">
-            <table className="w-full border text-left text-sm">
-              <thead>
-                <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2">Jenis Pembayaran</th>
-                  <th className="p-2">Waktu Pembayaran</th>
-                  <th className="p-2">Status Cicilan</th>
-                  <th className="p-2">Nominal</th>
-                  <th className="p-2">Metode Pembayaran</th>
-                  <th className="p-2">Nama Bank</th>
-                  <th className="p-2 text-center sticky right-0 z-10">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paymentItems.map((item, index) => (
-                  <tr key={index} className="border-b">
-                    {/* Pilih Jenis Pembayaran */}
-                    <td className="p-2">
-                      <Select
-                        value={item.jenisPembayaran}
-                        onValueChange={(val) =>
-                          handleSelectJenisPembayaran(index, val)
-                        }
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {jenisPembayaranContoh.map((option) => (
-                            <SelectItem
-                              key={option.jenisPembayaran}
-                              value={option.jenisPembayaran}
-                            >
-                              {option.jenisPembayaran}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </td>
-
-                    {/* Waktu Pembayaran (read-only) */}
-                    <td className="p-2">
-                      {item.waktuPembayaran ? item.waktuPembayaran : "-"}
-                    </td>
-
-                    {/* Status Cicilan (read-only) */}
-                    <td className="p-2">
-                      {item.statusCicilan ? item.statusCicilan : "-"}
-                    </td>
-
-                    {/* Nominal (masih input, jika mau diisi manual) */}
-                    <td className="p-2">
-                      <Input
-                        type="number"
-                        className="w-28"
-                        value={item.nominal || ""}
-                        onChange={(e) => handleNominalChange(index, e.target.value)}
-                      />
-                    </td>
-
-                    {/* Metode Pembayaran */}
-                    <td className="p-2">
-                      <Select
-                        value={item.metodePembayaran}
-                        onValueChange={(val) =>
-                          handleSelectJenisPembayaran(index, val)
-                        }
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {metodePembayaranContoh.map((option) => (
-                            <SelectItem
-                              key={option.value}
-                              value={option.value}
-                            >
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </td>
-
-                    {/* Nama Bank */}
-                    <td className="p-2">
-                      <Select
-                        value={item.namaBank}
-                        onValueChange={(val) =>
-                          handleSelectJenisPembayaran(index, val)
-                        }
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
                         <SelectContent>
                           {namaBankContoh.map((option) => (
                             <SelectItem
@@ -599,24 +305,13 @@ export default function PenerimaanDanaForm() {
                           ))}
                         </SelectContent>
                       </Select>
-                    </td>
-
-                    {/* Tombol Hapus Baris */}
-                    <td className="p-2 text-center sticky right-0 z-10">
-                      <Button
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => handleRemoveRow(index)}
-                        type="button"
-                      >
-                        <Minus />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )
+              }}
+            />
+          )}
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
