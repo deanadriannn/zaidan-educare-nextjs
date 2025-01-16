@@ -30,8 +30,8 @@ const data: DataType = {
         icon: "/sidebar/home.svg",
       },
       {
-        title: "Status Pembayaran",
-        url: "#",
+        title: "Status Pembayaran Siswa",
+        url: "/status-pembayaran",
         icon: "/sidebar/card-payment.svg"
       },
       {
@@ -67,8 +67,8 @@ const data: DataType = {
         icon: "/sidebar/push-notifications.svg"
       },
       {
-        title: "Status Pembayaran",
-        url: "#",
+        title: "Status Pembayaran Siswa",
+        url: "/status-pembayaran",
         icon: "/sidebar/card-payment.svg"
       },
       {

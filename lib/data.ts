@@ -363,6 +363,19 @@ export const penggunaAplikasiData: User[] = [
   }
 ]
 
+export const statusPembayaranData = [
+  {
+    nis: '123456',
+    namaSiswa: 'John Doe',
+    kelas: 'Kelas 1',
+    jenisPembayaran: 'DPP',
+    nominalTagihan: 10000000,
+    statusPembayaran: 'Belum Lunas',
+    nominalSudahDibayar: 5000000,
+    sisaTagihan: 5000000
+  }
+]
+
 // SELECT OPTIONS
 
 export const kelasSelectOptions = [

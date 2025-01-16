@@ -68,3 +68,15 @@ export type PenerimaanDanaColumns = {
   nominal: number
   metodePembayaran: string
 }
+
+export type StatusPembayaranColumns = {
+  id: string
+  nis: string
+  namaSiswa: string
+  kelas: string
+  jenisPembayaran: string
+  nominalTagihan: number
+  statusPembayaran: "Belum Lunas" | "Lunas"
+  nominalSudahDibayar: number
+  sisaTagihan: number
+}

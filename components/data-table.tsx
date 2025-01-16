@@ -17,6 +17,7 @@ import {
   JenisBiayaPendidikan,
   StudentInfo,
   User,
+  StatusPembayaranColumns,
 } from '@/types/data'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -32,7 +33,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 const getCommonPinningStyles = (
-  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User | PaymentInfo | any>
+  column: Column<TagihanSiswaColumns | BankPenerimaTransfer | JenisBiayaPendidikan | StudentInfo | User | PaymentInfo | StatusPembayaranColumns>
 ): CSSProperties => {
   const isPinned = column.getIsPinned()
   const isLastLeftPinnedColumn =
@@ -145,7 +146,8 @@ export function DataTable<TData, TValue>({
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(row => (
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map(row => (
               <tr key={row.id}>
                 {row.getVisibleCells().map(cell => {
                   const { column } = cell
@@ -163,7 +165,14 @@ export function DataTable<TData, TValue>({
                   )
                 })}
               </tr>
-            ))}
+            ))
+          ): (
+            <tr>
+              <td className='h-24 text-center' colSpan={columns.length}>
+                No Results.
+              </td>
+            </tr>
+          )}
           </tbody>
         </table>
       </div>
