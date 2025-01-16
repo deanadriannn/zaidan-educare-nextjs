@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, Check, ChevronsUpDown, CircleX, Save } from "lucide-react"
+import { ArrowLeft, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Calendar } from "@/components/ui/calendar"
@@ -27,6 +27,8 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 type tagihanSiswaFormValues = z.infer<typeof tagihanSiswaSchema>
 
@@ -64,15 +66,60 @@ const exampleData = [
   }
 ] as const
 
+const jenisPembayaranContoh = [
+  {
+    jenisPembayaran: "DPP",
+    waktuPembayaran: "1x",
+    statusCicilan: "Ya",
+  },
+  {
+    jenisPembayaran: "SPP",
+    waktuPembayaran: "Bulanan",
+    statusCicilan: "Ya",
+  },
+  {
+    jenisPembayaran: "Makan Siang",
+    waktuPembayaran: "Harian",
+    statusCicilan: "Tidak",
+  },
+  {
+    jenisPembayaran: "Jemputan",
+    waktuPembayaran: "Bulanan",
+    statusCicilan: "Ya",
+  },
+  {
+    jenisPembayaran: "Kamping",
+    waktuPembayaran: "Tahunan",
+    statusCicilan: "Tidak",
+  },
+] as const;
+
 const tagihanSiswaSchema = z.object({
   namaSiswa: z.string({
     required_error: "Nama siswa harus dipilih",
   }),
 })
 
+type PaymentItem = {
+  jenisPembayaran: string;
+  waktuPembayaran: string;
+  statusCicilan: "Ya" | "Tidak" | "";
+  nominal: number;
+};
+
 export default function TagihanSiswaForm() {
   const router = useRouter()
   const pathname = usePathname()
+
+  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>([
+    // Boleh awali dengan 1 baris “kosong” atau sesuai kebutuhan
+    {
+      jenisPembayaran: "",
+      waktuPembayaran: "",
+      statusCicilan: "",
+      nominal: 0,
+    },
+  ]);
 
   const form = useForm<tagihanSiswaFormValues>({
     resolver: zodResolver(tagihanSiswaSchema),
@@ -81,21 +128,67 @@ export default function TagihanSiswaForm() {
     },
   })
 
+  const handleAddRow = () => {
+    setPaymentItems((prev) => [
+      ...prev,
+      {
+        jenisPembayaran: "",
+        waktuPembayaran: "",
+        statusCicilan: "",
+        nominal: 0,
+      },
+    ]);
+  };
+
+  // Fungsi untuk menghapus baris tertentu
+  const handleRemoveRow = (index: number) => {
+    setPaymentItems((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSelectJenisPembayaran = (index: number, val: string) => {
+    // Cari data master
+    const found = jenisPembayaranContoh.find(
+      (item) => item.jenisPembayaran === val
+    );
+    if (!found) return;
+
+    setPaymentItems((prev) => {
+      const newItems = [...prev];
+      newItems[index] = {
+        ...newItems[index],
+        jenisPembayaran: found.jenisPembayaran,
+        waktuPembayaran: found.waktuPembayaran,
+        statusCicilan: found.statusCicilan,
+      };
+      return newItems;
+    });
+  };
+
+  const handleNominalChange = (index: number, value: string) => {
+    const parsed = parseInt(value) || 0;
+    setPaymentItems((prev) => {
+      const newItems = [...prev];
+      newItems[index].nominal = parsed;
+      return newItems;
+    });
+  };
+
   function onSubmit(values: tagihanSiswaFormValues) {
     console.log("Form Values:", values)
+    console.log("Data Tagihan:", paymentItems)
     toast.success(`Data tagihan biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/tagihan-siswa")
   }
 
   return (
-    <Card className="mx-4 mt-4 px-4 md:px-10 py-4">
+    <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
           <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/tagihan-siswa")}>
             <ArrowLeft />
           </Button>
           <span 
-            className="text-lg font-bold"
+            className="text-md md:text-lg font-bold"
           >
             {`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Tagihan Biaya Pendidikan`}
           </span>
@@ -128,7 +221,7 @@ export default function TagihanSiswaForm() {
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "w-[200px] justify-between",
+                              "w-full md:w-[200px] justify-between",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -180,8 +273,8 @@ export default function TagihanSiswaForm() {
                   {/* DATA SISWA YANG TERISI OTOMATIS */}
                   <div className="mt-4 flex flex-col gap-4 font-spartan pl-1">
                     {/* KELAS SISWA */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-10">
-                      <Label className="text-lg font-semibold text-muted-foreground col-span-1">Kelas</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+                      <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">Kelas</Label>
                       <p className="text-lg text-black col-span-1">
                         {field.value
                           ? exampleData.find(
@@ -192,8 +285,8 @@ export default function TagihanSiswaForm() {
                     </div>
 
                     {/* NIS SISWA */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-10">
-                      <Label className="text-lg font-semibold text-muted-foreground col-span-1">NIS</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
+                      <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">NIS</Label>
                       <p className="text-lg text-black col-span-1">
                         {field.value
                           ? exampleData.find(
@@ -207,6 +300,89 @@ export default function TagihanSiswaForm() {
               )
             }}
           />
+
+          {/* TOMBOL TAMBAH BARIS */}
+          <div className="flex justify-end mb-2">
+            <Button variant="primary-red" onClick={handleAddRow} type="button">
+              <Plus />
+            </Button>
+          </div>
+
+          {/* TABEL INPUT DATA TAGIHAN BIAYA PENDIDIKAN */}
+          <div className="overflow-auto w-full grid grid-cols-1">
+            <table className="w-full border text-left text-sm">
+              <thead>
+                <tr className="border-b bg-gray-50 text-sm font-semibold">
+                  <th className="p-2">Jenis Pembayaran</th>
+                  <th className="p-2">Waktu Pembayaran</th>
+                  <th className="p-2">Status Cicilan</th>
+                  <th className="p-2">Nominal</th>
+                  <th className="p-2 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paymentItems.map((item, index) => (
+                  <tr key={index} className="border-b">
+                    {/* Pilih Jenis Pembayaran */}
+                    <td className="p-2">
+                      <Select
+                        value={item.jenisPembayaran}
+                        onValueChange={(val) =>
+                          handleSelectJenisPembayaran(index, val)
+                        }
+                      >
+                        <SelectTrigger className="w-44">
+                          <SelectValue placeholder="Pilih Salah Satu" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {jenisPembayaranContoh.map((option) => (
+                            <SelectItem
+                              key={option.jenisPembayaran}
+                              value={option.jenisPembayaran}
+                            >
+                              {option.jenisPembayaran}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </td>
+
+                    {/* Waktu Pembayaran (read-only) */}
+                    <td className="p-2">
+                      {item.waktuPembayaran ? item.waktuPembayaran : "-"}
+                    </td>
+
+                    {/* Status Cicilan (read-only) */}
+                    <td className="p-2">
+                      {item.statusCicilan ? item.statusCicilan : "-"}
+                    </td>
+
+                    {/* Nominal (masih input, jika mau diisi manual) */}
+                    <td className="p-2">
+                      <Input
+                        type="number"
+                        className="w-28"
+                        value={item.nominal || ""}
+                        onChange={(e) => handleNominalChange(index, e.target.value)}
+                      />
+                    </td>
+
+                    {/* Tombol Hapus Baris */}
+                    <td className="p-2 text-center">
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleRemoveRow(index)}
+                        type="button"
+                      >
+                        <Minus />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
