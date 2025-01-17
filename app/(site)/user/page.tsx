@@ -2,13 +2,12 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
-import { User } from "@/types/data";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CircleArrowUp, FileDown, FileUp, Plus, Search, Upload } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -62,9 +61,6 @@ export default function UserPage() {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-            <div className="w-full md:flex flex-col space-y-2 hidden">
-             
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">

@@ -386,7 +386,7 @@ export default function TagihanSiswaForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/siswa")}>
+            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/tagihan-siswa")}>
               <CircleX className="mr-2" />
               Batal
             </Button>

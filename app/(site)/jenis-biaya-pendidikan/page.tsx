@@ -8,12 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
-import { JenisBiayaPendidikan } from "@/types/data"
 import { jenisBiayaPendidikanData } from "@/lib/data";
 
 export default function JenisBiayaPendidikanPage() {
   const [name, setName] = useState('')
-
 
   const handleFilter = (e: any) => {
     e.preventDefault()

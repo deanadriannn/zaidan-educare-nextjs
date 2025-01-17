@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
-import { TagihanSiswaColumns } from "@/types/data";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -63,7 +62,6 @@ export default function TagihanSiswaPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="w-full hidden md:flex flex-col space-y-2"></div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
             <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">

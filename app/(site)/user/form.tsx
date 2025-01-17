@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -37,14 +36,16 @@ export default function UserForm() {
   const router = useRouter()
   const pathname = usePathname()
 
+  const isEdit = pathname.includes("edit")
+
   const form = useForm<UserFormValues>({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      nama: "",
+      nama: isEdit ? "John Doe" : "",
       foto: undefined,
-      username: "",
-      password: "",
-      role: undefined,
+      username: isEdit ? "johndoe" : "",
+      password: isEdit ? "password" : "",
+      role: isEdit ? "ketua_yayasan" : undefined,
     },
   })
 

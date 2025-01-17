@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
-import { BankPenerimaTransfer } from "@/types/data"
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -41,8 +40,6 @@ export default function BankPenerimaTransferPage() {
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
-            <div className="w-full md:flex flex-col space-y-2 hidden"></div>
-            <div className="w-full md:flex flex-col space-y-2 hidden"></div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
             <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">

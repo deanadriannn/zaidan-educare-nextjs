@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -9,13 +8,6 @@ import toast from "react-hot-toast"
 import { ArrowLeft, CircleX, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
@@ -32,12 +24,14 @@ export default function BankPenerimaTransferForm() {
   const router = useRouter()
   const pathname = usePathname()
 
+  const isEdit = pathname.includes("edit")
+
   const form = useForm<BankPenerimaTransferFormValues>({
     resolver: zodResolver(bankPenerimaTransferSchema),
     defaultValues: {
-      namaBank: "",
-      nomorRekening: "",
-      namaPemilikRekening: "",
+      namaBank: isEdit ? "Bank BCA" : "",
+      nomorRekening: isEdit ? "1234567890" : "",
+      namaPemilikRekening: isEdit ? "John Doe" : "",
     },
   })
 

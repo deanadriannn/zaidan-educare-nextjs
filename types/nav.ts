@@ -3,6 +3,7 @@ import { Icon as LucideIcon } from "lucide-react"
 export interface SubItem {
   title: string
   url: string
+  icon: string
 }
 
 export interface NavItem {

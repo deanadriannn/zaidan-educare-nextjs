@@ -30,6 +30,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useForm
 import { cn } from "@/lib/utils"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { unescape } from "querystring";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -78,21 +79,23 @@ export default function StudentForm() {
 
   const [dataUrl, setDataUrl] = useState<string | null>(null)
 
+  const isEdit = pathname.includes("edit")
+
   const form = useForm<StudentFormValues>({
     resolver: zodResolver(studentSchema),
     defaultValues: {
-      nama: "",
-      nis: "",
-      jenisKelamin: "laki_laki",
-      tanggalLahir: undefined,
-      kelas: undefined,
-      tahunMasuk: undefined,
-      alamat: "",
-      namaWali: "",
-      hubunganWali: "",
-      jenisKelaminWali: "laki_laki",
-      emailWali: "",
-      nomorTeleponWali: "",
+      nama: isEdit ? "John Doe" : "",
+      nis: isEdit ? "1234567890" : "",
+      jenisKelamin: isEdit ? "laki_laki" : "perempuan",
+      tanggalLahir: isEdit ? new Date("2000-01-01") : undefined,
+      kelas: isEdit ? "3_A" : undefined,
+      tahunMasuk: isEdit ? new Date("2000-01-01") : undefined,
+      alamat: isEdit ? "Jl. Lorem Ipsum Dolor Sit Amet" : "",
+      namaWali: isEdit ? "Vi" : "",
+      hubunganWali: isEdit ? "Ibu" : "",
+      jenisKelaminWali: isEdit ? "perempuan" : "laki_laki",
+      emailWali: isEdit ? "m@gmail.com" : "",
+      nomorTeleponWali: isEdit ? "081234567890" : "",
     },
   })
 
@@ -344,7 +347,7 @@ export default function StudentForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1_A">1-A</SelectItem>
+                        <SelectItem value="1_a">1-A</SelectItem>
                         <SelectItem value="1_B">1-B</SelectItem>
                         <SelectItem value="1_C">1-C</SelectItem>
                         <SelectItem value="2_A">2-A</SelectItem>
@@ -494,7 +497,7 @@ export default function StudentForm() {
                       Hubungan Wali <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama" {...field} />
+                      <Input placeholder="Masukkan Hubungan Wali" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

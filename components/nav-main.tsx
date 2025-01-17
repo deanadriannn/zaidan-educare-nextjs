@@ -60,6 +60,10 @@ export function NavMain({
                         {/* @ts-ignore */}
                         <SidebarMenuSubButton asChild tooltip={subItem.title} className="h-10" isActive={pathname.includes(subItem.url)}>
                           <a href={subItem.url}>
+                            <img 
+                              src={subItem.icon}
+                              className="w-6 h-6"
+                            />
                             <span>{subItem.title}</span>
                           </a>
                         </SidebarMenuSubButton>

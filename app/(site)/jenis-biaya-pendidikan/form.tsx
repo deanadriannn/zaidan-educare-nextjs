@@ -36,12 +36,14 @@ export default function JenisBiayaPendidikanForm() {
   const router = useRouter()
   const pathname = usePathname()
 
+  const isEdit = pathname.includes("edit")
+
   const form = useForm<JenisBiayaPendidikanFormValues>({
     resolver: zodResolver(jenisBiayaPendidikanSchema),
     defaultValues: {
-      namaTagihan: "",
-      waktuPembayaran: undefined,
-      statusCicilan: undefined,
+      namaTagihan: isEdit ? "SPP" : undefined,
+      waktuPembayaran: isEdit ? "bulanan" : undefined,
+      statusCicilan: isEdit ? "ya" : undefined,
     },
   })
 

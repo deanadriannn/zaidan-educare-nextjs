@@ -95,7 +95,7 @@ export default function SiteLayout({
                     src="/images/male-user.png"
                     className="w-12 hidden md:block"
                   />
-                  <span className='font-bold text-sm md:text-lg hidden md:block'>
+                  <span className='font-bold text-md md:text-lg'>
                     Mr. Iyus
                   </span>
                   <AlertDialog>

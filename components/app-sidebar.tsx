@@ -102,10 +102,12 @@ const data: DataType = {
           {
             title: "Jenis Biaya Pendidikan",
             url: "/jenis-biaya-pendidikan",
+            icon:"/sidebar/bank-building.svg"
           },
           {
             title: "Bank Penerima Transfer",
             url: "/bank-penerima-transfer",
+            icon: "/sidebar/books.svg"
           },
         ],
       },
