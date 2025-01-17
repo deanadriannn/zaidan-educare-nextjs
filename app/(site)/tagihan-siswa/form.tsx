@@ -1,16 +1,14 @@
 "use client";
 
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
 import { ArrowLeft, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader } from "@/components/ui/card"
-import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
   PopoverContent,

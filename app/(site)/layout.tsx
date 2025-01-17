@@ -57,6 +57,7 @@ export default function SiteLayout({
     '/bank-penerima-transfer': 'Master - Data Bank Penerima Transfer',
     '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan',
     '/penerimaan-dana': 'Penerimaan Dana',
+    '/pengaturan-notifikasi-penagihan': 'Pengaturan Notifikasi Penagihan',
   }
 
   const handleLogout = () => {

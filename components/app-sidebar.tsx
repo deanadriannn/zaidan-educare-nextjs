@@ -63,7 +63,7 @@ const data: DataType = {
       },
       {
         title: "Pengaturan Notifikasi Penagihan",
-        url: "#",
+        url: "/pengaturan-notifikasi-penagihan",
         icon: "/sidebar/push-notifications.svg"
       },
       {
