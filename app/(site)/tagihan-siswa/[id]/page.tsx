@@ -151,7 +151,7 @@ export default function TagihanSiswaPage() {
 
           {/* Loop Data */}
           {Object.entries(exampleData['biodata']).map(([key, value]) => (
-            <div key={key} className="flex flex-wrap gap-4">
+            <div key={key} className="flex flex-wrap gap-4 items-center">
               <p className="flex-none w-1/3 font-semibold capitalize">
                 {key.replace(/([A-Z])/g, " $1")} {/* Format key menjadi lebih rapi */}
               </p>

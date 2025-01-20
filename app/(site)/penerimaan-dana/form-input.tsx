@@ -359,23 +359,20 @@ export default function PenerimaanDanaForm() {
                     </FormItem>
 
                     {/* DATA SISWA YANG TERISI OTOMATIS */}
-                    <div className="mt-4 flex flex-col gap-4 font-spartan pl-1">
-                      {/* KELAS SISWA */}
-                      <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-                        <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">Kelas</Label>
-                        <p className="text-lg text-black col-span-1">
+                    <div className="mt-4 flex gap-8 font-spartan pl-1">
+                      <div className="flex flex-col gap-2">
+                        <Label className="text-lg font-semibold text-muted-foreground">Kelas</Label>
+                        <Label className="text-lg font-semibold text-muted-foreground">NIS</Label>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <p className="text-lg text-black">
                           {field.value
                             ? exampleData.find(
                                 (siswa) => siswa.value === field.value
                               )?.kelas
                             : ""}
                         </p>
-                      </div>
-
-                      {/* NIS SISWA */}
-                      <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-                        <Label className="text-lg font-semibold text-muted-foreground col-span-1 lg:col-span-2">NIS</Label>
-                        <p className="text-lg text-black col-span-1">
+                        <p className="text-lg text-black">
                           {field.value
                             ? exampleData.find(
                                 (siswa) => siswa.value === field.value

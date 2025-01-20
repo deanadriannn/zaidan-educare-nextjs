@@ -135,86 +135,70 @@ export default function PenerimaanDanaForm() {
         </div>
       </CardHeader>
 
-      <div className="mt-4 flex flex-col gap-4 font-spartan">
-        {/* NAMA SISWA */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Nama</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+      <div className="mt-4 flex gap-8 font-spartan">
+        <div className="flex flex-col gap-4">
+          <Label className="text-lg font-semibold text-muted-foreground">Nama</Label>
+          <Label className="text-lg font-semibold text-muted-foreground">Kelas</Label>
+          <Label className="text-lg font-semibold text-muted-foreground">NIS</Label>
+          <Label className="text-lg font-semibold text-muted-foreground">Tanggal Transaksi</Label>
+        </div>
+        <div className="flex flex-col gap-4">
+          <p className="text-lg text-black">
             John
           </p>
-        </div>
-
-        {/* KELAS SISWA */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Kelas</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+          <p className="text-lg text-black">
             1-A
           </p>
-        </div>
-
-        {/* NIS SISWA */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">NIS</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+          <p className="text-lg text-black">
             1234445
           </p>
-        </div>
-
-        {/* TANGGAL TRANSAKSI */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Tanggal Transaksi</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
+          <p className="text-lg text-black">
             9 September 2021
           </p>
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col gap-4 font-spartan">
+      <div className="mt-8 flex flex-col gap-4 font-spartan mb-2">
         <h1 className="font-bold text-black text-xl">Daftar Transaksi Pembayaran</h1>
 
-        {/* JENIS PEMBAYARAN */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Jenis Pembayaran</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
-            SPP Januari
-          </p>
-        </div>
-
-        {/* WAKTU PEMBAYARAN */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Waktu Pembayaran</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
-            1x
-          </p>
-        </div>
-
-        {/* STATUS CICILAN */}
-        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10">
-          <Label className="text-lg font-semibold text-muted-foreground col-span-1 md:col-span-3">Status Cicilan</Label>
-          <p className="text-lg text-black col-span-1 md:col-span-3 lg:col-span-7">
-            Ya
-          </p>
+        <div className="flex gap-8">
+          <div className="flex flex-col gap-4">
+            <Label className="text-lg font-semibold text-muted-foreground">Jenis Pembayaran</Label>
+            <Label className="text-lg font-semibold text-muted-foreground">Waktu Pembayaran</Label>
+            <Label className="text-lg font-semibold text-muted-foreground">Status Cicilan</Label>
+          </div>
+          <div className="flex flex-col gap-4">
+            <p className="text-lg text-black">
+              SPP Januari
+            </p>
+            <p className="text-lg text-black">
+              1x
+            </p>
+            <p className="text-lg text-black">
+              Ya
+            </p>
+          </div>
         </div>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 font-spartan mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 font-spartan">
           <FormField
             control={form.control}
             name="nominal"
             render={({ field }) => {
               const { error } = useFormField()
               return (
-                <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                <FormItem className="flex gap-4 items-center">
                   <FormLabel 
                     className={cn(
                       error ? "text-destructive": "text-muted-foreground",
-                      "text-lg font-semibold col-span-1 md:col-span-3"
+                      "text-lg font-semibold"
                     )}
                   >
                     Nominal
                   </FormLabel>
-                  <div className="col-span-1 md:col-span-3">
+                  <div>
                     <FormControl>
                       <Input 
                         type="number" 
@@ -224,7 +208,6 @@ export default function PenerimaanDanaForm() {
                         className="w-full"
                       />
                     </FormControl>
-                    <FormMessage />
                   </div>
                 </FormItem>
               )
@@ -237,16 +220,16 @@ export default function PenerimaanDanaForm() {
             render={({ field }) => {
               const { error } = useFormField()
               return (
-                <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                <FormItem className="flex gap-4 items-center">
                   <FormLabel 
                     className={cn(
                       error ? "text-destructive": "text-muted-foreground",
-                      "text-lg font-semibold col-span-1 md:col-span-3"
+                      "text-lg font-semibold"
                     )}
                   >
                     Metode Pembayaran
                   </FormLabel>
-                  <div className="col-span-1 md:col-span-3">
+                  <div>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -264,7 +247,6 @@ export default function PenerimaanDanaForm() {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
                   </div>
                 </FormItem>
               )
@@ -278,16 +260,16 @@ export default function PenerimaanDanaForm() {
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <FormItem className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-10 gap-10 items-center">
+                  <FormItem className="flex gap-4 items-center">
                     <FormLabel 
                       className={cn(
                         error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-semibold col-span-1 md:col-span-3"
+                        "text-lg font-semibold"
                       )}
                     >
                       Nama Bank
                     </FormLabel>
-                    <div className="col-span-1 md:col-span-3">
+                    <div>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
