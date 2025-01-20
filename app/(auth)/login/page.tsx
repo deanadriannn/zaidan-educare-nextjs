@@ -1,6 +1,5 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
@@ -22,6 +21,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useUserStore } from "@/hooks/use-user"
+import { useRouter } from "next/navigation"
  
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -38,6 +39,8 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { role, setRole } = useUserStore()
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,10 +51,15 @@ export default function LoginPage() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    if (values.username === "username1") {
+      setRole("Ketua Yayasan")
+    } else if (values.username === "username2") {
+      setRole("Bendahara")
+    } else if (values.username === "username3") {
+      setRole("Administrator")
+    }
     console.log(values)
-    window.location.href = "/"
+    router.push("/")
   }
 
   return (

@@ -23,6 +23,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import "./site.css"
+import { useUserStore } from "@/hooks/use-user";
 
 const footerContent = [
   {
@@ -49,6 +50,7 @@ export default function SiteLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const { role } = useUserStore()
   const locationName: Record<string, string> = {
     '/': 'Dasbor',
     '/siswa': 'Master - Data Siswa',
@@ -58,6 +60,7 @@ export default function SiteLayout({
     '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan',
     '/penerimaan-dana': 'Penerimaan Dana',
     '/pengaturan-notifikasi-penagihan': 'Pengaturan Notifikasi Penagihan',
+    '/rekapitulasi-penerimaan-dana': 'Rekapitulasi Pembayaran Biaya Pendidikan',
   }
 
   const handleLogout = () => {
@@ -97,7 +100,7 @@ export default function SiteLayout({
                     className="w-12 hidden md:block"
                   />
                   <span className='font-bold text-md md:text-lg'>
-                    Mr. Iyus
+                    {role}
                   </span>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
