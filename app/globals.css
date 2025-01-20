@@ -5,6 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .popover-content-width-full {
+    width: var(--radix-popover-trigger-width);
+    max-height: var(--radix-popover-content-available-height);
+  }
+}
+
 :root, html, body {
   width: 100%;
 }

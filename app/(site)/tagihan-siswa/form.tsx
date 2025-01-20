@@ -219,7 +219,7 @@ export default function TagihanSiswaForm() {
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "w-full md:w-[200px] justify-between",
+                              "w-full md:w-full justify-between",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -232,7 +232,7 @@ export default function TagihanSiswaForm() {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
+                      <PopoverContent className="popover-content-width-full p-0">
                         <Command>
                           <CommandInput
                             placeholder="Cari nama siswa..."
