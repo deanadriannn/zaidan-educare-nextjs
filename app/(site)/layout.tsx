@@ -63,7 +63,8 @@ export default function SiteLayout({
     '/penerimaan-dana': 'Pengelolaan Data Pencatatan Pembayaran Biaya Dana Pendidikan',
     '/pengaturan-notifikasi-penagihan': 'Pengaturan Pengiriman Notifikasi Pengingat Pembayaran',
     '/rekapitulasi-penerimaan-dana': 'Rekapitulasi Pembayaran Biaya Pendidikan',
-    '/status-pembayaran': 'Informasi Status Pembayaran Siswa'
+    '/status-pembayaran': 'Informasi Status Pembayaran Siswa',
+    '/grafik-transaksi-penerimaan-dana': 'Trend Transaksi Pembayaran Biaya Pendidikan'
   }
 
   const handleLogout = () => {
@@ -85,7 +86,7 @@ export default function SiteLayout({
                 <div className="flex items-center gap-2 flex-1">
                   <SidebarTrigger className="-ml-1" />
                   <Separator orientation="vertical" className="mr-2 h-4" />
-                  <h1 className="text-sm md:text-lg font-semibold hidden md:block text-wrap">
+                  <h1 className="text-sm md:text-lg font-semibold hidden md:block text-wrap font-secular">
                     {Object.keys(locationName)
                       .sort((a, b) => b.length - a.length) // Prioritaskan rute dengan panjang terpanjang
                       .find((key) => pathname.startsWith(key)) // Cari rute yang cocok berdasarkan awalan
@@ -130,7 +131,7 @@ export default function SiteLayout({
           </div>
 
           {/* MAIN CONTENT */}
-          <div className="flex-1">
+          <div className="flex-1 font-spartan">
             {children}
           </div>
 

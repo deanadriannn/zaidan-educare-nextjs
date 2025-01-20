@@ -44,7 +44,7 @@ export function AppSidebar({ ...props }) {
         },
         {
           title: "Grafik Transaksi Penerimaan Dana",
-          url: "#",
+          url: "/grafik-transaksi-penerimaan-dana",
           icon: "/sidebar/combo-chart.svg"
         }
       ],
@@ -81,7 +81,7 @@ export function AppSidebar({ ...props }) {
         },
         {
           title: "Grafik Transaksi Penerimaan Dana",
-          url: "#",
+          url: "/grafik-transaksi-penerimaan-dana",
           icon: "/sidebar/combo-chart.svg"
         }
       ],
