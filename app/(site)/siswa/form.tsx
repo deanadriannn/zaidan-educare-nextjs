@@ -30,45 +30,34 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useForm
 import { cn } from "@/lib/utils"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { unescape } from "querystring";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
   nis: z.string().min(1, "NIS tidak boleh kosong"),
-  jenisKelamin: z.enum(["laki_laki", "perempuan"], {
-    required_error: "Jenis kelamin tidak boleh kosong",
-  }),
-  tanggalLahir: z.date({
-    required_error: "Tanggal lahir tidak boleh kosong",
-  }),
+  jenisKelamin: z.enum(["laki_laki", "perempuan"])
+  .optional(),
+  tanggalLahir: z.date().optional(),
   kelas: z.string({
     required_error: "Kelas tidak boleh kosong",
   }),
   tahunMasuk: z.date({
     required_error: "Tanggal masuk tidak boleh kosong",
   }),
-  alamat: z
-  .string()
-  .min(10, {
-    message: "Alamat minimal 10 karakter.",
-  })
-  .max(160, {
-    message: "Alamat maksimal 160 karakter.",
-  }),
+  alamat: z.string().optional(),
   namaWali: z.string().min(1, "Nama wali tidak boleh kosong"),
-  hubunganWali: z.string().min(1, "Hubungan wali tidak boleh kosong"),
-  jenisKelaminWali: z.enum(["laki_laki", "perempuan"], {
-    required_error: "Jenis kelamin wali tidak boleh kosong",
-  }),
-  emailWali: z.string({
-    required_error: "Email wali tidak boleh kosong",
-  }).email({
+  hubunganWali: z.string().optional(),
+  jenisKelaminWali: z.enum(["laki_laki", "perempuan"]).optional(),
+  emailWali: z
+  .string()
+  .optional()
+  .refine((value) => !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value), {
     message: "Email wajib diisi dengan format yang benar",
   }),
   nomorTeleponWali: z.string({
     required_error: "Nomor telepon wali tidak boleh kosong",
   })
-  .min(10, "Nomor telepon harus minimal 10 karakter")
+  .min(10, "Nomor telepon harus minimal 10 karakter"),
+  tempatLahir: z.string().optional(),
 })
 
 type StudentFormValues = z.infer<typeof studentSchema>
@@ -86,16 +75,17 @@ export default function StudentForm() {
     defaultValues: {
       nama: isEdit ? "John Doe" : "",
       nis: isEdit ? "1234567890" : "",
-      jenisKelamin: isEdit ? "laki_laki" : "perempuan",
+      jenisKelamin: isEdit ? "laki_laki" : undefined,
       tanggalLahir: isEdit ? new Date("2000-01-01") : undefined,
       kelas: isEdit ? "3_A" : undefined,
       tahunMasuk: isEdit ? new Date("2000-01-01") : undefined,
       alamat: isEdit ? "Jl. Lorem Ipsum Dolor Sit Amet" : "",
       namaWali: isEdit ? "Vi" : "",
       hubunganWali: isEdit ? "Ibu" : "",
-      jenisKelaminWali: isEdit ? "perempuan" : "laki_laki",
+      jenisKelaminWali: isEdit ? "perempuan" : undefined,
       emailWali: isEdit ? "m@gmail.com" : "",
       nomorTeleponWali: isEdit ? "081234567890" : "",
+      tempatLahir: isEdit ? "Jakarta" : "",
     },
   })
 
@@ -271,53 +261,25 @@ export default function StudentForm() {
               }}
             />
 
-            {/* TANGGAL LAHIR */}
+            {/* TEMPAT LAHIR */}
             <FormField
               control={form.control}
-              name="tanggalLahir"
+              name="tempatLahir"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <FormItem className="flex flex-col">
-                    <FormLabel
+                  <FormItem>
+                    <FormLabel 
                       className={cn(
                         error ? "text-destructive": "text-muted-foreground",
                         "text-lg font-bold"
                       )}
                     >
-                      Tanggal Lahir <span className="text-destructive">*</span>
+                      Tempat Lahir
                     </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Masukkan tanggal lahir</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <FormControl>
+                      <Input placeholder="Masukkan Tempat Lahir" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )
@@ -367,6 +329,88 @@ export default function StudentForm() {
                         <SelectItem value="6_C">6-C</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+
+            {/* TANGGAL LAHIR */}
+            <FormField
+              control={form.control}
+              name="tanggalLahir"
+              render={({ field }) => {
+                const { error } = useFormField()
+                return (
+                  <FormItem className="flex flex-col">
+                    <FormLabel
+                      className={cn(
+                        error ? "text-destructive": "text-muted-foreground",
+                        "text-lg font-bold"
+                      )}
+                    >
+                      Tanggal Lahir
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Masukkan tanggal lahir</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+
+            {/* ALAMAT */}
+            <FormField
+              control={form.control}
+              name="alamat"
+              render={({ field }) => {
+                const { error } = useFormField()
+                return (
+                  <FormItem>
+                    <FormLabel
+                      className={cn(
+                        error ? "text-destructive": "text-muted-foreground",
+                        "text-lg font-bold"
+                      )}
+                    >
+                      Alamat Rumah
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Masukkan Alamat Rumah"
+                        className=""
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )
@@ -426,35 +470,6 @@ export default function StudentForm() {
               }}
             />
 
-            {/* ALAMAT */}
-            <FormField
-              control={form.control}
-              name="alamat"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <FormItem>
-                    <FormLabel
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Alamat Rumah <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Masukkan Alamat Rumah"
-                        className=""
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-
             {/* NAMA WALI */}
             <FormField
               control={form.control}
@@ -480,31 +495,6 @@ export default function StudentForm() {
               }}
             />
 
-            {/* HUBUNGAN WALI */}
-            <FormField
-              control={form.control}
-              name="hubunganWali"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <FormItem>
-                    <FormLabel 
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Hubungan Wali <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Masukkan Hubungan Wali" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-
             {/* JENIS KELAMIN WALI */}
             <FormField
               control={form.control}
@@ -519,7 +509,7 @@ export default function StudentForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Jenis Kelamin Wali <span className="text-destructive">*</span>
+                      Jenis Kelamin Wali
                     </FormLabel>
                     <FormControl>
                       <RadioGroup
@@ -565,7 +555,7 @@ export default function StudentForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Email Wali <span className="text-destructive">*</span>
+                      Email Wali
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Masukkan Email Wali" {...field} />
@@ -594,6 +584,31 @@ export default function StudentForm() {
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="08XXXXXXXXX" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+
+            {/* HUBUNGAN WALI */}
+            <FormField
+              control={form.control}
+              name="hubunganWali"
+              render={({ field }) => {
+                const { error } = useFormField()
+                return (
+                  <FormItem>
+                    <FormLabel 
+                      className={cn(
+                        error ? "text-destructive": "text-muted-foreground",
+                        "text-lg font-bold"
+                      )}
+                    >
+                      Hubungan Wali
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Masukkan Hubungan Wali" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
