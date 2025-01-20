@@ -16,7 +16,7 @@ import {
   SidebarMenuSubItem,
   useSidebar
 } from "@/components/ui/sidebar"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 export function NavMain({
   items,
@@ -25,6 +25,7 @@ export function NavMain({
 }) {
   const { isMobile } = useSidebar()
   const pathname = usePathname()
+  const router = useRouter()
 
   return (
     <SidebarGroup>
@@ -59,13 +60,13 @@ export function NavMain({
                       <SidebarMenuSubItem key={subItem.title}>
                         {/* @ts-ignore */}
                         <SidebarMenuSubButton asChild tooltip={subItem.title} className="h-10" isActive={pathname.includes(subItem.url)}>
-                          <a href={subItem.url}>
+                          <span onClick={() => router.push(subItem.url)}>
                             <img 
                               src={subItem.icon}
                               className="w-6 h-6"
                             />
                             <span>{subItem.title}</span>
-                          </a>
+                          </span>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
@@ -78,14 +79,14 @@ export function NavMain({
               <SidebarMenuButton asChild tooltip={item.title} className="h-10" 
               isActive={pathname === item.url}
               >
-                <a href={item.url}>
+                <span onClick={() => router.push(item.url)}>
                   {/* <item.icon /> */}
                   <img 
                     src={item.icon}
                     className="w-6 h-6"
                   />
                   <span>{item.title}</span>
-                </a>
+                </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )

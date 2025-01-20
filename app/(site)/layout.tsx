@@ -7,7 +7,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Globe, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -51,6 +51,8 @@ export default function SiteLayout({
 }) {
   const pathname = usePathname()
   const { role } = useUserStore()
+  const router = useRouter()
+
   const locationName: Record<string, string> = {
     '/': 'Dasbor',
     '/siswa': 'Master - Data Siswa',
@@ -64,7 +66,7 @@ export default function SiteLayout({
   }
 
   const handleLogout = () => {
-    window.location.href = "/login"
+    router.push("/login")
   }
 
   return (
