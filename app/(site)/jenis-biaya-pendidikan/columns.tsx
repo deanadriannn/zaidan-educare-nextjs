@@ -22,7 +22,7 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   {
     accessorKey: "namaTagihan",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Nama Tagihan</p>
       </div>
     ),
@@ -34,11 +34,19 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   },
   {
     accessorKey: "waktuPembayaran",
-    header: "Waktu Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Waktu Pembayaran</p>
+      </div>
+    ),
   },
   {
     accessorKey: "statusCicilan",
-    header: "Status Cicilan",
+    header: () => (
+      <div className="text-center">
+        <p>Status Cicilan</p>
+      </div>
+    ),
   },
   {
     id: "aksi",

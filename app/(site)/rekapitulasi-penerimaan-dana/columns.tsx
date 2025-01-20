@@ -7,7 +7,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "jenisPembayaran",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Jenis Pembayaran</p>
       </div>
     ),
@@ -20,7 +20,11 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "uangTunai",
-    header: "Uang Tunai",
+    header: () => (
+      <div className="text-center">
+        <p>Uang Tunai</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const uangTunai = parseFloat(row.getValue("uangTunai"))
       const formatted = formatToIDR(uangTunai)
@@ -31,7 +35,11 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "bsi",
-    header: "BSI  ",
+    header: () => (
+      <div className="text-center">
+        <p>BSI</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const bsi = parseFloat(row.getValue("bsi"))
       const formatted = formatToIDR(bsi)
@@ -42,7 +50,11 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "bankMandiri",
-    header: "Bank Mandiri",
+    header: () => (
+      <div className="text-center">
+        <p>Bank Mandiri</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const bankMandiri = parseFloat(row.getValue("bankMandiri"))
       const formatted = formatToIDR(bankMandiri)
@@ -53,7 +65,11 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "bjb",
-    header: "BJB",
+    header: () => (
+      <div className="text-center">
+        <p>BJB</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const bjb = parseFloat(row.getValue("bjb"))
       const formatted = formatToIDR(bjb)

@@ -23,7 +23,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   {
     accessorKey: "tanggalTransaksi",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Tanggal Transaksi</p>
       </div>
     ),
@@ -37,7 +37,11 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   },
   {
     accessorKey: "nis",
-    header: "NIS",
+    header: () => (
+      <div className="text-center">
+        <p>NIS</p>
+      </div>
+    ),
     cell: ({ row }) => (
       <div>
         <p>{row.original.nis}</p>
@@ -47,22 +51,38 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   },
   {
     accessorKey: "namaSiswa",
-    header: "Nama Siswa",
+    header: () => (
+      <div className="text-center">
+        <p>Nama Siswa</p>
+      </div>
+    ),
     size: 300,
   },
   {
     accessorKey: "kelas",
-    header: "Kelas",
+    header: () => (
+      <div className="text-center">
+        <p>Kelas</p>
+      </div>
+    ),
     size: 300
   },
   {
     accessorKey: "jenisPembayaran",
-    header: "Jenis Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Jenis Pembayaran</p>
+      </div>
+    ),
     size: 300
   },
   {
     accessorKey: "nominal",
-    header: "Nominal",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominal = parseFloat(row.getValue("nominal"))
       const formatted = formatToIDR(nominal)
@@ -73,7 +93,11 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   },
   {
     accessorKey: "metodePembayaran",
-    header: "Metode Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Metode Pembayaran</p>
+      </div>
+    ),
     size: 300
   },
   {

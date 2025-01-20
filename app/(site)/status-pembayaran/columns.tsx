@@ -8,7 +8,7 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
   {
     accessorKey: "nis",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>NIS</p>
       </div>
     ),
@@ -21,22 +21,38 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
   },
   {
     accessorKey: "namaSiswa",
-    header: "Nama Siswa",
+    header: () => (
+      <div className="text-center">
+        <p>Nama Siswa</p>
+      </div>
+    ),
     size: 200,
   },
   {
     accessorKey: "kelas",
-    header: "Kelas",
+    header: () => (
+      <div className="text-center">
+        <p>Kelas</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "jenisPembayaran",
-    header: "Jenis Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Jenis Pembayaran</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "nominalTagihan",
-    header: "Nominal Tagihan",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal Tagihan</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominalTagihan = parseFloat(row.getValue("nominalTagihan"))
       const formatted = formatToIDR(nominalTagihan)
@@ -47,12 +63,20 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
   },
   {
     accessorKey: "statusPembayaran",
-    header: "Status Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Status Pembayaran</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "nominalSudahDibayar",
-    header: "Nominal Sudah Dibayar",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal Sudah Dibayar</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominalSudahDibayar = parseFloat(row.getValue("nominalSudahDibayar"))
       const formatted = formatToIDR(nominalSudahDibayar)
@@ -63,7 +87,11 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
   },
   {
     accessorKey: "sisaTagihan",
-    header: "Sisa Tagihan",
+    header: () => (
+      <div className="text-center">
+        <p>Sisa Tagihan</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const sisaTagihan = parseFloat(row.getValue("sisaTagihan"))
       const formatted = formatToIDR(sisaTagihan)

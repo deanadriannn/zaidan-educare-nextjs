@@ -23,7 +23,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   {
     accessorKey: "nis",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>NIS</p>
       </div>
     ),
@@ -36,22 +36,38 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   },
   {
     accessorKey: "namaSiswa",
-    header: "Nama Siswa",
+    header: () => (
+      <div className="text-center">
+        <p>Nama Siswa</p>
+      </div>
+    ),
     size: 300,
   },
   {
     accessorKey: "kelas",
-    header: "Kelas",
+    header: () => (
+      <div className="text-center">
+        <p>Kelas</p>
+      </div>
+    ),
     size: 300
   },
   {
     accessorKey: "daftarTagihan",
-    header: "Daftar Tagihan",
+    header: () => (
+      <div className="text-center">
+        <p>Daftar Tagihan</p>
+      </div>
+    ),
     size: 300
   },
   {
     accessorKey: "nominalDpp",
-    header: "Nominal DPP",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal DPP</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominalDpp = parseFloat(row.getValue("nominalDpp"))
       const formatted = formatToIDR(nominalDpp)
@@ -62,7 +78,11 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   },
   {
     accessorKey: "nominalProgram",
-    header: "Nominal Program",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal Program</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominalProgram = parseFloat(row.getValue("nominalProgram"))
       const formatted = formatToIDR(nominalProgram)
@@ -73,7 +93,11 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   },
   {
     accessorKey: "nominalBulanan",
-    header: "Nominal Bulanan",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal Bulanan</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
       const formatted = formatToIDR(nominalBulanan)

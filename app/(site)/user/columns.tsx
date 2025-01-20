@@ -22,7 +22,7 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "username",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Username</p>
       </div>
     ),
@@ -34,11 +34,19 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "nama",
-    header: "Nama",
+    header: () => (
+      <div className="text-center">
+        <p>Nama</p>
+      </div>
+    ),
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: () => (
+      <div className="text-center">
+        <p>Role</p>
+      </div>
+    ),
   },
   {
     id: "aksi",

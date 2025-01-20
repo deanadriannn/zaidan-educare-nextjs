@@ -51,11 +51,11 @@ export default function LoginPage() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (values.username === "username1") {
+    if (values.username === "ketuayayasan") {
       setRole("Ketua Yayasan")
-    } else if (values.username === "username2") {
+    } else if (values.username === "bendahara") {
       setRole("Bendahara")
-    } else if (values.username === "username3") {
+    } else if (values.username === "administrator") {
       setRole("Administrator")
     }
     console.log(values)

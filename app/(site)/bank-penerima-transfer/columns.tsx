@@ -22,7 +22,7 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
   {
     accessorKey: "namaBank",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Nama Bank</p>
       </div>
     ),
@@ -34,11 +34,19 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
   },
   {
     accessorKey: "nomorRekening",
-    header: "Nomor Rekening",
+    header: () => (
+      <div className="text-center">
+        <p>Nomor Rekening</p>
+      </div>
+    ),
   },
   {
     accessorKey: "namaPemilikRekening",
-    header: "Nama Pemilik Rekening",
+    header: () => (
+      <div className="text-center">
+        <p>Nama Pemilik Rekening</p>
+      </div>
+    ),
   },
   {
     id: "aksi",

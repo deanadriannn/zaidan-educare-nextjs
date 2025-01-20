@@ -51,77 +51,137 @@ export const columns: ColumnDef<StudentInfo>[] = [
   },
   {
     accessorKey: "nis",
-    header: "NIS",
-    size: 200
+    header: () => (
+      <div className="text-center">
+        <p>NIS</p>
+      </div>
+    ),
+    size: 200,
   },
   {
     accessorKey: "nama",
-    header: "Nama",
+    header: () => (
+      <div className="text-center">
+        <p>Nama</p>
+      </div>
+    ),
     size: 200,
   },
   {
     accessorKey: "kelas",
-    header: "Kelas",
+    header: () => (
+      <div className="text-center">
+        <p>Kelas</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: () => (
+      <div className="text-center">
+        <p>Status</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "jenisKelamin",
-    header: "Jenis Kelamin",
+    header: () => (
+      <div className="text-center">
+        <p>Jenis Kelamin</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "tempatLahir",
-    header: "Tempat Lahir",
+    header: () => (
+      <div className="text-center">
+        <p>Tempat Lahir</p>
+      </div>
+    ),
     size: 200,
   },
   {
     accessorKey: "tanggalLahir",
-    header: "Tanggal Lahir",
+    header: () => (
+      <div className="text-center">
+        <p>Tanggal Lahir</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "alamatRumah",
-    header: "Alamat Rumah",
+    header: () => (
+      <div className="text-center">
+        <p>Alamat Rumah</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "tahunMasuk",
-    header: "Tahun Masuk",
+    header: () => (
+      <div className="text-center">
+        <p>Tahun Masuk</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "tahunKeluar",
-    header: "Tahun Keluar",
+    header: () => (
+      <div className="text-center">
+        <p>Tahun Keluar</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "namaWali",
-    header: "Nama Wali",
+    header: () => (
+      <div className="text-center">
+        <p>Nama Wali</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "hubungan",
-    header: "Hubungan Wali",
+    header: () => (
+      <div className="text-center">
+        <p>Hubungan Wali</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "jenisKelaminWali",
-    header: "Jenis Kelamin Wali",
+    header: () => (
+      <div className="text-center">
+        <p>Jenis Kelamin Wali</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "emailWali",
-    header: "Email Wali",
+    header: () => (
+      <div className="text-center">
+        <p>Email Wali</p>
+      </div>
+    ),
     size: 200
   },
   {
     accessorKey: "nomorTeleponWali",
-    header: "Nomor Telepon Wali",
+    header: () => (
+      <div className="text-center">
+        <p>Nomor Telepon Wali</p>
+      </div>
+    ),
     size: 200
   },
   {
