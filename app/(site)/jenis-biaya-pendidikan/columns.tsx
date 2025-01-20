@@ -39,6 +39,11 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
         <p>Waktu Pembayaran</p>
       </div>
     ),
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.waktuPembayaran}</p>
+      </div>
+    )
   },
   {
     accessorKey: "statusCicilan",
@@ -47,6 +52,11 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
         <p>Status Cicilan</p>
       </div>
     ),
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.statusCicilan}</p>
+      </div>
+    )
   },
   {
     id: "aksi",

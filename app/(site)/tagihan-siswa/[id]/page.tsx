@@ -37,7 +37,7 @@ const columns: ColumnDef<PaymentInfo>[] = [
   {
     accessorKey: "jenisPembayaran",
     header: () => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>Jenis Pembayaran</p>
       </div>
     ),
@@ -51,10 +51,14 @@ const columns: ColumnDef<PaymentInfo>[] = [
   },
   {
     accessorKey: "waktuPembayaran",
-    header: "Waktu Pembayaran",
+    header: () => (
+      <div className="text-center">
+        <p>Waktu Pembayaran</p>
+      </div>
+    ),
     cell: ({ row }) => {
       return (
-        <div>
+        <div className="text-center">
           <p>{row.original.waktuPembayaran}</p>
         </div>
       )
@@ -62,10 +66,14 @@ const columns: ColumnDef<PaymentInfo>[] = [
   },
   {
     accessorKey: "statusCicilan",
-    header: "Status Cicilan",
+    header: () => (
+      <div className="text-center">
+        <p>Status Cicilan</p>
+      </div>
+    ),
     cell: ({ row }) => {
       return (
-        <div>
+        <div className="text-center">
           <p>{row.original.statusCicilan}</p>
         </div>
       )
@@ -73,7 +81,11 @@ const columns: ColumnDef<PaymentInfo>[] = [
   },
   {
     accessorKey: "nominal",
-    header: "Nominal",
+    header: () => (
+      <div className="text-center">
+        <p>Nominal</p>
+      </div>
+    ),
     cell: ({ row }) => {
       const nominal = parseFloat(row.getValue("nominal"))
       const formatted = formatToIDR(nominal)
