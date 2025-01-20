@@ -119,11 +119,12 @@ export function DatePicker({
           selected={value}
           onSelect={(date) => {
             onChange?.(date)
-            setOpen(false) // Tutup popover setelah user pilih tanggal
+            setOpen(false) 
           }}
           disabled={(date) => date < minDate || date > maxDate}
           initialFocus
           month={date}
+          onMonthChange={setDate}
         />
       </PopoverContent>
     </Popover>
