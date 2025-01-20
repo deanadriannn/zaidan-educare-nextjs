@@ -90,6 +90,16 @@ export const columns: ColumnDef<StudentInfo>[] = [
     size: 200
   },
   {
+    accessorKey: "tahunMasuk",
+    header: "Tahun Masuk",
+    size: 200
+  },
+  {
+    accessorKey: "tahunKeluar",
+    header: "Tahun Keluar",
+    size: 200
+  },
+  {
     accessorKey: "namaWali",
     header: "Nama Wali",
     size: 200
@@ -114,11 +124,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
     header: "Nomor Telepon Wali",
     size: 200
   },
-  // {
-  //   accessorKey: "foto",
-  //   header: "Foto",
-  //   size: 300
-  // },
   {
     id: "aksi",
     header: () => (

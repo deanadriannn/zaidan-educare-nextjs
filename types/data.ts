@@ -17,6 +17,7 @@ export type StudentInfo = {
   tempatLahir: string
   tanggalLahir: string
   tahunMasuk: string
+  tahunKeluar: string
   alamatRumah: string
   namaWali: string
   hubungan: string

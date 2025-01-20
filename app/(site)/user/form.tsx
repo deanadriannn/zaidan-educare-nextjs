@@ -5,7 +5,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
-import { ArrowLeft, CircleX, Save } from "lucide-react"
+import { ArrowLeft, CircleX, Eye, EyeOff, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -18,6 +18,8 @@ import {
 import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const userSchema = z.object({
   nama: z.string().min(1, "Nama wajib diisi"),
@@ -35,6 +37,7 @@ type UserFormValues = z.infer<typeof userSchema>
 export default function UserForm() {
   const router = useRouter()
   const pathname = usePathname()
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const isEdit = pathname.includes("edit")
 
@@ -44,7 +47,7 @@ export default function UserForm() {
       nama: isEdit ? "John Doe" : "",
       foto: undefined,
       username: isEdit ? "johndoe" : "",
-      password: isEdit ? "password" : "",
+      password: "",
       role: isEdit ? "ketua_yayasan" : undefined,
     },
   })
@@ -161,10 +164,38 @@ export default function UserForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Password <span className="text-destructive">*</span>
+                      Password {isEdit ? "Baru" : <span className="text-destructive">*</span>}
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Password" {...field} type="password" />
+                      <div className="relative">
+                        <Input 
+                          placeholder={`Masukkan Password ${isEdit && "Baru"}`} {...field} 
+                          type={showPassword ? "text" : "password"}
+                        />
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button 
+                                variant="ghost" 
+                                size="icon" 
+                                className="absolute right-0 top-1/2 transform -translate-y-1/2 p-0 h-14 w-14 hover:bg-transparent"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                type="button"
+                              >
+                                {showPassword ? 
+                                  <EyeOff /> : 
+                                  <Eye />
+                                }
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>
+                                {showPassword ? "Sembunyikan" : "Tampilkan"} password
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -22,7 +22,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "2",
@@ -40,7 +41,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "3",
@@ -58,7 +60,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "4",
@@ -76,7 +79,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "5",
@@ -94,7 +98,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "6",
@@ -112,7 +117,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "7",
@@ -130,7 +136,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "8",
@@ -148,7 +155,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "9",
@@ -166,7 +174,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "10",
@@ -184,7 +193,8 @@ export const siswaData: StudentInfo[] = [
     status: "Aktif",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "11",
@@ -202,7 +212,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
   {
     id: "12",
@@ -220,7 +231,8 @@ export const siswaData: StudentInfo[] = [
     emailWali: "email@example.com",
     nomorTeleponWali: "08123456789",
     foto: "",
-    tahunMasuk: "2019"
+    tahunMasuk: "2019",
+    tahunKeluar: "2025"
   },
 ]
 

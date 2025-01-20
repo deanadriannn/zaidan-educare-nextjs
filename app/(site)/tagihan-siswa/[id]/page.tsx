@@ -1,18 +1,8 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Plus, Search } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/data-table";
@@ -155,27 +145,21 @@ export default function TagihanSiswaPage() {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 font-spartan px-0">
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-2 font-normal text-lg">
-          <p className="col-span-1">Nama Siswa</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nama}</p>
-          <p className="col-span-1">Kelas</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].kelas}</p>
+        <div className="flex flex-col gap-4 font-normal text-lg">
+          {/* Bagian Judul */}
+          <h1 className="font-extrabold text-xl">Biodata Siswa</h1>
+
+          {/* Loop Data */}
+          {Object.entries(exampleData['biodata']).map(([key, value]) => (
+            <div key={key} className="flex flex-wrap gap-4">
+              <p className="flex-none w-1/3 font-semibold capitalize">
+                {key.replace(/([A-Z])/g, " $1")} {/* Format key menjadi lebih rapi */}
+              </p>
+              <p className="flex-1">{value}</p>
+            </div>
+          ))}
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-2 font-normal text-lg mt-2">
-          <h1 className="font-extrabold text-xl col-span-2 lg:col-span-3 xl:col-span-4">Biodata Siswa</h1>
-          <p className="col-span-1">NIS</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nis}</p>
-          <p className="col-span-1">Tahun Masuk</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].tahunMasuk}</p>
-          <p className="col-span-1">Nama Wali</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].namaWali}</p>
-          <p className="col-span-1">Hubungan Wali</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].hubunganWali}</p>
-          <p className="col-span-1">Email Wali</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].emailWali}</p>
-          <p className="col-span-1">Nomor Telepon Wali</p>
-          <p className="col-span-1 lg:col-span-2 xl:col-span-3">{exampleData['biodata'].nomorTeleponWali}</p>
-        </div>
+
         <div className="font-normal text-lg mt-2">
           <h1 className="font-extrabold text-xl mb-2">Daftar Tagihan</h1>
           <DataTable 
