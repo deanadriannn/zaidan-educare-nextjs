@@ -449,10 +449,10 @@ export default function PenerimaanDanaForm() {
             <table className="w-full border text-left text-sm">
               <thead>
                 <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2">Jenis Pembayaran</th>
-                  <th className="p-2">Waktu Pembayaran</th>
-                  <th className="p-2">Status Cicilan</th>
-                  <th className="p-2">Nominal</th>
+                  <th className="p-2 text-center">Jenis Pembayaran</th>
+                  <th className="p-2 text-center">Waktu Pembayaran</th>
+                  <th className="p-2 text-center">Status Cicilan</th>
+                  <th className="p-2 text-center">Nominal</th>
                 </tr>
               </thead>
               <tbody>
@@ -460,18 +460,17 @@ export default function PenerimaanDanaForm() {
                   const formatted = formatToIDR(item.nominal)
                   return (
                     <tr key={index} className="border-b">
-                      {/* Pilih Jenis Pembayaran */}
                       <td className="p-2">
                         {item.jenisPembayaran ? item.jenisPembayaran : "-"}
                       </td>
   
                       {/* Waktu Pembayaran (read-only) */}
-                      <td className="p-2">
+                      <td className="p-2 text-center">
                         {item.waktuPembayaran ? item.waktuPembayaran : "-"}
                       </td>
   
                       {/* Status Cicilan (read-only) */}
-                      <td className="p-2">
+                      <td className="p-2 text-center">
                         {item.statusCicilan ? item.statusCicilan : "-"}
                       </td>
   
@@ -513,12 +512,12 @@ export default function PenerimaanDanaForm() {
             <table className="w-full border text-left text-sm">
               <thead>
                 <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2">Jenis Pembayaran</th>
-                  <th className="p-2">Waktu Pembayaran</th>
-                  <th className="p-2">Status Cicilan</th>
-                  <th className="p-2">Nominal</th>
-                  <th className="p-2">Metode Pembayaran</th>
-                  <th className="p-2">Nama Bank</th>
+                  <th className="p-2 text-center">Jenis Pembayaran</th>
+                  <th className="p-2 text-center">Waktu Pembayaran</th>
+                  <th className="p-2 text-center">Status Cicilan</th>
+                  <th className="p-2 text-center">Nominal</th>
+                  <th className="p-2 text-center">Metode Pembayaran</th>
+                  <th className="p-2 text-center">Nama Bank</th>
                   <th className="p-2 text-center sticky right-0 z-10">Aksi</th>
                 </tr>
               </thead>
@@ -551,12 +550,12 @@ export default function PenerimaanDanaForm() {
                     </td>
 
                     {/* Waktu Pembayaran (read-only) */}
-                    <td className="p-2">
+                    <td className="p-2 text-center">
                       {item.waktuPembayaran ? item.waktuPembayaran : "-"}
                     </td>
 
                     {/* Status Cicilan (read-only) */}
-                    <td className="p-2">
+                    <td className="p-2 text-center">
                       {item.statusCicilan ? item.statusCicilan : "-"}
                     </td>
 

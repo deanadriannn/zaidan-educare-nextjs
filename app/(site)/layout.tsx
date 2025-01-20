@@ -60,9 +60,10 @@ export default function SiteLayout({
     '/jenis-biaya-pendidikan': 'Master - Data Jenis Biaya Pendidikan',
     '/bank-penerima-transfer': 'Master - Data Bank Penerima Transfer',
     '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan',
-    '/penerimaan-dana': 'Penerimaan Dana',
-    '/pengaturan-notifikasi-penagihan': 'Pengaturan Notifikasi Penagihan',
+    '/penerimaan-dana': 'Pengelolaan Data Pencatatan Pembayaran Biaya Dana Pendidikan',
+    '/pengaturan-notifikasi-penagihan': 'Pengaturan Pengiriman Notifikasi Pengingat Pembayaran',
     '/rekapitulasi-penerimaan-dana': 'Rekapitulasi Pembayaran Biaya Pendidikan',
+    '/status-pembayaran': 'Informasi Status Pembayaran Siswa'
   }
 
   const handleLogout = () => {
@@ -80,11 +81,11 @@ export default function SiteLayout({
               className="md:mx-4 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear 
                 group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12"
             >
-              <div className='flex justify-between items-center w-full bg-white h-full rounded-xl px-4'>
-                <div className="flex items-center gap-2">
+              <div className='flex justify-between items-center w-full bg-white h-full rounded-xl px-4 gap-4'>
+                <div className="flex items-center gap-2 flex-1">
                   <SidebarTrigger className="-ml-1" />
                   <Separator orientation="vertical" className="mr-2 h-4" />
-                  <h1 className="text-sm md:text-lg font-semibold hidden md:block">
+                  <h1 className="text-sm md:text-lg font-semibold hidden md:block text-wrap">
                     {Object.keys(locationName)
                       .sort((a, b) => b.length - a.length) // Prioritaskan rute dengan panjang terpanjang
                       .find((key) => pathname.startsWith(key)) // Cari rute yang cocok berdasarkan awalan
