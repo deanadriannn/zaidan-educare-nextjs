@@ -34,6 +34,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns"
+import { useRouter } from "next/navigation";
 
 const data: PenerimaanDanaColumns[] = [
   {
@@ -74,6 +75,7 @@ export default function TagihanSiswaPage() {
   const [kelas, setKelas] = useState('')
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [tanggalTransaksi, setTanggalTransaksi] = useState<Date | undefined>()
+  const router = useRouter()
 
   const handleFilter = (e: any) => {
     e.preventDefault()
@@ -181,7 +183,7 @@ export default function TagihanSiswaPage() {
             <FileUp /> Impor Data
           </Button>
           <Button 
-            onClick={() => window.location.href = '/penerimaan-dana/input'}
+            onClick={() => router.push('/penerimaan-dana/input')}
             variant="primary-red"
             className="w-full md:w-fit"
           >

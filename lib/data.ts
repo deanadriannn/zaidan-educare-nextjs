@@ -376,6 +376,49 @@ export const statusPembayaranData = [
   }
 ]
 
+export const rekapitulasiPenerimaanDanaData = [
+  {
+    id: '1',
+    jenisPembayaran: 'DPP',
+    uangTunai: 10000000,
+    bsi: 5000000,
+    bankMandiri: 2000000,
+    bjb: 60000000
+  },
+  {
+    id: '2',
+    jenisPembayaran: 'Uang Gedung',
+    uangTunai: 10000000,
+    bsi: 5000000,
+    bankMandiri: 2000000,
+    bjb: 90000000
+  },
+  {
+    id: '3',
+    jenisPembayaran: 'Uang Pangkal',
+    uangTunai: 10000000,
+    bsi: 5000000,
+    bankMandiri: 2000000,
+    bjb: 4000000
+  },
+  {
+    id: '4',
+    jenisPembayaran: 'Uang Kegiatan',
+    uangTunai: 10000000,
+    bsi: 5000000,
+    bankMandiri: 2000000,
+    bjb: 3000000
+  },
+  {
+    id: '5',
+    jenisPembayaran: 'Uang Seragam',
+    uangTunai: 10000000,
+    bsi: 5000000,
+    bankMandiri: 2000000,
+    bjb: 70000000
+  }
+]
+
 export const pesanNotifikasiPenagihan = [
   {
     id: '1',

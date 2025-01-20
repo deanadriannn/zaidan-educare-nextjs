@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
-import { StudentInfo } from "@/types/data";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -17,12 +16,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { kelasSelectOptions, siswaData } from "@/lib/data";
+import { useRouter } from "next/navigation";
 
 export default function StudentPage() {
   const [name, setName] = useState('')
   const [nis, setNis] = useState('')
   const [kelas, setKelas] = useState('')
-
+  const router = useRouter()
 
   const handleFilter = (e: any) => {
     e.preventDefault()
@@ -100,7 +100,7 @@ export default function StudentPage() {
             <FileUp /> Impor Data
           </Button>
           <Button 
-            onClick={() => window.location.href = '/siswa/input'}
+            onClick={() => router.push('/siswa/input')}
             variant="primary-red"
           >
             <Plus /> Tambah

@@ -7,22 +7,33 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FileDown, Plus, Search } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData, tagihanSiswaData } from "@/lib/data";
+import { FileDown, Search } from "lucide-react";
+import { rekapitulasiPenerimaanDanaData } from "@/lib/data";
 
 export default function RekapitulasiPenerimaanDanaPage() {
-  const [tahunAjaranStart, setTahunAjaranStart] = useState('')
+  const [tahunAjaranStart, setTahunAjaranStart] = useState("")
+  const [tahunAjaranEnd, setTahunAjaranEnd] = useState("")
+
+  // Fungsi untuk memfilter input
+  function handleTahunAjaranStartChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let val = e.target.value
+    val = val.replace(/\D/g, "")
+    val = val.replace(/^0+/, "")
+    setTahunAjaranStart(val)
+  }
+
+  function handleTahunAjaranEndChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let val = e.target.value
+    val = val.replace(/\D/g, "")
+    val = val.replace(/^0+/, "")
+    setTahunAjaranEnd(val)
+  }
 
   const handleFilter = (e: any) => {
     e.preventDefault()
-    console.log('Filtering')
+    const startNum = parseInt(tahunAjaranStart, 10) || 0
+    const endNum = parseInt(tahunAjaranEnd, 10) || 0
+    console.log("Nilai start:", startNum, "end:", endNum)
   }
   
   return (
@@ -40,15 +51,15 @@ export default function RekapitulasiPenerimaanDanaPage() {
                   id="tahunAjaranStart"
                   type="text"
                   value={tahunAjaranStart}
-                  onChange={(e) => setTahunAjaranStart(e.target.value)}
+                  onChange={handleTahunAjaranStartChange}
                   placeholder="Masukkan Tahun Ajaran"
                 />
                 <p>/</p>
                 <Input
                   id="tahunAjaranStart"
                   type="text"
-                  value={tahunAjaranStart}
-                  onChange={(e) => setTahunAjaranStart(e.target.value)}
+                  value={tahunAjaranEnd}
+                  onChange={handleTahunAjaranEndChange}
                   placeholder="Masukkan Tahun Ajaran"
                 />
               </div>
@@ -70,8 +81,63 @@ export default function RekapitulasiPenerimaanDanaPage() {
             <FileDown /> Unduh
           </Button>
         </CardContent>
+        <span className="mx-6 font-bold text-muted-foreground">
+          Ringkasan Data Penerimaan Biaya Pendidikan
+        </span>
+        <div className="mx-6 flex flex-col justify-between items-start gap-4">
+          <div className="flex justify-start items-start gap-8 w-full">
+            {/* Kolom Jenis Pembayaran */}
+            <div className="flex flex-col gap-2">
+              <span className="font-bold">Jenis Pembayaran</span>
+              {rekapitulasiPenerimaanDanaData.map((data) => (
+                <span key={data.id}>{data.jenisPembayaran}</span>
+              ))}
+            </div>
+
+            {/* Kolom Total Dana */}
+            <div className="flex flex-col gap-2">
+              <span className="font-bold">Total Dana</span>
+              {rekapitulasiPenerimaanDanaData.map((data) => {
+                // Hitung total semua properti kecuali `id` dan `jenisPembayaran`
+                const totalPerJenis = Object.entries(data)
+                  .filter(([key]) => key !== "id" && key !== "jenisPembayaran")
+                  // @ts-ignore
+                  .reduce((sum, [, value]) => sum + value, 0);
+
+                return (
+                  <span key={data.id}>
+                    Rp {totalPerJenis.toLocaleString("id-ID")}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Kolom Total Dana Terkumpul */}
+          <div className="flex flex-col gap-2">
+            <span className="font-bold">Total Dana Terkumpul</span>
+            <span className="font-bold text-green-600">
+              Rp{" "}
+              {rekapitulasiPenerimaanDanaData.reduce((acc, data) => {
+                // Hitung total keseluruhan
+                const totalPerJenis = Object.entries(data)
+                  .filter(([key]) => key !== "id" && key !== "jenisPembayaran")
+                  // @ts-ignore
+                  .reduce((sum, [, value]) => sum + value, 0);
+
+                return acc + totalPerJenis;
+              }, 0).toLocaleString("id-ID")}
+            </span>
+          </div>
+        </div>
+
+        <span 
+          className="mx-6 font-bold text-muted-foreground mt-4"
+        >
+          Detail Data
+        </span>
         {/* @ts-ignore */}
-        <DataTable columns={columns} data={statusPembayaranData} />
+        <DataTable columns={columns} data={rekapitulasiPenerimaanDanaData} />
       </Card>
     </>
   )

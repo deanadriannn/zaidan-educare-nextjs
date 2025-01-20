@@ -1,72 +1,62 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { StatusPembayaranColumns } from "@/types/data"
 import { formatToIDR } from "@/lib/utils"
 
-export const columns: ColumnDef<StatusPembayaranColumns>[] = [
+export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: "nis",
+    accessorKey: "jenisPembayaran",
     header: () => (
       <div className="pl-4">
-        <p>NIS</p>
+        <p>Jenis Pembayaran</p>
       </div>
     ),
     cell: ({ row }) => (
       <div className="pl-4">
-        <p>{row.original.nis}</p>
+        <p>{row.original.jenisPembayaran}</p>
       </div>
     ),
     size: 200
   },
   {
-    accessorKey: "namaSiswa",
-    header: "Nama Siswa",
-    size: 200,
-  },
-  {
-    accessorKey: "kelas",
-    header: "Kelas",
-    size: 200
-  },
-  {
-    accessorKey: "jenisPembayaran",
-    header: "Jenis Pembayaran",
-    size: 200
-  },
-  {
-    accessorKey: "nominalTagihan",
-    header: "Nominal Tagihan",
+    accessorKey: "uangTunai",
+    header: "Uang Tunai",
     cell: ({ row }) => {
-      const nominalTagihan = parseFloat(row.getValue("nominalTagihan"))
-      const formatted = formatToIDR(nominalTagihan)
+      const uangTunai = parseFloat(row.getValue("uangTunai"))
+      const formatted = formatToIDR(uangTunai)
  
       return <div className="font-medium">{formatted}</div>
     },
     size: 200
   },
   {
-    accessorKey: "statusPembayaran",
-    header: "Status Pembayaran",
-    size: 200
-  },
-  {
-    accessorKey: "nominalSudahDibayar",
-    header: "Nominal Sudah Dibayar",
+    accessorKey: "bsi",
+    header: "BSI  ",
     cell: ({ row }) => {
-      const nominalSudahDibayar = parseFloat(row.getValue("nominalSudahDibayar"))
-      const formatted = formatToIDR(nominalSudahDibayar)
+      const bsi = parseFloat(row.getValue("bsi"))
+      const formatted = formatToIDR(bsi)
  
       return <div className="font-medium">{formatted}</div>
     },
     size: 200
   },
   {
-    accessorKey: "sisaTagihan",
-    header: "Sisa Tagihan",
+    accessorKey: "bankMandiri",
+    header: "Bank Mandiri",
     cell: ({ row }) => {
-      const sisaTagihan = parseFloat(row.getValue("sisaTagihan"))
-      const formatted = formatToIDR(sisaTagihan)
+      const bankMandiri = parseFloat(row.getValue("bankMandiri"))
+      const formatted = formatToIDR(bankMandiri)
+ 
+      return <div className="font-medium">{formatted}</div>
+    },
+    size: 200
+  },
+  {
+    accessorKey: "bjb",
+    header: "BJB",
+    cell: ({ row }) => {
+      const bjb = parseFloat(row.getValue("bjb"))
+      const formatted = formatToIDR(bjb)
  
       return <div className="font-medium">{formatted}</div>
     },
