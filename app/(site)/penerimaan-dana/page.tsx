@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, FileDown, FileUp, Plus, Search } from "lucide-react";
+import { FileDown, FileUp, Plus, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -26,15 +26,8 @@ import {
   jenisPembayaranSelectOptions, 
   kelasSelectOptions 
 } from "@/lib/data";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns"
 import { useRouter } from "next/navigation";
+import { DatePicker } from "@/components/date-picker";
 
 const data: PenerimaanDanaColumns[] = [
   {
@@ -132,35 +125,13 @@ export default function TagihanSiswaPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Tanggal Transaksi</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full pl-3 text-left font-normal",
-                      !tanggalTransaksi && "text-muted-foreground"
-                    )}
-                  >
-                    {tanggalTransaksi ? (
-                      format(tanggalTransaksi, "PPP")
-                    ) : (
-                      <span>Masukkan tanggal transaksi</span>
-                    )}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={tanggalTransaksi}
-                    onSelect={(date) => setTanggalTransaksi(date)}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <DatePicker
+                value={tanggalTransaksi || undefined}
+                onChange={(date) => setTanggalTransaksi(date || undefined)}
+                minDate={new Date("1900-01-01")}
+                maxDate={new Date()}
+                placeholder="Pilih Tanggal Transaksi"
+              />
             </div>
             <div className="w-full hidden md:flex flex-col space-y-2"></div>
           </CardContent>

@@ -1,16 +1,14 @@
 "use client";
 
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
+import { ArrowLeft, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader } from "@/components/ui/card"
-import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
   PopoverContent,
@@ -29,7 +27,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { format } from "date-fns";
+import { DatePicker } from "@/components/date-picker";
 
 type penerimaanDanaFormValues = z.infer<typeof penerimaanDanaSchema>
 
@@ -309,7 +307,7 @@ export default function PenerimaanDanaForm() {
                               variant="outline"
                               role="combobox"
                               className={cn(
-                                "w-full md:w-[200px] justify-between",
+                                "w-full justify-between",
                                 !field.value && "text-muted-foreground"
                               )}
                             >
@@ -322,7 +320,7 @@ export default function PenerimaanDanaForm() {
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
+                        <PopoverContent className="popover-content-width-full p-0">
                           <Command>
                             <CommandInput
                               placeholder="Cari nama siswa..."
@@ -401,37 +399,15 @@ export default function PenerimaanDanaForm() {
                     >
                       Tanggal Transaksi <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full md:w-[200px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Masukkan tanggal lahir</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <FormControl>
+                      <DatePicker
+                        value={field.value || undefined}
+                        onChange={(date) => field.onChange(date || null)}
+                        minDate={new Date("1900-01-01")}
+                        maxDate={new Date()}
+                        placeholder="Pilih Tanggal Transaksi"
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )

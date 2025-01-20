@@ -2,13 +2,12 @@
 
 import { useCallback, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { format } from "date-fns"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, CalendarIcon, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
+import { ArrowLeft, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -20,16 +19,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Card, CardHeader } from "@/components/ui/card"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { DatePicker } from "@/components/date-picker";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -229,7 +223,7 @@ export default function StudentForm() {
                         "text-lg font-bold"
                       )}
                     >
-                      Jenis Kelamin <span className="text-destructive">*</span>
+                      Jenis Kelamin
                     </FormLabel>
                     <FormControl>
                       <RadioGroup
@@ -351,37 +345,15 @@ export default function StudentForm() {
                     >
                       Tanggal Lahir
                     </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Masukkan tanggal lahir</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <FormControl>
+                      <DatePicker
+                        value={field.value || undefined}
+                        onChange={(date) => field.onChange(date || null)}
+                        minDate={new Date("1900-01-01")}
+                        maxDate={new Date()}
+                        placeholder="Pilih Tanggal Lahir"
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )
@@ -433,37 +405,15 @@ export default function StudentForm() {
                     >
                       Tahun Masuk <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Masukkan tahun masuk</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <FormControl>
+                      <DatePicker
+                        value={field.value || undefined}
+                        onChange={(date) => field.onChange(date || null)}
+                        minDate={new Date("1900-01-01")}
+                        maxDate={new Date()}
+                        placeholder="Pilih Tahun Masuk"
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )

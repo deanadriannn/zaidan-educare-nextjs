@@ -4,9 +4,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, FileDown, Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -14,15 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData, tagihanSiswaData } from "@/lib/data";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
+import { jenisPembayaranSelectOptions } from "@/lib/data";
+import { DatePicker } from "@/components/date-picker";
 
 export default function StatusPembayaranPage() {
-  const [name, setName] = useState('')
-  const [kelas, setKelas] = useState('')
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [bulanStart, setBulanStart] = useState<Date | undefined>()
   const [bulanEnd, setBulanEnd] = useState<Date | undefined>()
@@ -30,7 +24,7 @@ export default function StatusPembayaranPage() {
   const handleFilter = (e: any) => {
     e.preventDefault()
     console.log('Filtering')
-    console.log(name, kelas, jenisPembayaran)
+    console.log(bulanStart, bulanEnd, jenisPembayaran)
   }
   
   return (
@@ -43,67 +37,23 @@ export default function StatusPembayaranPage() {
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="nama" className="text-md">Bulan dari</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full pl-3 text-left font-normal",
-                      !bulanStart && "text-muted-foreground"
-                    )}
-                  >
-                    {bulanStart ? (
-                      format(bulanStart, "PPP")
-                    ) : (
-                      <span>Tanggal</span>
-                    )}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={bulanStart}
-                    onSelect={(date) => setBulanStart(date)}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <DatePicker
+                value={bulanStart || undefined}
+                onChange={(date) => setBulanStart(date || undefined)}
+                minDate={new Date("1900-01-01")}
+                maxDate={new Date()}
+                placeholder="Pilih Bulan"
+              />
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Sampai Bulan</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full pl-3 text-left font-normal",
-                      !bulanEnd && "text-muted-foreground"
-                    )}
-                  >
-                    {bulanEnd ? (
-                      format(bulanEnd, "PPP")
-                    ) : (
-                      <span>Tanggal</span>
-                    )}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={bulanEnd}
-                    onSelect={(date) => setBulanEnd(date)}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              <DatePicker
+                value={bulanEnd || undefined}
+                onChange={(date) => setBulanEnd(date || undefined)}
+                minDate={new Date("1900-01-01")}
+                maxDate={new Date()}
+                placeholder="Pilih Bulan"
+              />
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
