@@ -28,38 +28,108 @@ import {
 } from "@/lib/data";
 import { useRouter } from "next/navigation";
 import { DatePicker } from "@/components/date-picker";
+import { UploadFileDialog } from "@/components/upload-file-dialog";
 
 const data: PenerimaanDanaColumns[] = [
   {
     id: '1',
-    tanggalTransaksi: new Date('2024-12-06'),
-    nis: '123456789',
-    namaSiswa: 'John Doe',
-    kelas: '1-A',
-    jenisPembayaran: 'SPP Januari 2022',
-    nominal: 1000000,
-    metodePembayaran: 'Transfer'
+    tanggalTransaksi: new Date('2025-01-01'),
+    nis: '12152089',
+    namaSiswa: 'Nadin Kumala',
+    kelas: '6A',
+    jenisPembayaran: 'DPP',
+    nominal: 15000000,
+    metodePembayaran: 'Transfer (BSI)'
   },
-  // buat 3 data lagi
   {
     id: '2',
-    tanggalTransaksi: new Date('2024-10-06'),
-    nis: '123456789',
-    namaSiswa: 'Jane Doe',
-    kelas: '4-B',
-    jenisPembayaran: 'SPP Februari 2022',
-    nominal: 2000000,
-    metodePembayaran: 'Tunai'
+    tanggalTransaksi: new Date('2025-01-05'),
+    nis: '12152012',
+    namaSiswa: 'Tara Prasetyo',
+    kelas: '6A',
+    jenisPembayaran: 'SPP Februari',
+    nominal: 600000,
+    metodePembayaran: 'Transfer (Mandiri)'
   },
   {
     id: '3',
-    tanggalTransaksi: new Date('2024-11-27'),
-    nis: '123456789',
-    namaSiswa: 'Alex',
-    kelas: '2-C',
-    jenisPembayaran: 'SPP Maret 2021',
-    nominal: 3000000,
-    metodePembayaran: 'Transfer'
+    tanggalTransaksi: new Date('2025-01-05'),
+    nis: '13152029',
+    namaSiswa: 'Siti Andini',
+    kelas: '3A',
+    jenisPembayaran: 'SPP Januari',
+    nominal: 600000,
+    metodePembayaran: 'Tunai'
+  },
+  {
+    id: '4',
+    tanggalTransaksi: new Date('2025-01-05'),
+    nis: '13152089',
+    namaSiswa: 'Rizki Anugrah',
+    kelas: '3A',
+    jenisPembayaran: 'Makan Siang',
+    nominal: 200000,
+    metodePembayaran: 'Tunai'
+  },
+  {
+    id: '5',
+    tanggalTransaksi: new Date('2025-01-05'),
+    nis: '14152089',
+    namaSiswa: 'Reza Hakim',
+    kelas: '2A',
+    jenisPembayaran: 'Jemputan',
+    nominal: 150000,
+    metodePembayaran: 'Tunai'
+  },
+  {
+    id: '6',
+    tanggalTransaksi: new Date('2025-01-10'),
+    nis: '12158081',
+    namaSiswa: 'Dinda Kania',
+    kelas: '4A',
+    jenisPembayaran: 'SPP Desember 2024',
+    nominal: 600000,
+    metodePembayaran: 'Transfer (BJB)'
+  },
+  {
+    id: '7',
+    tanggalTransaksi: new Date('2025-01-13'),
+    nis: '12152193',
+    namaSiswa: 'Roni Budiman',
+    kelas: '4A',
+    jenisPembayaran: 'DPP',
+    nominal: 15000000,
+    metodePembayaran: 'Transfer (BSI)'
+  },
+  {
+    id: '8',
+    tanggalTransaksi: new Date('2025-01-13'),
+    nis: '13152017',
+    namaSiswa: 'Indah Amanda',
+    kelas: '3A',
+    jenisPembayaran: 'SPP Februari',
+    nominal: 600000,
+    metodePembayaran: 'Transfer (Mandiri)'
+  },
+  {
+    id: '9',
+    tanggalTransaksi: new Date('2025-01-15'),
+    nis: '13152038',
+    namaSiswa: 'Ahmad Ihsan',
+    kelas: '3A',
+    jenisPembayaran: 'Makan Siang',
+    nominal: 200000,
+    metodePembayaran: 'Tunai'
+  },
+  {
+    id: '10',
+    tanggalTransaksi: new Date('2025-01-15'),
+    nis: '14152071',
+    namaSiswa: 'Alam Fajrin',
+    kelas: '2A',
+    jenisPembayaran: 'Jemputan',
+    nominal: 150000,
+    metodePembayaran: 'Tunai'
   },
 ]
 
@@ -80,7 +150,7 @@ export default function TagihanSiswaPage() {
     <>
       <Card className="md:mx-4 mt-4">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">Filters</CardTitle>
+          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
         </CardHeader>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:grid md:grid-cols-2 justify-center items-center gap-4">
@@ -98,19 +168,6 @@ export default function TagihanSiswaPage() {
               </div>
             </div>
             <div className="w-full flex flex-col space-y-2">
-              <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Semua Kelas" />
-                </SelectTrigger>
-                <SelectContent>
-                  {kelasSelectOptions.map((option) => (
-                    <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
               <Select onValueChange={(value) => setJenisPembayaran(value)}>
                 <SelectTrigger>
@@ -118,6 +175,19 @@ export default function TagihanSiswaPage() {
                 </SelectTrigger>
                 <SelectContent>
                   {jenisPembayaranSelectOptions.map((option) => (
+                    <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-full flex flex-col space-y-2">
+              <Label htmlFor="kelas" className="text-md">Kelas</Label>
+              <Select onValueChange={(value) => setKelas(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Semua Kelas" />
+                </SelectTrigger>
+                <SelectContent>
+                  {kelasSelectOptions.map((option) => (
                     <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -136,7 +206,7 @@ export default function TagihanSiswaPage() {
             <div className="w-full hidden md:flex flex-col space-y-2"></div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
               RESET
             </Button>
             <Button type="submit" variant="primary-red" className="w-full md:w-fit">
@@ -150,9 +220,13 @@ export default function TagihanSiswaPage() {
           <Button variant="primary-red">
             <FileDown /> Unduh Template Import
           </Button>
-          <Button variant="primary-red">
-            <FileUp /> Impor Data
-          </Button>
+          <UploadFileDialog
+            title="Import Data Transaksi Pembayaran"
+          >
+            <Button variant="primary-red">
+              <FileUp /> Impor Data
+            </Button>
+          </UploadFileDialog>
           <Button 
             onClick={() => router.push('/penerimaan-dana/input')}
             variant="primary-red"

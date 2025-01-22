@@ -113,13 +113,13 @@ const exampleData: Student = {
     {
       jenisPembayaran: "DPP",
       waktuPembayaran: "1x",
-      statusCicilan: "Tidak",
+      statusCicilan: "Ya",
       nominal: 15000000,
     },
     {
       jenisPembayaran: "SPP",
       waktuPembayaran: "Bulanan",
-      statusCicilan: "Ya",
+      statusCicilan: "Tidak",
       nominal: 600000,
     },
     {
@@ -131,7 +131,7 @@ const exampleData: Student = {
     {
       jenisPembayaran: "Jemputan",
       waktuPembayaran: "Bulanan",
-      statusCicilan: "Ya",
+      statusCicilan: "Tidak",
       nominal: 150000,
     },
     {
@@ -158,7 +158,6 @@ export default function TagihanSiswaPage() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4 font-spartan px-0">
         <div className="flex flex-col gap-4 font-normal text-lg">
-          {/* Bagian Judul */}
           <h1 className="font-extrabold text-xl">Biodata Siswa</h1>
 
           {/* Loop Data */}

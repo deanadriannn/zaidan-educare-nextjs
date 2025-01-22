@@ -21,18 +21,19 @@ export default function StatusPembayaranPage() {
   const [name, setName] = useState('')
   const [kelas, setKelas] = useState('')
   const [jenisPembayaran, setJenisPembayaran] = useState('')
+  const [statusPembayaran, setStatusPembayaran] = useState('')
 
   const handleFilter = (e: any) => {
     e.preventDefault()
     console.log('Filtering')
-    console.log(name, kelas, jenisPembayaran)
+    console.log(name, kelas, jenisPembayaran, statusPembayaran)
   }
   
   return (
     <>
       <Card className="md:mx-4 mt-4">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">Filters</CardTitle>
+          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
         </CardHeader>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -75,9 +76,21 @@ export default function StatusPembayaranPage() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="w-full flex flex-col space-y-2">
+              <Label htmlFor="statusPembayaran" className="text-md">Status Pembayaran</Label>
+              <Select onValueChange={(value) => setStatusPembayaran(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Semua Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="lunas">Lunas</SelectItem>
+                  <SelectItem value="belum_lunas">Belum Lunas</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
               RESET
             </Button>
             <Button type="submit" variant="primary-red" className="w-full md:w-fit">

@@ -31,7 +31,7 @@ export default function StatusPembayaranPage() {
     <>
       <Card className="md:mx-4 mt-4 font-spartan">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">Filters</CardTitle>
+          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
         </CardHeader>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -70,7 +70,7 @@ export default function StatusPembayaranPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="outline" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
               RESET
             </Button>
             <Button type="submit" variant="primary-red" className="w-full md:w-fit">

@@ -44,9 +44,9 @@ export default function UserForm() {
   const form = useForm<UserFormValues>({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      nama: isEdit ? "John Doe" : "",
+      nama: isEdit ? "Ratna Puspita Sari" : "",
       foto: undefined,
-      username: isEdit ? "johndoe" : "",
+      username: isEdit ? "ratna" : "",
       password: "",
       role: isEdit ? "ketua_yayasan" : undefined,
     },
@@ -169,7 +169,7 @@ export default function UserForm() {
                     <FormControl>
                       <div className="relative">
                         <Input 
-                          placeholder={`Masukkan Password ${isEdit && "Baru"}`} {...field} 
+                          placeholder={`Masukkan Password ${isEdit ? "Baru" : ""}`} {...field} 
                           type={showPassword ? "text" : "password"}
                         />
                         <TooltipProvider>

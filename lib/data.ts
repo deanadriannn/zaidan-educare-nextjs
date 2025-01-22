@@ -239,81 +239,125 @@ export const siswaData: StudentInfo[] = [
 export const tagihanSiswaData: TagihanSiswaColumns[] = [
   {
     id: "1",
-    nis: "123456",
-    namaSiswa: "John Doe",
-    kelas: "Kelas 1",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
+    nis: "12152089",
+    namaSiswa: "Nadin Kumala",
+    kelas: "6A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 15000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 950000
   },
   {
     id: "2",
-    nis: "123457",
-    namaSiswa: "Jane Doe",
-    kelas: "Kelas 2",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
+    nis: "12152012",
+    namaSiswa: "Tara Prasetyo",
+    kelas: "6A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 15000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 950000
   },
   {
     id: "3",
-    nis: "123458",
-    namaSiswa: "John Smith",
-    kelas: "Kelas 3",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
+    nis: "13152029",
+    namaSiswa: "Siti Andini",
+    kelas: "3A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 13000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
   },
   {
     id: "4",
-    nis: "123459",
-    namaSiswa: "Jane Smith",
-    kelas: "Kelas 4",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
+    nis: "13152089",
+    namaSiswa: "Rizki Anugrah",
+    kelas: "3A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 12500000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
   },
   {
     id: "5",
-    nis: "123460",
-    namaSiswa: "John Doe Jr.",
-    kelas: "Kelas 5",
-    daftarTagihan: ["DPP", "Buku Paket"],
-    nominalDpp: 1000000,
-    nominalProgram: 500000,
-    nominalBulanan: 200000
-  }
+    nis: "14152089",
+    namaSiswa: "Reza Hakim",
+    kelas: "2A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 11000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
+  },
+  {
+    id: "6",
+    nis: "12158081",
+    namaSiswa: "Dinda Kania",
+    kelas: "4A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 11000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 950000
+  },
+  {
+    id: "7",
+    nis: "12152193",
+    namaSiswa: "Roni Budiman",
+    kelas: "4A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 15000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 950000
+  },
+  {
+    id: "8",
+    nis: "13152017",
+    namaSiswa: "Indah Amanda",
+    kelas: "3A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 15000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
+  },
+  {
+    id: "9",
+    nis: "13152038",
+    namaSiswa: "Ahmad Ihsan",
+    kelas: "3A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 13000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
+  },
+  {
+    id: "10",
+    nis: "14152071",
+    namaSiswa: "Alam Fajrin",
+    kelas: "2A",
+    daftarTagihan: ["DPP", "SPP", "Makan Siang", "Jemputan", "Kamping"],
+    nominalDpp: 11000000,
+    nominalProgram: 1500000,
+    nominalBulanan: 850000
+  },
 ]
 
 export const bankData = [
   {
     id: '1',
-    namaBank: 'Bank BCA',
-    nomorRekening: '1234567890',
-    namaPemilikRekening: 'John Doe'
+    namaBank: 'Bank Syariah Indonesia',
+    nomorRekening: '7118404356',
+    namaPemilikRekening: 'Yayasan Pendidikan Zaidan'
   },
   {
     id: '2',
     namaBank: 'Bank Mandiri',
-    nomorRekening: '0987654321',
-    namaPemilikRekening: 'Jane Doe'
+    nomorRekening: '9000031873269',
+    namaPemilikRekening: 'Yoga Suhara'
   },
   {
     id: '3',
-    namaBank: 'Bank BNI',
-    nomorRekening: '1234567890',
-    namaPemilikRekening: 'John Doe'
+    namaBank: 'Bank BJB',
+    nomorRekening: '0139389018100',
+    namaPemilikRekening: 'Miarti'
   },
-  {
-    id: '4',
-    namaBank: 'Bank BRI',
-    nomorRekening: '0987654321',
-    namaPemilikRekening: 'Jane Doe'
-  }
 ]
 
 export const jenisBiayaPendidikanData: JenisBiayaPendidikan[] = [
@@ -321,35 +365,35 @@ export const jenisBiayaPendidikanData: JenisBiayaPendidikan[] = [
     id: "1",
     namaTagihan: "SPP",
     waktuPembayaran: "Bulanan",
-    statusCicilan: "Ya",
+    statusCicilan: "Tidak",
     nominal: 500000
   }, 
   {
     id: "2",
-    namaTagihan: "Uang Gedung",
-    waktuPembayaran: "Tahunan",
+    namaTagihan: "Makan Siang",
+    waktuPembayaran: "Bulanan",
     statusCicilan: "Tidak",
     nominal: 1000000
   }, 
   {
     id: "3",
-    namaTagihan: "Uang Pangkal",
-    waktuPembayaran: "1x",
+    namaTagihan: "Jemputan",
+    waktuPembayaran: "Bulanan",
     statusCicilan: "Tidak",
     nominal: 5000000
   },
   {
     id: "4",
-    namaTagihan: "Uang Kegiatan",
-    waktuPembayaran: "Bulanan",
+    namaTagihan: "Program Camping",
+    waktuPembayaran: "Tahunan",
     statusCicilan: "Ya",
     nominal: 100000
   },
   {
     id: "5",
-    namaTagihan: "Uang Seragam",
+    namaTagihan: "DPP",
     waktuPembayaran: "1x",
-    statusCicilan: "Tidak",
+    statusCicilan: "Ya",
     nominal: 500000
   }
 ]
@@ -357,35 +401,80 @@ export const jenisBiayaPendidikanData: JenisBiayaPendidikan[] = [
 export const penggunaAplikasiData: User[] = [
   {
     id: '1',
-    username: 'johndoe',
-    nama: 'John Doe',
+    username: 'ratna',
+    nama: 'Ratna Puspita Sari',
     role: 'Ketua Yayasan'
   },
   {
     id: '2',
-    username: 'janedoe',
-    nama: 'Jane Doe',
+    username: 'endah',
+    nama: 'Endah Yulia',
     role: 'Bendahara'
   },
   {
     id: '3',
-    username: 'johndoejr',
-    nama: 'John Doe Jr.',
+    username: 'emir',
+    nama: 'Emir Mahira',
     role: 'Administrator'
   }
 ]
 
 export const statusPembayaranData = [
   {
-    nis: '123456',
-    namaSiswa: 'John Doe',
+    id: "1",
+    nis: '202401001',
+    namaSiswa: 'Andini Eka Putri',
     kelas: 'Kelas 1',
     jenisPembayaran: 'DPP',
-    nominalTagihan: 10000000,
+    nominalTagihan: 15000000,
+    statusPembayaran: 'Belum Lunas',
+    nominalSudahDibayar: 0,
+    sisaTagihan: 15000000
+  },
+  {
+    id: "2",
+    nis: '202401002',
+    namaSiswa: 'Kalista Putri Firdaus',
+    kelas: 'Kelas 1',
+    jenisPembayaran: 'DPP',
+    nominalTagihan: 15000000,
     statusPembayaran: 'Belum Lunas',
     nominalSudahDibayar: 5000000,
-    sisaTagihan: 5000000
-  }
+    sisaTagihan: 10000000
+  },
+  {
+    id: "3",
+    nis: '202301001',
+    namaSiswa: 'Azka Zaidan Rahman',
+    kelas: 'Kelas 2',
+    jenisPembayaran: 'DPP',
+    nominalTagihan: 13000000,
+    statusPembayaran: 'Lunas',
+    nominalSudahDibayar: 13000000,
+    sisaTagihan: 0
+  },
+  {
+    id: "4",
+    nis: '202201001',
+    namaSiswa: 'Muhammad El Raihan',
+    kelas: 'Kelas 3',
+    jenisPembayaran: 'DPP',
+    nominalTagihan: 12500000,
+    statusPembayaran: 'Belum Lunas',
+    nominalSudahDibayar: 0,
+    sisaTagihan: 12500000
+  },
+  {
+    id: "5",
+    nis: '202401001',
+    namaSiswa: 'Nuha Hasna Syakira',
+    kelas: 'Kelas 4',
+    jenisPembayaran: 'DPP',
+    nominalTagihan: 11000000,
+    statusPembayaran: 'Lunas',
+    nominalSudahDibayar: 11000000,
+    sisaTagihan: 0
+  },
 ]
 
 export const rekapitulasiPenerimaanDanaData = [
@@ -490,9 +579,8 @@ export const penggunaAplikasiSelectOptions = [
 
 export const jenisPembayaranSelectOptions = [
   { value: 'dpp', label: 'DPP' },
+  { value: 'spp', label: 'SPP' },
   { value: 'makan_siang', label: 'Makan Siang' },
-  { value: 'uang_gedung', label: 'Uang Gedung' },
-  { value: 'uang_kegiatan', label: 'Uang Kegiatan' },
-  { value: 'uang_seragam', label: 'Uang Seragam' },
   { value: 'jemputan', label: 'Jemputan' },
+  { value: 'kamping', label: 'Kamping' },
 ]

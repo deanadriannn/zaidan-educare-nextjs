@@ -28,11 +28,10 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="pl-4">
+      <div className="text-center">
         <p>{row.original.nis}</p>
       </div>
     ),
-    size: 300
   },
   {
     accessorKey: "namaSiswa",
@@ -41,7 +40,6 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
         <p>Nama Siswa</p>
       </div>
     ),
-    size: 300,
   },
   {
     accessorKey: "kelas",
@@ -50,7 +48,11 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
         <p>Kelas</p>
       </div>
     ),
-    size: 300
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.kelas}</p>
+      </div>
+    ),
   },
   {
     accessorKey: "daftarTagihan",
@@ -72,9 +74,8 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalDpp = parseFloat(row.getValue("nominalDpp"))
       const formatted = formatToIDR(nominalDpp)
  
-      return <div className="font-medium">{formatted}</div>
+      return <div className="font-medium text-center">{formatted}</div>
     },
-    size: 300
   },
   {
     accessorKey: "nominalProgram",
@@ -87,9 +88,8 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalProgram = parseFloat(row.getValue("nominalProgram"))
       const formatted = formatToIDR(nominalProgram)
  
-      return <div className="font-medium">{formatted}</div>
+      return <div className="font-medium text-center">{formatted}</div>
     },
-    size: 300,
   },
   {
     accessorKey: "nominalBulanan",
@@ -102,9 +102,8 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
       const formatted = formatToIDR(nominalBulanan)
  
-      return <div className="font-medium">{formatted}</div>
+      return <div className="font-medium text-center">{formatted}</div>
     },
-    size: 300
   },
   {
     id: "aksi",

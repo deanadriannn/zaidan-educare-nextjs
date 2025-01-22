@@ -13,7 +13,7 @@ import {
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Input } from "./ui/input"
-import { CloudUpload } from "lucide-react"
+import { CloudUpload, X } from "lucide-react"
 
 export function UploadFileDialog({
   children,
@@ -24,25 +24,22 @@ export function UploadFileDialog({
   title?: string
   description?: string
 }) {
-  const [dataUrl, setDataUrl] = useState<string | null>(null)
+  const [files, setFiles] = useState<File[]>([])
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (!acceptedFiles?.length) return
-    const file = acceptedFiles[0]
-    const reader = new FileReader()
-    reader.onload = () => {
-      if (reader.result) {
-        setDataUrl(reader.result as string)
-      }
-    }
-    reader.readAsDataURL(file)
+    setFiles((prev) => [...prev, ...acceptedFiles])
   }, [])
 
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } = useDropzone({
     onDrop,
     accept: { ".xlsx": [] },
-    multiple: false,
+    multiple: true
   })
+
+  function handleRemoveFile(index: number) {
+    setFiles((prev) => prev.filter((_, i) => i !== index))
+  }
   
   return (
     <Dialog>
@@ -64,9 +61,44 @@ export function UploadFileDialog({
           <div className="w-full h-full">
             <div className="flex flex-col justify-center items-center h-full w-full group-hover:opacity-50 duration-200 bg-[#F9F7F7] hover:bg-[#E0DDDD]">
               <CloudUpload className="w-14 h-14" />
-              <span>Pilih Gambar</span>
+              <span className="mt-2 text-center">
+                Tarik & Lepas File disini
+                <br />
+                atau
+              </span>
+              <span className="bg-[#2C5392] text-white p-1">
+                Telusuri File
+              </span>
             </div>
           </div>
+        </div>
+        <span>
+          Format file yang diterima: .xlsx
+        </span>
+        <div className="space-y-2">
+          {files.map((file, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-2 border rounded"
+            >
+              <div className="flex items-center gap-2">
+                <img 
+                  src="/xls.svg"
+                  className="w-6 h-6"
+                />
+                <span className="font-semibold text-sm">
+                  {file.name}
+                </span>
+              </div>
+              {/* Tombol hapus */}
+              <button
+                onClick={() => handleRemoveFile(index)}
+                className="p-1 hover:bg-gray-200 rounded text-red-600"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
         </div>
       </DialogContent>
     </Dialog>
