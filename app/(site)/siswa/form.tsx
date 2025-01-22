@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "@/components/date-picker";
+import { kelasSelectOptions } from "@/lib/data";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -97,6 +98,8 @@ export default function StudentForm() {
 
   const { getRootProps, getInputProps, acceptedFiles, isDragActive } = useDropzone({
     onDrop,
+    accept: { "image/*": [] },
+    multiple: false,
   })
 
   function onSubmit(values: StudentFormValues) {
@@ -127,7 +130,7 @@ export default function StudentForm() {
                 className="bg-muted h-60 w-60 rounded-full hover:cursor-pointer group"
                 {...getRootProps()}
               >
-                <Input type="file" id="photo" {...getInputProps()} />
+                <Input type="file" accept="image/*" id="photo" {...getInputProps()} />
                 {dataUrl ? (
                   <div className="w-full h-full rounded-full relative group-hover:opacity-50 duration-200">
                     {/* PREVIEW */}
@@ -303,24 +306,14 @@ export default function StudentForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="1_a">1-A</SelectItem>
-                        <SelectItem value="1_B">1-B</SelectItem>
-                        <SelectItem value="1_C">1-C</SelectItem>
-                        <SelectItem value="2_A">2-A</SelectItem>
-                        <SelectItem value="2_B">2-B</SelectItem>
-                        <SelectItem value="2_C">2-C</SelectItem>
-                        <SelectItem value="3_A">3-A</SelectItem>
-                        <SelectItem value="3_B">3-B</SelectItem>
-                        <SelectItem value="3_C">3-C</SelectItem>
-                        <SelectItem value="4_A">4-A</SelectItem>
-                        <SelectItem value="4_B">4-B</SelectItem>
-                        <SelectItem value="4_C">4-C</SelectItem>
-                        <SelectItem value="5_A">5-A</SelectItem>
-                        <SelectItem value="5_B">5-B</SelectItem>
-                        <SelectItem value="5_C">5-C</SelectItem>
-                        <SelectItem value="6_A">6-A</SelectItem>
-                        <SelectItem value="6_B">6-B</SelectItem>
-                        <SelectItem value="6_C">6-C</SelectItem>
+                        {kelasSelectOptions.map(option => (
+                          <SelectItem 
+                            value={option.value}
+                            key={option.value}
+                          >
+                            {option.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -569,12 +562,21 @@ export default function StudentForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/siswa")}>
-              <CircleX className="mr-2" />
+            <Button
+              type="button"
+              className="mt-6"
+              variant="primary-yellow"
+              onClick={() => router.push("/siswa")}
+            >
+              <CircleX className="" />
               Batal
             </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
-              <Save className="mr-2" />
+            <Button 
+              type="submit"
+              className="mt-6"
+              variant="primary-blue"
+            >
+              <Save />
               Simpan
             </Button>
           </div>

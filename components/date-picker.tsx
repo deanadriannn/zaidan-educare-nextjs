@@ -114,7 +114,6 @@ export function DatePicker({
         </div>
         <Calendar
           mode="single"
-          // captionLayout="dropdown" memungkinkan user pilih bulan & tahun
           captionLayout="dropdown"
           selected={value}
           onSelect={(date) => {

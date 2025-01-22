@@ -1,24 +1,15 @@
 "use client"
 
-import { CircleCheck, CircleX, Pencil, Trash2 } from "lucide-react"
+import { Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle, 
-  AlertDialogTrigger 
-} from "@/components/ui/alert-dialog"
 import { StudentInfo } from "@/types/data"
+import { format } from "date-fns"
+import { ConfirmAlert } from "@/components/confirm-alert"
 
 export const columns: ColumnDef<StudentInfo>[] = [
   {
@@ -56,7 +47,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>NIS</p>
       </div>
     ),
-    size: 200,
   },
   {
     accessorKey: "nama",
@@ -74,7 +64,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Kelas</p>
       </div>
     ),
-    size: 200
   },
   {
     accessorKey: "status",
@@ -110,6 +99,13 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Tanggal Lahir</p>
       </div>
     ),
+    cell: ({ row }) => {
+      const tanggalLahir = row.original.tanggalLahir
+      const formatted = format(tanggalLahir, "dd-MM-yyyy")
+      return (
+        <p>{formatted}</p>
+      )
+    },
     size: 200
   },
   {
@@ -128,7 +124,11 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Tahun Masuk</p>
       </div>
     ),
-    size: 200
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.tahunMasuk}</p>
+      </div>
+    )
   },
   {
     accessorKey: "tahunKeluar",
@@ -137,7 +137,11 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Tahun Keluar</p>
       </div>
     ),
-    size: 200
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.tahunKeluar}</p>
+      </div>
+    )
   },
   {
     accessorKey: "namaWali",
@@ -205,31 +209,14 @@ export const columns: ColumnDef<StudentInfo>[] = [
           <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
             <Pencil className="text-yellow-500"/>
           </Button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button size="icon" variant="ghost">
-                <Trash2 className="text-destructive"/>
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Apakah Anda yakin untuk menghapus data siswa?</AlertDialogTitle>
-                <AlertDialogDescription>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="bg-[#608BC1] text-white hover:bg-[#4B6F9A] hover:text-white">
-                  <CircleX /> Tidak
-                </AlertDialogCancel>
-                <AlertDialogAction 
-                  onClick={handleDelete} 
-                  className="bg-[#F5365C] text-white hover:bg-[#D12C50]"
-                >
-                  <CircleCheck /> Ya
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <ConfirmAlert
+            title="Apakah Anda yakin untuk menghapus data siswa?"
+            handleAction={handleDelete}
+          >
+            <Button size="icon" variant="ghost">
+              <Trash2 className="text-destructive"/>
+            </Button>
+          </ConfirmAlert>
           <Switch
             checked={student.status === "Aktif"}
           />

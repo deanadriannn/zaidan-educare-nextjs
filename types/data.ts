@@ -12,10 +12,10 @@ export type StudentInfo = {
   nis: string
   nama: string
   kelas: string
-  status: "Aktif" | "Non-Aktif"
+  status: "Aktif" | "Mengundurkan Diri" | "Lulus"
   jenisKelamin: string
   tempatLahir: string
-  tanggalLahir: string
+  tanggalLahir: Date
   tahunMasuk: string
   tahunKeluar: string
   alamatRumah: string
@@ -25,6 +25,7 @@ export type StudentInfo = {
   emailWali: string
   nomorTeleponWali: string
   foto: string
+  lanjut?: string
 }
 
 export type JenisBiayaPendidikan = {

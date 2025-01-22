@@ -28,21 +28,21 @@ export function NavMain({
   const router = useRouter()
 
   return (
-    <SidebarGroup>
-      <SidebarMenu>
+    <SidebarGroup className="max-w-full">
+      <SidebarMenu className="max-w-full">
         {items.map((item: any) => (
           item.items?.length ? (
             <Collapsible
               key={item.title}
               asChild
               defaultOpen={item.activeParams.some((param: string) => pathname.includes(param))}
-              className="group/collapsible"
+              className="group/collapsible max-w-full"
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton 
                     tooltip={item.title}
-                    className="hover:bg-sidebar-item-hover data-[state=open]:bg-sidebar-item-hover data-[state=open]:text-sidebar-text-hover h-10 text-nowrap"
+                    className="hover:bg-sidebar-item-hover data-[state=open]:bg-sidebar-item-hover data-[state=open]:text-sidebar-text-hover h-10"
                     isActive={pathname.includes(item.activeParams)}
                   >
                     {/* {item.icon && <item.icon />} */}
@@ -59,13 +59,16 @@ export function NavMain({
                     {item.items?.map((subItem: any) => (
                       <SidebarMenuSubItem key={subItem.title}>
                         {/* @ts-ignore */}
-                        <SidebarMenuSubButton asChild tooltip={subItem.title} className="h-10" isActive={pathname.includes(subItem.url)}>
+                        <SidebarMenuSubButton asChild tooltip={subItem.title} 
+                          className="min-h-10 hover:cursor-pointer max-w-60"
+                          isActive={pathname.includes(subItem.url)}
+                        >
                           <span onClick={() => router.push(subItem.url)}>
                             <img 
                               src={subItem.icon}
                               className="w-6 h-6"
                             />
-                            <span>{subItem.title}</span>
+                            <span className="">{subItem.title}</span>
                           </span>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
@@ -76,7 +79,7 @@ export function NavMain({
             </Collapsible>
           ): (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild tooltip={item.title} className="h-10" 
+              <SidebarMenuButton asChild tooltip={item.title} className="h-10 hover:cursor-pointer" 
               isActive={pathname === item.url}
               >
                 <span onClick={() => router.push(item.url)}>

@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   pagination?: boolean
   showTotalData?: boolean
   className?: string
+  onSelectionChange?: (selectedRows: TData[]) => void
 }
 
 const getCommonPinningStyles = (
@@ -62,8 +63,11 @@ export function DataTable<TData, TValue>({
   pagination = true,
   showTotalData = true,
   className,
+  onSelectionChange,
 }: DataTableProps<TData, TValue>) {
   const pathname = usePathname()
+  const [tableData, setTableData] = useState<TData[]>(() => data)
+  const [rowSelection, setRowSelection] = useState({})
 
   const tableWithFullWidthPatterns = [
     /^\/jenis-biaya-pendidikan$/,
@@ -82,7 +86,7 @@ export function DataTable<TData, TValue>({
   })
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
@@ -91,9 +95,19 @@ export function DataTable<TData, TValue>({
     columnResizeMode: 'onChange',
     state: {
       columnPinning,
+      rowSelection,
     },
     getPaginationRowModel: getPaginationRowModel(),
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
   })
+
+  React.useEffect(() => {
+    const selectedData = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original)
+    onSelectionChange?.(selectedData)
+  }, [rowSelection])
 
   const pageIndex = table.getState().pagination.pageIndex   // Halaman ke- (0-based)
   const pageSize = table.getState().pagination.pageSize     // Jumlah baris per halaman

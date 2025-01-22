@@ -108,7 +108,7 @@ export function AppSidebar({ ...props }) {
               icon:"/sidebar/bank-building.svg"
             },
             {
-              title: "Bank Penerima Transfer",
+              title: "Bank Penerima Transfer Pembayaran",
               url: "/bank-penerima-transfer",
               icon: "/sidebar/books.svg"
             },

@@ -54,7 +54,7 @@ export default function SiteLayout({
   const router = useRouter()
 
   const locationName: Record<string, string> = {
-    '/': 'Dasbor',
+    '/': `Dasbor - ${role}`,
     '/siswa': 'Master - Data Siswa',
     '/user': 'Master - Data Pengguna Aplikasi',
     '/jenis-biaya-pendidikan': 'Master - Data Jenis Biaya Pendidikan',
