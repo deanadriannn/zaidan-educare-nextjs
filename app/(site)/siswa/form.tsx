@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, Check, ChevronsUpDown, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
+import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,6 +28,7 @@ import { kelasSelectOptions } from "@/lib/data";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import Link from "next/link";
+import { MonthPicker } from "@/components/month-picker";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -38,9 +39,9 @@ const studentSchema = z.object({
   kelas: z.string({
     required_error: "Kelas tidak boleh kosong",
   }),
-  tahunMasuk: z.date({
-    required_error: "Tanggal masuk tidak boleh kosong",
-  }),
+  tahunMasuk: z
+  .string()
+  .regex(/^\d{4}$/, "Tahun harus 4 digit angka"),
   alamat: z.string().optional(),
   namaWali: z.string().min(1, "Nama wali tidak boleh kosong"),
   hubunganWali: z.string().optional(),
@@ -76,7 +77,7 @@ export default function StudentForm() {
       jenisKelamin: isEdit ? "laki_laki" : undefined,
       tanggalLahir: isEdit ? new Date("2000-01-01") : undefined,
       kelas: isEdit ? "3_A" : undefined,
-      tahunMasuk: isEdit ? new Date("2000-01-01") : undefined,
+      tahunMasuk: isEdit ? "2020" : "",
       alamat: isEdit ? "Jl. Lorem Ipsum Dolor Sit Amet" : "",
       namaWali: isEdit ? "Vi" : "",
       hubunganWali: isEdit ? "Ibu" : "",
@@ -287,43 +288,6 @@ export default function StudentForm() {
             />
 
             {/* KELAS */}
-            {/* <FormField
-              control={form.control}
-              name="kelas"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <FormItem>
-                    <FormLabel
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Kelas <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Kelas" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {kelasSelectOptions.map(option => (
-                          <SelectItem 
-                            value={option.value}
-                            key={option.value}
-                          >
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            /> */}
             <FormField
               control={form.control}
               name="kelas"
@@ -475,13 +439,13 @@ export default function StudentForm() {
                       Tahun Masuk <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <DatePicker
-                        value={field.value || undefined}
-                        onChange={(date) => field.onChange(date || null)}
-                        minDate={new Date("1900-01-01")}
-                        maxDate={new Date()}
-                        placeholder="Pilih Tahun Masuk"
-                      />
+                      <div className="w-full relative">
+                        <Input
+                          placeholder="Tahun Masuk"
+                          {...field}
+                        />
+                        <CalendarIcon className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 h-4 w-4 opacity-50" />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

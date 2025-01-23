@@ -74,7 +74,7 @@ export function DatePicker({
             className
           )}
         >
-          {value ? format(value, "PPP") : <span>{placeholder}</span>}
+          {value ? format(value, "dd-MM-yyyy") : <span>{placeholder}</span>}
           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>

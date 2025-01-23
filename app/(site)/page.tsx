@@ -1,7 +1,7 @@
 "use client"
 
-import { DatePicker } from "@/components/date-picker";
 import Filter from "@/components/filter";
+import { MonthPicker } from "@/components/month-picker";
 import { TrendChart } from "@/components/trend-chart";
 import { Button } from "@/components/ui/button";
 import { 
@@ -26,8 +26,9 @@ export default function DashboardPage() {
   
   const handleFilter = (e: any) => {
     e.preventDefault()
-    console.log('Filtering')
-    console.log(bulanStart, bulanEnd, jenisPembayaran)
+    console.log('BULAN MULAI', bulanStart)
+    console.log('BULAN AKHIR', bulanEnd)
+    console.log('JENIS PEMBAYARAN', jenisPembayaran)
   }
 
   const handleReset = () => {
@@ -43,22 +44,18 @@ export default function DashboardPage() {
           <form onSubmit={handleFilter}>
             <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
               <div className="w-full flex flex-col space-y-2">
-                <Label htmlFor="nama" className="text-md">Bulan dari</Label>
-                <DatePicker
+                <Label htmlFor="bulanStart" className="text-md">Bulan dari</Label>
+                <MonthPicker
                   value={bulanStart || undefined}
                   onChange={(date) => setBulanStart(date || undefined)}
-                  minDate={new Date("1900-01-01")}
-                  maxDate={new Date()}
                   placeholder="Pilih Bulan"
                 />
               </div>
               <div className="w-full flex flex-col space-y-2">
-                <Label htmlFor="kelas" className="text-md">Sampai Bulan</Label>
-                <DatePicker
+                <Label htmlFor="bulanEnd" className="text-md">Sampai Bulan</Label>
+                <MonthPicker
                   value={bulanEnd || undefined}
                   onChange={(date) => setBulanEnd(date || undefined)}
-                  minDate={new Date("1900-01-01")}
-                  maxDate={new Date()}
                   placeholder="Pilih Bulan"
                 />
               </div>
@@ -110,7 +107,7 @@ export default function DashboardPage() {
             </CardHeader>
 
             {/* Menampilkan grafik untuk semua jenis pembayaran */}
-            <CardContent className="w-full">
+            <CardContent className="w-full max-w-96">
               <TrendChart
                 paymentType={jenisPembayaran || 'all'}
                 dateStart={bulanStart}
