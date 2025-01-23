@@ -29,6 +29,7 @@ import {
 import { useRouter } from "next/navigation";
 import { DatePicker } from "@/components/date-picker";
 import { UploadFileDialog } from "@/components/upload-file-dialog";
+import Filter from "@/components/filter";
 
 const data: PenerimaanDanaColumns[] = [
   {
@@ -148,10 +149,7 @@ export default function TagihanSiswaPage() {
   
   return (
     <>
-      <Card className="md:mx-4 mt-4">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
-        </CardHeader>
+      <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:grid md:grid-cols-2 justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
@@ -214,7 +212,7 @@ export default function TagihanSiswaPage() {
             </Button>
           </CardFooter>
         </form>
-      </Card>
+      </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex flex-col md:flex-row justify-end gap-4">
           <Button variant="primary-red">

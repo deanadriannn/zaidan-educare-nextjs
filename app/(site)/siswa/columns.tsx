@@ -28,7 +28,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex justify-center items-center">
+      <div className="ml-7">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -36,7 +36,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         />
       </div>
     ),
-    size: 200,
+    size: 150,
     enableSorting: false,
     enableHiding: false,
   },
@@ -47,6 +47,11 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>NIS</p>
       </div>
     ),
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.nis}</p>
+      </div>
+    ),
   },
   {
     accessorKey: "nama",
@@ -55,7 +60,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Nama</p>
       </div>
     ),
-    size: 200,
+    size: 150,
   },
   {
     accessorKey: "kelas",
@@ -64,12 +69,23 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Kelas</p>
       </div>
     ),
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.kelas}</p>
+      </div>
+    ),
+    size: 100
   },
   {
     accessorKey: "status",
     header: () => (
       <div className="text-center">
         <p>Status</p>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.status}</p>
       </div>
     ),
     size: 200
@@ -106,7 +122,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>{formatted}</p>
       )
     },
-    size: 200
+    size: 150
   },
   {
     accessorKey: "alamatRumah",
@@ -150,7 +166,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Nama Wali</p>
       </div>
     ),
-    size: 200
+    size: 150
   },
   {
     accessorKey: "hubungan",
@@ -159,7 +175,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Hubungan Wali</p>
       </div>
     ),
-    size: 200
+    size: 150
   },
   {
     accessorKey: "jenisKelaminWali",
@@ -168,7 +184,12 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Jenis Kelamin Wali</p>
       </div>
     ),
-    size: 200
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.jenisKelaminWali}</p>
+      </div>
+    ),
+    size: 150
   },
   {
     accessorKey: "emailWali",
@@ -186,7 +207,12 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Nomor Telepon Wali</p>
       </div>
     ),
-    size: 200
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.nomorTeleponWali}</p>
+      </div>
+    ),
+    size: 150
   },
   {
     id: "aksi",
@@ -223,6 +249,6 @@ export const columns: ColumnDef<StudentInfo>[] = [
         </div>
       )
     },
-    size: 200,
+    size: 150,
   },
 ]

@@ -17,6 +17,7 @@ import {
   useSidebar
 } from "@/components/ui/sidebar"
 import { usePathname, useRouter } from "next/navigation"
+import Link from "next/link"
 
 export function NavMain({
   items,
@@ -63,13 +64,13 @@ export function NavMain({
                           className="min-h-10 hover:cursor-pointer max-w-60"
                           isActive={pathname.includes(subItem.url)}
                         >
-                          <span onClick={() => router.push(subItem.url)}>
+                          <Link href={subItem.url}>
                             <img 
                               src={subItem.icon}
                               className="w-6 h-6"
                             />
                             <span className="">{subItem.title}</span>
-                          </span>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
@@ -82,14 +83,14 @@ export function NavMain({
               <SidebarMenuButton asChild tooltip={item.title} className="h-10 hover:cursor-pointer" 
               isActive={pathname === item.url}
               >
-                <span onClick={() => router.push(item.url)}>
+                <Link href={item.url}>
                   {/* <item.icon /> */}
                   <img 
                     src={item.icon}
                     className="w-6 h-6"
                   />
                   <span>{item.title}</span>
-                </span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )

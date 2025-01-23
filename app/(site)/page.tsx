@@ -1,6 +1,8 @@
 "use client"
 
 import { DatePicker } from "@/components/date-picker";
+import Filter from "@/components/filter";
+import { TrendChart } from "@/components/trend-chart";
 import { Button } from "@/components/ui/button";
 import { 
   Card, 
@@ -22,19 +24,22 @@ export default function DashboardPage() {
   const [bulanStart, setBulanStart] = useState<Date | undefined>()
   const [bulanEnd, setBulanEnd] = useState<Date | undefined>()
   
-    const handleFilter = (e: any) => {
-      e.preventDefault()
-      console.log('Filtering')
-      console.log(bulanStart, bulanEnd, jenisPembayaran)
-    }
+  const handleFilter = (e: any) => {
+    e.preventDefault()
+    console.log('Filtering')
+    console.log(bulanStart, bulanEnd, jenisPembayaran)
+  }
+
+  const handleReset = () => {
+    setBulanStart(undefined)
+    setBulanEnd(undefined)
+    setJenisPembayaran('')
+  }
 
   return (
     <>
       {(role === "Bendahara" || role === "Ketua Yayasan") && (
-        <Card className="md:mx-4 mt-4 font-spartan">
-          <CardHeader>
-            <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
-          </CardHeader>
+        <Filter>
           <form onSubmit={handleFilter}>
             <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
               <div className="w-full flex flex-col space-y-2">
@@ -72,7 +77,12 @@ export default function DashboardPage() {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-              <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+              <Button 
+                variant="ghost"
+                className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit"
+                type="button"
+                onClick={handleReset}
+              >
                 RESET
               </Button>
               <Button type="submit" variant="primary-red" className="w-full md:w-fit">
@@ -80,7 +90,7 @@ export default function DashboardPage() {
               </Button>
             </CardFooter>
           </form>
-        </Card>
+        </Filter>
       )}
       <Card className='flex flex-auto gap-4 md:mx-4 mt-4 shrink-0'>
         {role === "Administrator" && (
@@ -88,6 +98,25 @@ export default function DashboardPage() {
             <span className="text-2xl font-bold font-secular">
               Selamat Datang {role}
             </span>
+          </div>
+        )}
+
+        {(role === "Bendahara" || role === "Ketua Yayasan") && (
+          <div className="flex flex-col w-full">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold">
+                Trend Data Ringkasan Jumlah Transaksi
+              </CardTitle>
+            </CardHeader>
+
+            {/* Menampilkan grafik untuk semua jenis pembayaran */}
+            <CardContent className="w-full">
+              <TrendChart
+                paymentType={jenisPembayaran || 'all'}
+                dateStart={bulanStart}
+                dateEnd={bulanEnd}
+              />
+            </CardContent>
           </div>
         )}
       </Card>

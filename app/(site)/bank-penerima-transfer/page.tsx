@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
 import { bankData } from "@/lib/data";
 import { useRouter } from "next/navigation";
+import Filter from "@/components/filter";
 
 export default function BankPenerimaTransferPage() {
   const [name, setName] = useState('')
@@ -23,10 +24,7 @@ export default function BankPenerimaTransferPage() {
   
   return (
     <>
-      <Card className="md:mx-4 mt-4">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
-        </CardHeader>
+      <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
@@ -52,7 +50,7 @@ export default function BankPenerimaTransferPage() {
             </Button>
           </CardFooter>
         </form>
-      </Card>
+      </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
           <Button 

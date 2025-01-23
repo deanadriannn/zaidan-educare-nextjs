@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileDown, Search } from "lucide-react";
 import { rekapitulasiPenerimaanDanaData } from "@/lib/data";
+import Filter from "@/components/filter";
 
 export default function RekapitulasiPenerimaanDanaPage() {
   const [tahunAjaranStart, setTahunAjaranStart] = useState("")
@@ -38,10 +39,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
   
   return (
     <>
-      <Card className="md:mx-4 mt-4">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>
-        </CardHeader>
+      <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
             <div className="w-full flex flex-col space-y-2">
@@ -74,7 +72,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
             </Button>
           </CardFooter>
         </form>
-      </Card>
+      </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
           <Button variant="primary-red">

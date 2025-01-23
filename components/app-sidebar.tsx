@@ -13,6 +13,7 @@ import { ScrollArea } from "./ui/scroll-area"
 import { redirect } from "next/navigation"
 import { NavItem } from "@/types/nav"
 import { useUserStore } from "@/hooks/use-user"
+import Link from "next/link"
 
 type Role = "Ketua Yayasan" | "Bendahara" | "Administrator"
 
@@ -131,7 +132,7 @@ export function AppSidebar({ ...props }) {
           onClick={() => redirect("/")}
           className="hover:bg-transparent hover:text-sidebar-foreground"
         >
-          <a href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="flex aspect-square size-8 items-center justify-center">
               <img src="/images/sidebar-logo.jpeg" />
             </div>
@@ -140,7 +141,7 @@ export function AppSidebar({ ...props }) {
                 Zaidan Educare
               </span>
             </div>
-          </a>
+          </Link>
         </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>

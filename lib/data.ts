@@ -557,6 +557,46 @@ Terima kasih.`
   }
 ]
 
+export const allPaymentData = [
+  {
+    jenis: "SPP",
+    totalTransaksi: 116,
+    detail: [
+      { date: new Date("2025-01-01"), jumlah: 3 },
+      { date: new Date("2025-01-02"), jumlah: 6 },
+      { date: new Date("2025-01-03"), jumlah: 4 },
+    ],
+  },
+  {
+    jenis: "Makan Siang",
+    totalTransaksi: 100,
+    detail: [
+      { date: new Date("2025-01-02"), jumlah: 2 },
+      { date: new Date("2025-01-03"), jumlah: 5 },
+    ],
+  },
+  {
+    jenis: "Jemputan",
+    totalTransaksi: 110,
+    detail: [
+      { date: new Date("2025-01-01"), jumlah: 10 },
+    ],
+  },
+  {
+    jenis: "Program",
+    totalTransaksi: 75,
+    detail: [
+    ],
+  },
+  {
+    jenis: "DPP",
+    totalTransaksi: 65,
+    detail: [
+    ],
+  },
+];
+
+
 // SELECT OPTIONS
 
 export const kelasSelectOptions = [
