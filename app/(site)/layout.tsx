@@ -61,10 +61,10 @@ export default function SiteLayout({
     '/bank-penerima-transfer': 'Master - Data Bank Penerima Transfer',
     '/tagihan-siswa': 'Pengelolaan Data Tagihan Biaya Pendidikan',
     '/penerimaan-dana': 'Pengelolaan Data Pencatatan Pembayaran Biaya Dana Pendidikan',
-    '/pengaturan-notifikasi-penagihan': 'Pengaturan Pengiriman Notifikasi Pengingat Pembayaran',
-    '/rekapitulasi-penerimaan-dana': 'Rekapitulasi Pembayaran Biaya Pendidikan',
+    '/pengaturan-notifikasi': 'Pengaturan Pengiriman Notifikasi Pengingat Pembayaran',
+    '/rekapitulasi': 'Rekapitulasi Pembayaran Biaya Pendidikan',
     '/status-pembayaran': 'Informasi Status Pembayaran Siswa',
-    '/grafik-transaksi-penerimaan-dana': 'Trend Transaksi Pembayaran Biaya Pendidikan'
+    '/progres-transaksi-penerima-dana': 'Progres Transaksi Pembayaran Pendidikan'
   }
 
   const handleLogout = () => {

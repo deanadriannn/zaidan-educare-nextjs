@@ -73,6 +73,8 @@ export function DataTable<TData, TValue>({
     /^\/jenis-biaya-pendidikan$/,
     /^\/bank-penerima-transfer$/,
     /^\/user$/,
+    /^\/rekapitulasi$/,
+    /^\/tagihan-siswa$/,
     /^\/tagihan-siswa\/\d+$/, // Mencocokkan /tagihan-siswa/{id} di mana {id} adalah angka
   ];
   
@@ -131,6 +133,7 @@ export function DataTable<TData, TValue>({
               ? "100%"
               : table.getTotalSize(),
           }}
+          className='w-full'
         >
           <thead>
             {table.getHeaderGroups().map(headerGroup => (

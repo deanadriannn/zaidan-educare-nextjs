@@ -29,7 +29,7 @@ const CardNotifikasi = ({
         <Button 
           className="absolute top-0 right-0 md:top-2 md:right-2"
           variant="ghost"
-          onClick={() => router.push("/pengaturan-notifikasi-penagihan/edit/" + id)}
+          onClick={() => router.push("/pengaturan-notifikasi/edit/" + id)}
         >
           <Pencil className="text-yellow-500" />
         </Button>

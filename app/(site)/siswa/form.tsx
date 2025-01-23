@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
+import { ArrowLeft, Check, ChevronsUpDown, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -25,6 +25,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "@/components/date-picker";
 import { kelasSelectOptions } from "@/lib/data";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -284,7 +286,7 @@ export default function StudentForm() {
             />
 
             {/* KELAS */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="kelas"
               render={({ field }) => {
@@ -316,6 +318,79 @@ export default function StudentForm() {
                         ))}
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            /> */}
+            <FormField
+              control={form.control}
+              name="kelas"
+              render={({ field }) => {
+                const { error } = useFormField()
+                return (
+                  <FormItem className="flex flex-col">
+                    <FormLabel 
+                      className={cn(
+                        error ? "text-destructive": "text-muted-foreground",
+                        "text-lg font-bold"
+                      )}
+                    >
+                      Kelas <span className="text-destructive">*</span>
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-full md:w-full justify-between",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? kelasSelectOptions.find(
+                                  (kelas) => kelas.value === field.value
+                                )?.label
+                              : "Pilih Kelas"}
+                            <ChevronsUpDown className="opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="popover-content-width-full p-0">
+                        <Command>
+                          <CommandInput
+                            placeholder="Cari kelas..."
+                            className="h-9"
+                          />
+                          <CommandList>
+                            <CommandEmpty>Tidak menemukan kelas.</CommandEmpty>
+                            <CommandGroup>
+                              {kelasSelectOptions.map((kelas) => (
+                                <CommandItem
+                                  value={kelas.label}
+                                  key={kelas.value}
+                                  onSelect={() => {
+                                    form.setValue("kelas", kelas.value)
+                                  }}
+                                >
+                                  {kelas.label}
+                                  <Check
+                                    className={cn(
+                                      "ml-auto",
+                                      kelas.value === field.value
+                                        ? "opacity-100"
+                                        : "opacity-0"
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )

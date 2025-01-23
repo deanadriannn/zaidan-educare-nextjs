@@ -28,6 +28,9 @@ const leagueSpartan = League_Spartan({
 export const metadata: Metadata = {
   title: "Zaidan Educare",
   description: "Aplikasi Pendanaan Sekolah Zaidan Educare",
+  icons: {
+    icon: "/images/favicon.png"
+  }
 };
 
 export default function RootLayout({

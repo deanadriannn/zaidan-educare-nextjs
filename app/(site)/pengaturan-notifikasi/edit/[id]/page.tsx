@@ -56,14 +56,14 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
     console.log("Form Values:", values)
     console.log("Daftar periode:", periodes)
     toast.success("Pesan notifikasi berhasil diperbarui")
-    router.push("/pengaturan-notifikasi-penagihan")
+    router.push("/pengaturan-notifikasi")
   }
 
   return (
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/pengaturan-notifikasi-penagihan")}>
+          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/pengaturan-notifikasi")}>
             <ArrowLeft />
           </Button>
           <span 
@@ -162,7 +162,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/pengaturan-notifikasi-penagihan")}>
+            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/pengaturan-notifikasi")}>
               <CircleX className="mr-2" />
               Batal
             </Button>

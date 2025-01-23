@@ -30,7 +30,7 @@ export default function DashboardPage() {
 
   return (
     <>
-      {role === "Bendahara" && (
+      {(role === "Bendahara" || role === "Ketua Yayasan") && (
         <Card className="md:mx-4 mt-4 font-spartan">
           <CardHeader>
             <CardTitle className="text-xl font-semibold">Kata Kunci Pencarian</CardTitle>

@@ -16,7 +16,7 @@ import { useUserStore } from "@/hooks/use-user"
 
 type Role = "Ketua Yayasan" | "Bendahara" | "Administrator"
 
-export interface DataType {
+interface DataType {
   navMain: Record<Role, NavItem[]>
 }
 
@@ -33,18 +33,18 @@ export function AppSidebar({ ...props }) {
           icon: "/sidebar/home.svg",
         },
         {
-          title: "Status Pembayaran Siswa",
+          title: "Status Pembayaran",
           url: "/status-pembayaran",
           icon: "/sidebar/card-payment.svg"
         },
         {
-          title: "Rekapitulasi Penerimaan Dana",
-          url: "/rekapitulasi-penerimaan-dana",
+          title: "Rekapitulasi",
+          url: "/rekapitulasi",
           icon: "/sidebar/bar-chart.svg"
         },
         {
-          title: "Grafik Transaksi Penerimaan Dana",
-          url: "/grafik-transaksi-penerimaan-dana",
+          title: "Progres Transaksi Penerima Dana",
+          url: "/progres-transaksi-penerima-dana",
           icon: "/sidebar/combo-chart.svg"
         }
       ],
@@ -55,7 +55,7 @@ export function AppSidebar({ ...props }) {
           icon: "/sidebar/home.svg",
         },
         {
-          title: "Transaksi Tagihan Siswa",
+          title: "Tagihan Siswa",
           url: "/tagihan-siswa",
           icon: "/sidebar/bill.svg"
         },
@@ -65,23 +65,23 @@ export function AppSidebar({ ...props }) {
           icon: "/sidebar/bill.svg"
         },
         {
-          title: "Pengaturan Notifikasi Penagihan",
-          url: "/pengaturan-notifikasi-penagihan",
+          title: "Pengaturan Notifikasi",
+          url: "/pengaturan-notifikasi",
           icon: "/sidebar/push-notifications.svg"
         },
         {
-          title: "Status Pembayaran Siswa",
+          title: "Status Pembayaran",
           url: "/status-pembayaran",
           icon: "/sidebar/card-payment.svg"
         },
         {
-          title: "Rekapitulasi Penerimaan Dana",
-          url: "/rekapitulasi-penerimaan-dana",
+          title: "Rekapitulasi",
+          url: "/rekapitulasi",
           icon: "/sidebar/bar-chart.svg"
         },
         {
-          title: "Grafik Transaksi Penerimaan Dana",
-          url: "/grafik-transaksi-penerimaan-dana",
+          title: "Progres Transaksi Penerima Dana",
+          url: "/progres-transaksi-penerima-dana",
           icon: "/sidebar/combo-chart.svg"
         }
       ],
