@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select"
 import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData, tagihanSiswaData } from "@/lib/data";
 import Filter from "@/components/filter";
+import Link from "next/link";
 
 export default function StatusPembayaranPage() {
   const [name, setName] = useState('')
@@ -99,9 +100,14 @@ export default function StatusPembayaranPage() {
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
-          <Button variant="primary-red">
-            <FileDown /> Unduh
-          </Button>
+          <Link
+            href="/download/Data Unduh Status Pembayaran.xlsx"
+            download="Data Unduh Status Pembayaran.xlsx"
+          >
+            <Button variant="primary-red">
+              <FileDown /> Unduh
+            </Button>
+          </Link>
         </CardContent>
         {/* @ts-ignore */}
         <DataTable columns={columns} data={statusPembayaranData} />

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { FileDown, Search } from "lucide-react";
 import { rekapitulasiPenerimaanDanaData } from "@/lib/data";
 import Filter from "@/components/filter";
+import Link from "next/link";
 
 export default function RekapitulasiPenerimaanDanaPage() {
   const [tahunAjaranStart, setTahunAjaranStart] = useState("")
@@ -75,9 +76,14 @@ export default function RekapitulasiPenerimaanDanaPage() {
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
-          <Button variant="primary-red">
-            <FileDown /> Unduh
-          </Button>
+          <Link
+            href="/download/Data Unduh Rekapitulasi Biaya Pendidikan.xlsx"
+            download="Data Unduh Rekapitulasi Biaya Pendidikan.xlsx"
+          >
+            <Button variant="primary-red">
+              <FileDown /> Unduh
+            </Button>
+          </Link>
         </CardContent>
         <span className="mx-6 font-bold text-muted-foreground">
           Ringkasan Data Penerimaan Biaya Pendidikan

@@ -27,6 +27,7 @@ import { DatePicker } from "@/components/date-picker";
 import { kelasSelectOptions } from "@/lib/data";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import Link from "next/link";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -115,9 +116,9 @@ export default function StudentForm() {
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/siswa")}>
+          <Link href="/siswa">
             <ArrowLeft />
-          </Button>
+          </Link>
           <span className="text-md md:text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Siswa`}</span>
         </div>
       </CardHeader>

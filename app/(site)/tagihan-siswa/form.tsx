@@ -27,6 +27,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 type tagihanSiswaFormValues = z.infer<typeof tagihanSiswaSchema>
 
@@ -182,9 +183,9 @@ export default function TagihanSiswaForm() {
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/tagihan-siswa")}>
+          <Link href="/tagihan-siswa">
             <ArrowLeft />
-          </Button>
+          </Link>
           <span 
             className="text-md md:text-lg font-bold"
           >

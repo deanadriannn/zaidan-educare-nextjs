@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 type pengaturanNotifikasiPenagihanFormValues = z.infer<typeof pengaturanNotifikasiPenagihanSchema>
 
@@ -63,9 +64,9 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/pengaturan-notifikasi")}>
+          <Link href="/pengaturan-notifikasi">
             <ArrowLeft />
-          </Button>
+          </Link>
           <span 
             className="text-md md:text-lg font-bold"
           >

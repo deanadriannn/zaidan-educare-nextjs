@@ -22,6 +22,7 @@ import { StudentInfo } from "@/types/data";
 import { ClassPromotionForm } from "@/components/class-promotion-form";
 import { UploadFileDialog } from "@/components/upload-file-dialog";
 import Filter from "@/components/filter";
+import Link from "next/link";
 
 export default function StudentPage() {
   const [name, setName] = useState('')
@@ -113,9 +114,14 @@ export default function StudentPage() {
               <CircleArrowUp /> Naik Kelas
             </Button>
           </ConfirmAlert>
-          <Button variant="primary-red">
-            <FileDown /> Unduh Template Import
-          </Button>
+          <Link 
+            href="/download/Template Import Data Siswa.xlsx"
+            download="Template Import Data Siswa.xlsx"
+          >
+            <Button variant="primary-red">
+              <FileDown /> Unduh Template Import
+            </Button>
+          </Link>
           <UploadFileDialog
             title="Import Data Siswa"
           >
@@ -123,12 +129,14 @@ export default function StudentPage() {
               <FileUp /> Impor Data
             </Button>
           </UploadFileDialog>
-          <Button 
-            onClick={() => router.push('/siswa/input')}
-            variant="primary-red"
-          >
-            <Plus /> Tambah
-          </Button>
+          <Link href="/siswa/input">
+            <Button
+              variant="primary-red"
+            >
+              <Plus /> Tambah
+            </Button>
+        
+          </Link>
         </CardContent>
         <DataTable 
           columns={columns}

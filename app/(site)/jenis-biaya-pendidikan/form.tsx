@@ -19,6 +19,7 @@ import {
 import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
+import Link from "next/link";
 
 const jenisBiayaPendidikanSchema = z.object({
   namaTagihan: z.string().min(1, "Nama tagihan wajib diisi"),
@@ -57,9 +58,9 @@ export default function JenisBiayaPendidikanForm() {
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/jenis-biaya-pendidikan")}>
+          <Link href="/jenis-biaya-pendidikan">
             <ArrowLeft />
-          </Button>
+          </Link>
           <span className="text-md md:text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Jenis Biaya Pendidikan`}</span>
         </div>
       </CardHeader>

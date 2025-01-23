@@ -20,6 +20,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useForm
 import { cn } from "@/lib/utils"
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import Link from "next/link";
 
 const userSchema = z.object({
   nama: z.string().min(1, "Nama wajib diisi"),
@@ -62,9 +63,9 @@ export default function UserForm() {
     <Card className="md:mx-4 mt-4 px-4 md:px-10 py-4">
       <CardHeader className="px-0">
         <div className="flex flex-row justify-start items-center gap-4">
-          <Button variant="ghost" className="p-0 hover:bg-transparent" onClick={() => router.push("/user")}>
+          <Link href="/user">
             <ArrowLeft />
-          </Button>
+          </Link>
           <span className="text-md md:text-lg font-bold">{`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Pengguna Aplikasi`}</span>
         </div>
       </CardHeader>

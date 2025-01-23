@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { DatePicker } from "@/components/date-picker";
 import { UploadFileDialog } from "@/components/upload-file-dialog";
 import Filter from "@/components/filter";
+import Link from "next/link";
 
 const data: PenerimaanDanaColumns[] = [
   {
@@ -215,9 +216,14 @@ export default function TagihanSiswaPage() {
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex flex-col md:flex-row justify-end gap-4">
-          <Button variant="primary-red">
-            <FileDown /> Unduh Template Import
-          </Button>
+          <Link
+            href="/download/Template Data Import Pembayaran.xlsx"
+            download="Template Data Import Pembayaran.xlsx"
+          >
+            <Button variant="primary-red">
+              <FileDown /> Unduh Template Import
+            </Button>
+          </Link>
           <UploadFileDialog
             title="Import Data Transaksi Pembayaran"
           >
@@ -225,13 +231,14 @@ export default function TagihanSiswaPage() {
               <FileUp /> Impor Data
             </Button>
           </UploadFileDialog>
-          <Button 
-            onClick={() => router.push('/penerimaan-dana/input')}
-            variant="primary-red"
-            className="w-full md:w-fit"
-          >
-            <Plus /> Tambah
-          </Button>
+          <Link href="/penerimaan-dana/input">
+            <Button
+              variant="primary-red"
+              className="w-full md:w-fit"
+            >
+              <Plus /> Tambah
+            </Button>
+          </Link>
         </CardContent>
         <DataTable columns={columns} data={data} />
       </Card>
