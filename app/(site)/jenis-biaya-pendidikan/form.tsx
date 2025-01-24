@@ -36,6 +36,7 @@ type JenisBiayaPendidikanFormValues = z.infer<typeof jenisBiayaPendidikanSchema>
 export default function JenisBiayaPendidikanForm() {
   const router = useRouter()
   const pathname = usePathname()
+  const [isLoading, setIsLoading] = useState(false)
 
   const isEdit = pathname.includes("edit")
 
@@ -49,6 +50,7 @@ export default function JenisBiayaPendidikanForm() {
   })
 
   function onSubmit(values: JenisBiayaPendidikanFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     toast.success(`Data jenis biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/jenis-biaya-pendidikan")
@@ -85,7 +87,7 @@ export default function JenisBiayaPendidikanForm() {
                       Nama Tagihan <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama Tagihan" {...field} />
+                      <Input placeholder="Masukkan Nama Tagihan" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,7 +111,7 @@ export default function JenisBiayaPendidikanForm() {
                     >
                       Waktu Pembayaran <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -143,7 +145,7 @@ export default function JenisBiayaPendidikanForm() {
                     >
                       Status Cicilan <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -163,11 +165,13 @@ export default function JenisBiayaPendidikanForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/jenis-biaya-pendidikan")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/jenis-biaya-pendidikan"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

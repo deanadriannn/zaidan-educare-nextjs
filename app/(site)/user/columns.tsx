@@ -17,6 +17,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
 import { User } from "@/types/data"
+import Link from "next/link"
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -66,9 +67,11 @@ export const columns: ColumnDef<User>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/user/edit/" + user.id)}>
-            <Pencil className="text-yellow-500"/>
-          </Button>
+          <Link href={"/user/edit/" + user.id}>
+            <Button size="icon" variant="ghost">
+              <Pencil className="text-yellow-500"/>
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size="icon" variant="ghost">

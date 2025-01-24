@@ -172,7 +172,7 @@ type PaymentItem = {
 
 export default function PenerimaanDanaForm() {
   const router = useRouter()
-  const pathname = usePathname()
+  const [isLoading, setIsLoading] = useState(false)
 
   const [paymentItems, setPaymentItems] = useState<PaymentItem[]>([
     // Boleh awali dengan 1 baris “kosong” atau sesuai kebutuhan
@@ -257,11 +257,9 @@ export default function PenerimaanDanaForm() {
   };
 
   function onSubmit(values: penerimaanDanaFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
-
-    // Cek apakah 
-
     toast.success("Data traksaksi pembayaran biaya pendidikan berhasil ditambahkan")
     router.push("/penerimaan-dana")
   }
@@ -311,6 +309,7 @@ export default function PenerimaanDanaForm() {
                                 "w-full justify-between",
                                 !field.value && "text-muted-foreground"
                               )}
+                              disabled={isLoading}
                             >
                               {field.value
                                 ? exampleData.find(
@@ -407,6 +406,7 @@ export default function PenerimaanDanaForm() {
                         minDate={new Date("1900-01-01")}
                         maxDate={new Date()}
                         placeholder="Pilih Tanggal Transaksi"
+                        disabled={isLoading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -479,7 +479,7 @@ export default function PenerimaanDanaForm() {
             <h2 className="font-bold">
               Daftar Transasi Pembayaran
             </h2>
-            <Button variant="primary-red" onClick={handleAddRow} type="button">
+            <Button variant="primary-red" onClick={handleAddRow} type="button" disabled={isLoading}>
               <Plus />
             </Button>
           </div>
@@ -509,6 +509,7 @@ export default function PenerimaanDanaForm() {
                           handleSelectJenisPembayaran(index, val)
                         }
                         required
+                        disabled={isLoading}
                       >
                         <SelectTrigger className="w-44">
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -544,6 +545,7 @@ export default function PenerimaanDanaForm() {
                         className="w-28"
                         value={item.nominal || ""}
                         onChange={(e) => handleNominalChange(index, e.target.value)}
+                        disabled={isLoading}
                       />
                     </td>
 
@@ -554,6 +556,7 @@ export default function PenerimaanDanaForm() {
                         onValueChange={(val) => 
                           handleMetodePembayaranChange(index, val)
                         }
+                        disabled={isLoading}
                       >
                         <SelectTrigger className="w-44">
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -580,6 +583,7 @@ export default function PenerimaanDanaForm() {
                           onValueChange={(val) => 
                             handleNamaBankChange(index, val)
                           }
+                          disabled={isLoading}
                         >
                           <SelectTrigger className="w-44">
                             <SelectValue placeholder="Pilih Salah Satu" />
@@ -607,6 +611,7 @@ export default function PenerimaanDanaForm() {
                         size="icon"
                         onClick={() => handleRemoveRow(index)}
                         type="button"
+                        disabled={isLoading}
                       >
                         <Minus />
                       </Button>
@@ -619,11 +624,13 @@ export default function PenerimaanDanaForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/penerimaan-dana")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/penerimaan-dana"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

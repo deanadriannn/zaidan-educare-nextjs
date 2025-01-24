@@ -12,6 +12,7 @@ import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 import Link from "next/link";
+import { useState } from "react";
 
 const bankPenerimaTransferSchema = z.object({
   namaBank: z.string().min(1, "Nama bank wajib diisi"),
@@ -24,6 +25,7 @@ type BankPenerimaTransferFormValues = z.infer<typeof bankPenerimaTransferSchema>
 export default function BankPenerimaTransferForm() {
   const router = useRouter()
   const pathname = usePathname()
+  const [isLoading, setIsLoading] = useState(false)
 
   const isEdit = pathname.includes("edit")
 
@@ -37,6 +39,7 @@ export default function BankPenerimaTransferForm() {
   })
 
   function onSubmit(values: BankPenerimaTransferFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     toast.success(`Data bank penerima transfer berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/bank-penerima-transfer")
@@ -73,7 +76,7 @@ export default function BankPenerimaTransferForm() {
                       Nama Bank <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama Bank" {...field} />
+                      <Input placeholder="Masukkan Nama Bank" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -98,7 +101,7 @@ export default function BankPenerimaTransferForm() {
                       Nomor Rekening <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nomor Rekening" {...field} />
+                      <Input placeholder="Masukkan Nomor Rekening" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -123,7 +126,7 @@ export default function BankPenerimaTransferForm() {
                       Nama Pemilik Rekening <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama Pemilik Rekening" {...field} />
+                      <Input placeholder="Masukkan Nama Pemilik Rekening" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -136,11 +139,13 @@ export default function BankPenerimaTransferForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/bank-penerima-transfer")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/bank-penerima-transfer"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

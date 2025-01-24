@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil } from "lucide-react";
 import { pesanNotifikasiPenagihan } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CardNotifikasi = ({
   id,
@@ -15,7 +15,6 @@ const CardNotifikasi = ({
   label: string,
   value: string
 }) => {
-  const router = useRouter()
 
   return (
     <div className="flex flex-col gap-2">
@@ -26,13 +25,14 @@ const CardNotifikasi = ({
         <div className="font-medium whitespace-pre-wrap">
           {value}
         </div>
-        <Button 
-          className="absolute top-0 right-0 md:top-2 md:right-2"
-          variant="ghost"
-          onClick={() => router.push("/pengaturan-notifikasi/edit/" + id)}
-        >
-          <Pencil className="text-yellow-500" />
-        </Button>
+        <Link href={"/pengaturan-notifikasi/edit/" + id}>
+          <Button 
+            className="absolute top-0 right-0 md:top-2 md:right-2"
+            variant="ghost"
+          >
+            <Pencil className="text-yellow-500" />
+          </Button>
+        </Link>
       </div>
     </div>
   )

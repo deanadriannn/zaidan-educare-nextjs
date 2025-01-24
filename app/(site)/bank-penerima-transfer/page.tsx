@@ -11,6 +11,7 @@ import { Plus, Search } from "lucide-react";
 import { bankData } from "@/lib/data";
 import { useRouter } from "next/navigation";
 import Filter from "@/components/filter";
+import Link from "next/link";
 
 export default function BankPenerimaTransferPage() {
   const [name, setName] = useState('')
@@ -53,13 +54,14 @@ export default function BankPenerimaTransferPage() {
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
-          <Button 
-            onClick={() => router.push('/bank-penerima-transfer/input')}
-            variant="primary-red"
-            className="w-full md:w-fit"
-          >
-            <Plus /> Tambah
-          </Button>
+          <Link href="/bank-penerima-transfer/input">
+            <Button
+              variant="primary-red"
+              className="w-full md:w-fit"
+            >
+              <Plus /> Tambah
+            </Button>
+          </Link>
         </CardContent>
         <DataTable columns={columns} data={bankData} />
       </Card>

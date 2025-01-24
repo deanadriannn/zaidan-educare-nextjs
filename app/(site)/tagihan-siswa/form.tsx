@@ -119,6 +119,7 @@ export default function TagihanSiswaForm() {
       nominal: 0,
     },
   ]);
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<tagihanSiswaFormValues>({
     resolver: zodResolver(tagihanSiswaSchema),
@@ -173,6 +174,7 @@ export default function TagihanSiswaForm() {
   };
 
   function onSubmit(values: tagihanSiswaFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
     toast.success(`Data tagihan biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
@@ -223,6 +225,7 @@ export default function TagihanSiswaForm() {
                               "w-full md:w-full justify-between",
                               !field.value && "text-muted-foreground"
                             )}
+                            disabled={isLoading}
                           >
                             {field.value
                               ? exampleData.find(
@@ -299,7 +302,7 @@ export default function TagihanSiswaForm() {
 
           {/* TOMBOL TAMBAH BARIS */}
           <div className="flex justify-end mb-2">
-            <Button variant="primary-red" onClick={handleAddRow} type="button">
+            <Button variant="primary-red" onClick={handleAddRow} type="button" disabled={isLoading}>
               <Plus />
             </Button>
           </div>
@@ -326,6 +329,7 @@ export default function TagihanSiswaForm() {
                         onValueChange={(val) =>
                           handleSelectJenisPembayaran(index, val)
                         }
+                        disabled={isLoading}
                       >
                         <SelectTrigger className="w-44">
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -360,6 +364,7 @@ export default function TagihanSiswaForm() {
                         className="w-28"
                         value={item.nominal || ""}
                         onChange={(e) => handleNominalChange(index, e.target.value)}
+                        disabled={isLoading}
                       />
                     </td>
 
@@ -370,6 +375,7 @@ export default function TagihanSiswaForm() {
                         size="icon"
                         onClick={() => handleRemoveRow(index)}
                         type="button"
+                        disabled={isLoading}
                       >
                         <Minus />
                       </Button>
@@ -382,11 +388,13 @@ export default function TagihanSiswaForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/tagihan-siswa")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/tagihan-siswa"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

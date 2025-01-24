@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { TagihanSiswaColumns } from "@/types/data"
 import { formatToIDR } from "@/lib/utils"
+import Link from "next/link"
 
 export const columns: ColumnDef<TagihanSiswaColumns>[] = [
   {
@@ -74,7 +75,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalDpp = parseFloat(row.getValue("nominalDpp"))
       const formatted = formatToIDR(nominalDpp)
  
-      return <div className="font-medium text-center">{formatted}</div>
+      return <div className="font-medium">{formatted}</div>
     },
   },
   {
@@ -88,7 +89,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalProgram = parseFloat(row.getValue("nominalProgram"))
       const formatted = formatToIDR(nominalProgram)
  
-      return <div className="font-medium text-center">{formatted}</div>
+      return <div className="font-medium">{formatted}</div>
     },
   },
   {
@@ -102,7 +103,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const nominalBulanan = parseFloat(row.getValue("nominalBulanan"))
       const formatted = formatToIDR(nominalBulanan)
  
-      return <div className="font-medium text-center">{formatted}</div>
+      return <div className="font-medium">{formatted}</div>
     },
   },
   {
@@ -123,9 +124,11 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/tagihan-siswa/edit/" + student.id)}>
-            <Pencil className="text-yellow-500"/>
-          </Button>
+          <Link href={"/tagihan-siswa/edit/" + student.id}>
+            <Button size="icon" variant="ghost">
+              <Pencil className="text-yellow-500"/>
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size="icon" variant="ghost">
@@ -151,12 +154,14 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <Button size="icon" variant="ghost" onClick={() => router.push("/tagihan-siswa/" + student.id)}>
-            <Eye className="text-[#5787e1]" />
-          </Button>
+          <Link href={"/tagihan-siswa/" + student.id}>
+            <Button size="icon" variant="ghost">
+              <Eye className="text-[#5787e1]" />
+            </Button>
+          </Link>
         </div>
       )
     },
-    size: 200,
+    size: 100,
   },
 ]

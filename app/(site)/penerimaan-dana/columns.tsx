@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { PenerimaanDanaColumns } from "@/types/data"
 import { formatDateToIndonesia, formatToIDR } from "@/lib/utils"
+import Link from "next/link"
 
 export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
   {
@@ -31,9 +32,9 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
       const tanggalTransaksi = row.original.tanggalTransaksi
       const formatted = formatDateToIndonesia(tanggalTransaksi)
  
-      return <div className="pl-4">{formatted}</div>
+      return <div className="text-center">{formatted}</div>
     },
-    size: 300
+    size: 200
   },
   {
     accessorKey: "nis",
@@ -43,11 +44,11 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div>
+      <div className="text-center">
         <p>{row.original.nis}</p>
       </div>
     ),
-    size: 300
+    size: 150
   },
   {
     accessorKey: "namaSiswa",
@@ -56,7 +57,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
         <p>Nama Siswa</p>
       </div>
     ),
-    size: 300,
+    size: 200,
   },
   {
     accessorKey: "kelas",
@@ -65,7 +66,12 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
         <p>Kelas</p>
       </div>
     ),
-    size: 300
+    cell: ({ row }) => (
+      <div className="text-center">
+        <p>{row.original.kelas}</p>
+      </div>
+    ),
+    size: 110
   },
   {
     accessorKey: "jenisPembayaran",
@@ -74,7 +80,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
         <p>Jenis Pembayaran</p>
       </div>
     ),
-    size: 300
+    size: 200
   },
   {
     accessorKey: "nominal",
@@ -89,7 +95,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
  
       return <div className="font-medium">{formatted}</div>
     },
-    size: 300
+    size: 200
   },
   {
     accessorKey: "metodePembayaran",
@@ -98,7 +104,7 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
         <p>Metode Pembayaran</p>
       </div>
     ),
-    size: 300
+    size: 200
   },
   {
     id: "aksi",
@@ -110,7 +116,6 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
     accessorKey: "aksi",
     cell: ({ row }) => {
       const dana = row.original
-      const router = useRouter()
 
       const handleDelete = () => {
         toast.success("Data transaksi pembayaran biaya pendidikan berhasil dihapus")
@@ -118,9 +123,11 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/penerimaan-dana/edit/" + dana.id)}>
-            <Pencil className="text-yellow-500"/>
-          </Button>
+          <Link href={"/penerimaan-dana/edit/" + dana.id}>
+            <Button size="icon" variant="ghost">
+              <Pencil className="text-yellow-500"/>
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size="icon" variant="ghost">
@@ -149,6 +156,6 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
         </div>
       )
     },
-    size: 200,
+    size: 100,
   },
 ]

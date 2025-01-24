@@ -38,7 +38,9 @@ type UserFormValues = z.infer<typeof userSchema>
 export default function UserForm() {
   const router = useRouter()
   const pathname = usePathname()
+
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const isEdit = pathname.includes("edit")
 
@@ -54,6 +56,7 @@ export default function UserForm() {
   })
 
   function onSubmit(values: UserFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     toast.success(`Data pengguna aplikasi berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
     router.push("/user")
@@ -90,7 +93,7 @@ export default function UserForm() {
                       Nama <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama" {...field} />
+                      <Input placeholder="Masukkan Nama" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,6 +121,8 @@ export default function UserForm() {
                         onChange={(event) =>
                           onChange(event.target.files && event.target.files[0])
                         }
+                        className="hover:cursor-pointer"
+                        disabled={isLoading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -143,7 +148,7 @@ export default function UserForm() {
                       Username <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Username" {...field} />
+                      <Input placeholder="Masukkan Username" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -172,6 +177,7 @@ export default function UserForm() {
                         <Input 
                           placeholder={`Masukkan Password ${isEdit ? "Baru" : ""}`} {...field} 
                           type={showPassword ? "text" : "password"}
+                          disabled={isLoading}
                         />
                         <TooltipProvider>
                           <Tooltip>
@@ -182,6 +188,7 @@ export default function UserForm() {
                                 className="absolute right-0 top-1/2 transform -translate-y-1/2 p-0 h-14 w-14 hover:bg-transparent"
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 type="button"
+                                disabled={isLoading}
                               >
                                 {showPassword ? 
                                   <EyeOff /> : 
@@ -220,7 +227,7 @@ export default function UserForm() {
                     >
                       Role <span className="text-destructive">*</span>
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -241,11 +248,13 @@ export default function UserForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/user")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/user"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

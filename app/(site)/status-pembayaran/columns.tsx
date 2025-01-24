@@ -17,7 +17,7 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
         <p>{row.original.nis}</p>
       </div>
     ),
-    size: 200
+    size: 150
   },
   {
     accessorKey: "namaSiswa",
@@ -35,7 +35,7 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
         <p>Kelas</p>
       </div>
     ),
-    size: 200
+    size: 100
   },
   {
     accessorKey: "jenisPembayaran",
@@ -44,7 +44,7 @@ export const columns: ColumnDef<StatusPembayaranColumns>[] = [
         <p>Jenis Pembayaran</p>
       </div>
     ),
-    size: 200
+    size: 150
   },
   {
     accessorKey: "nominalTagihan",

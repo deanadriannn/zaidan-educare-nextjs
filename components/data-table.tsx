@@ -73,6 +73,8 @@ export function DataTable<TData, TValue>({
     /^\/jenis-biaya-pendidikan$/,
     /^\/bank-penerima-transfer$/,
     /^\/user$/,
+    /^\/status-pembayaran$/,
+    /^\/penerimaan-dana$/,
     /^\/rekapitulasi$/,
     /^\/tagihan-siswa$/,
     /^\/tagihan-siswa\/\d+$/, // Mencocokkan /tagihan-siswa/{id} di mana {id} adalah angka

@@ -3,7 +3,6 @@
 import { CircleCheck, CircleX, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { 
   AlertDialog, 
@@ -17,6 +16,7 @@ import {
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog"
 import { JenisBiayaPendidikan } from "@/types/data"
+import Link from "next/link"
 
 export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   {
@@ -68,7 +68,6 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
     accessorKey: "aksi",
     cell: ({ row }) => {
       const jenisBiayaPendidikan = row.original
-      const router = useRouter()
 
       const handleDelete = () => {
         toast.success("Data jenis biaya pendidikan berhasil dihapus")
@@ -76,9 +75,11 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/jenis-biaya-pendidikan/edit/" + jenisBiayaPendidikan.id)}>
-            <Pencil className="text-yellow-500"/>
-          </Button>
+          <Link href={"/jenis-biaya-pendidikan/edit/" + jenisBiayaPendidikan.id}>
+            <Button size="icon" variant="ghost">
+              <Pencil className="text-yellow-500"/>
+            </Button>
+          </Link>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size="icon" variant="ghost">

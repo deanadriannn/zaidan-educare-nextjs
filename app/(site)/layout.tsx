@@ -119,7 +119,7 @@ export default function SiteLayout({
                           Anda akan keluar dari akun Anda.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
-                      <AlertDialogFooter>
+                      <AlertDialogFooter className="sm:justify-end">
                         <AlertDialogCancel>Batalkan</AlertDialogCancel>
                         <AlertDialogAction onClick={handleLogout} className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90">Lanjutkan</AlertDialogAction>
                       </AlertDialogFooter>

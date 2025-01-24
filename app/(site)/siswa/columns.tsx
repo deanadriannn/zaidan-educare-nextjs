@@ -10,12 +10,13 @@ import toast from "react-hot-toast"
 import { StudentInfo } from "@/types/data"
 import { format } from "date-fns"
 import { ConfirmAlert } from "@/components/confirm-alert"
+import Link from "next/link"
 
 export const columns: ColumnDef<StudentInfo>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <div className="flex justify-center items-center gap-2">
+      <div className="text-center">
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
@@ -24,11 +25,10 @@ export const columns: ColumnDef<StudentInfo>[] = [
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
         />
-        <p className="font-bold">Select All</p>
       </div>
     ),
     cell: ({ row }) => (
-      <div className="ml-7">
+      <div className="text-center">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -36,7 +36,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         />
       </div>
     ),
-    size: 150,
+    size: 100,
     enableSorting: false,
     enableHiding: false,
   },
@@ -232,9 +232,11 @@ export const columns: ColumnDef<StudentInfo>[] = [
  
       return (
         <div className="flex justify-center items-center space-x-2">
-          <Button size="icon" variant="ghost" onClick={() => router.push("/siswa/edit/" + student.id)}>
-            <Pencil className="text-yellow-500"/>
-          </Button>
+          <Link href={"/siswa/edit/" + student.id}>
+            <Button size="icon" variant="ghost">
+              <Pencil className="text-yellow-500"/>
+            </Button>
+          </Link>
           <ConfirmAlert
             title="Apakah Anda yakin untuk menghapus data siswa?"
             handleAction={handleDelete}

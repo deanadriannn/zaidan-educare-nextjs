@@ -40,6 +40,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
   const router = useRouter()
 
   const [periodes, setPeriodes] = useState<string[]>(["1"])
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<pengaturanNotifikasiPenagihanFormValues>({
     resolver: zodResolver(pengaturanNotifikasiPenagihanSchema),
@@ -54,6 +55,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
   }
 
   function onSubmit(values: pengaturanNotifikasiPenagihanFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Daftar periode:", periodes)
     toast.success("Pesan notifikasi berhasil diperbarui")
@@ -87,6 +89,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
                   <Textarea
                     placeholder="Masukkan format pesan notifikasi"
                     {...field}
+                    disabled={isLoading}
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,6 +107,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
                   <Textarea
                     placeholder="Masukkan pesan notifikasi"
                     {...field}
+                    disabled={isLoading}
                   />
                 </FormControl>
                 <FormMessage />
@@ -137,6 +141,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
                     }}
                     placeholder="Masukkan tanggal pengiriman"
                     className="w-40"
+                    disabled={isLoading}
                   />
                   <p className="text-sm text-muted-foreground">
                     * periode pengiriman diisi 1 - 28
@@ -145,7 +150,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
 
                 {/* Tombol + / - */}
                 {index === 0 ? (
-                  <Button type="button" variant="primary-red" onClick={handleAddPeriod}>
+                  <Button type="button" variant="primary-red" onClick={handleAddPeriod} disabled={isLoading}>
                     <Plus />
                   </Button>
                 ) : (
@@ -153,6 +158,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
                     type="button"
                     variant="primary-red"
                     onClick={() => handleRemovePeriod(index)}
+                    disabled={isLoading}
                   >
                     <Minus />
                   </Button>
@@ -163,11 +169,13 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/pengaturan-notifikasi")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/pengaturan-notifikasi"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>

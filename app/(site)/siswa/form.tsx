@@ -66,6 +66,7 @@ export default function StudentForm() {
   const pathname = usePathname()
 
   const [dataUrl, setDataUrl] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const isEdit = pathname.includes("edit")
 
@@ -107,6 +108,7 @@ export default function StudentForm() {
   })
 
   function onSubmit(values: StudentFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Photo:", acceptedFiles)
     toast.success(`Data siswa berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
@@ -134,7 +136,7 @@ export default function StudentForm() {
                 className="bg-muted h-60 w-60 rounded-full hover:cursor-pointer group"
                 {...getRootProps()}
               >
-                <Input type="file" accept="image/*" id="photo" {...getInputProps()} />
+                <Input type="file" accept="image/*" id="photo" {...getInputProps()} disabled={isLoading} />
                 {dataUrl ? (
                   <div className="w-full h-full rounded-full relative group-hover:opacity-50 duration-200">
                     {/* PREVIEW */}
@@ -183,7 +185,7 @@ export default function StudentForm() {
                       Nama <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama" {...field} />
+                      <Input placeholder="Masukkan Nama" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -208,7 +210,7 @@ export default function StudentForm() {
                       NIS <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan NIS" {...field} />
+                      <Input placeholder="Masukkan NIS" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -237,6 +239,7 @@ export default function StudentForm() {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex space-y-1 space-x-6"
+                        disabled={isLoading}
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -279,7 +282,7 @@ export default function StudentForm() {
                       Tempat Lahir
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Tempat Lahir" {...field} />
+                      <Input placeholder="Masukkan Tempat Lahir" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -313,6 +316,7 @@ export default function StudentForm() {
                               "w-full md:w-full justify-between",
                               !field.value && "text-muted-foreground"
                             )}
+                            disabled={isLoading}
                           >
                             {field.value
                               ? kelasSelectOptions.find(
@@ -385,6 +389,7 @@ export default function StudentForm() {
                         minDate={new Date("1900-01-01")}
                         maxDate={new Date()}
                         placeholder="Pilih Tanggal Lahir"
+                        disabled={isLoading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -414,6 +419,7 @@ export default function StudentForm() {
                         placeholder="Masukkan Alamat Rumah"
                         className=""
                         {...field}
+                        disabled={isLoading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -443,8 +449,9 @@ export default function StudentForm() {
                         <Input
                           placeholder="Tahun Masuk"
                           {...field}
+                          disabled={isLoading}
                         />
-                        <CalendarIcon className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 h-4 w-4 opacity-50" />
+                        {/* <CalendarIcon className="text-muted-foreground absolute top-1/2 right-4 -translate-y-1/2 h-4 w-4 opacity-50" /> */}
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -470,7 +477,7 @@ export default function StudentForm() {
                       Nama Wali <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Nama" {...field} />
+                      <Input placeholder="Masukkan Nama" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -499,6 +506,7 @@ export default function StudentForm() {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                         className="flex space-y-1 space-x-6"
+                        disabled={isLoading}
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
@@ -541,7 +549,7 @@ export default function StudentForm() {
                       Email Wali
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Email Wali" {...field} />
+                      <Input placeholder="Masukkan Email Wali" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -566,7 +574,7 @@ export default function StudentForm() {
                       Nomor Telepon Wali <span className="text-destructive">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="08XXXXXXXXX" {...field} />
+                      <Input placeholder="08XXXXXXXXX" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -591,7 +599,7 @@ export default function StudentForm() {
                       Hubungan Wali
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Masukkan Hubungan Wali" {...field} />
+                      <Input placeholder="Masukkan Hubungan Wali" {...field} disabled={isLoading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -602,19 +610,22 @@ export default function StudentForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button
-              type="button"
-              className="mt-6"
-              variant="primary-yellow"
-              onClick={() => router.push("/siswa")}
-            >
-              <CircleX className="" />
-              Batal
-            </Button>
+            <Link href={"/siswa"}>
+              <Button
+                type="button"
+                className="mt-6"
+                variant="primary-yellow"
+                disabled={isLoading}
+              >
+                <CircleX className="" />
+                Batal
+              </Button>
+            </Link>
             <Button 
               type="submit"
               className="mt-6"
               variant="primary-blue"
+              disabled={isLoading}
             >
               <Save />
               Simpan

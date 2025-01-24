@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState } from "react";
 
 type tagihanSiswaFormValues = z.infer<typeof penerimaanDanaSchema>
 
@@ -91,6 +92,7 @@ const penerimaanDanaSchema = z.object({
 
 export default function PenerimaanDanaForm() {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<tagihanSiswaFormValues>({
     resolver: zodResolver(penerimaanDanaSchema),
@@ -101,6 +103,7 @@ export default function PenerimaanDanaForm() {
   })
 
   function onSubmit(values: tagihanSiswaFormValues) {
+    setIsLoading(true)
     console.log("Form Values:", values)
     toast.success("Data traksaksi pembayaran biaya pendidikan berhasil diperbarui")
     router.push("/penerimaan-dana")
@@ -192,6 +195,7 @@ export default function PenerimaanDanaForm() {
                         value={field.value || ""} // Untuk mencegah warning controlled/uncontrolled
                         onChange={(e) => field.onChange(e.target.valueAsNumber)}
                         className="w-full"
+                        disabled={isLoading}
                       />
                     </FormControl>
                   </div>
@@ -216,7 +220,7 @@ export default function PenerimaanDanaForm() {
                     Metode Pembayaran
                   </FormLabel>
                   <div>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Pilih Salah Satu" />
@@ -256,7 +260,7 @@ export default function PenerimaanDanaForm() {
                       Nama Bank
                     </FormLabel>
                     <div>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Pilih Salah Satu" />
@@ -283,11 +287,13 @@ export default function PenerimaanDanaForm() {
 
           {/* BUTTON SUBMIT */}
           <div className="flex justify-end gap-4">
-            <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" onClick={() => router.push("/penerimaan-dana")}>
-              <CircleX className="mr-2" />
-              Batal
-            </Button>
-            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]">
+            <Link href={"/penerimaan-dana"}>
+              <Button type="button" className="mt-6 bg-[#FFC31E] hover:bg-[#E0A900]" disabled={isLoading}>
+                <CircleX className="mr-2" />
+                Batal
+              </Button>
+            </Link>
+            <Button type="submit" className="mt-6 bg-[#2C5392] hover:bg-[#233D6E]" disabled={isLoading}>
               <Save className="mr-2" />
               Simpan
             </Button>
