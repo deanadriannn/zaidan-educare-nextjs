@@ -99,7 +99,7 @@ export default function DashboardPage() {
         )}
 
         {(role === "Bendahara" || role === "Ketua Yayasan") && (
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full ">
             <CardHeader>
               <CardTitle className="text-xl font-semibold">
                 Trend Data Ringkasan Jumlah Transaksi
@@ -107,7 +107,7 @@ export default function DashboardPage() {
             </CardHeader>
 
             {/* Menampilkan grafik untuk semua jenis pembayaran */}
-            <CardContent className="w-full max-w-96">
+            <CardContent className="w-full">
               <TrendChart
                 paymentType={jenisPembayaran || 'all'}
                 dateStart={bulanStart}

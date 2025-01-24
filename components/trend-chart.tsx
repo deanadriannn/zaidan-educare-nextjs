@@ -119,10 +119,10 @@ export function TrendChart({
   };
 
   return (
-    <div className="flex gap-4 flex-col w-full">
+    <div className="flex gap-4 flex-col lg:flex-row w-full has-[p]:flex-col">
       {/* Chart */}
       <div className="w-full"> 
-        <Line data={data} options={options} />
+        <Line data={data} options={options} className="w-full" />
       </div>
 
       {paymentType === "all" && (

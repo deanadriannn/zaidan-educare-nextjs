@@ -23,6 +23,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { PaymentInfo } from '@/app/(site)/tagihan-siswa/[id]/page'
 import { cn } from '@/lib/utils'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -68,6 +69,7 @@ export function DataTable<TData, TValue>({
   const pathname = usePathname()
   const [tableData, setTableData] = useState<TData[]>(() => data)
   const [rowSelection, setRowSelection] = useState({})
+  const isMobile = useIsMobile()
 
   const tableWithFullWidthPatterns = [
     /^\/jenis-biaya-pendidikan$/,
@@ -131,11 +133,9 @@ export function DataTable<TData, TValue>({
       <div className="table-container">
         <table
           style={{
-            width: isFullWidth(pathname)
-              ? "100%"
-              : table.getTotalSize(),
+            width: table.getTotalSize()
           }}
-          className='w-full'
+          className='min-w-full'
         >
           <thead>
             {table.getHeaderGroups().map(headerGroup => (

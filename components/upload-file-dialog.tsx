@@ -66,7 +66,7 @@ export function UploadFileDialog({
                 <br />
                 atau
               </span>
-              <span className="bg-[#2C5392] text-white p-1">
+              <span className="bg-[#2C5392] text-white p-1 rounded-sm">
                 Telusuri File
               </span>
             </div>

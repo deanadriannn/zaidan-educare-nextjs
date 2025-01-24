@@ -3,6 +3,7 @@
 import * as React from "react"
 import { CalendarIcon } from "lucide-react"
 import { format, getMonth, getYear, setMonth, setYear } from "date-fns"
+import { id } from 'date-fns/locale';
 
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -113,6 +114,7 @@ export function DatePicker({
           </Select>
         </div>
         <Calendar
+          locale={id}
           mode="single"
           captionLayout="dropdown"
           selected={value}

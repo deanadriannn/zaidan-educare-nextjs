@@ -29,6 +29,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/date-picker";
 import Link from "next/link";
+import { set } from "date-fns";
 
 type penerimaanDanaFormValues = z.infer<typeof penerimaanDanaSchema>
 
@@ -39,30 +40,176 @@ const exampleData = [
     value: "Abdul",
     kelas: '3-A',
     nis: '123589',
+    daftarTagihan: [
+      {
+        jenisPembayaran: "DPP",
+        waktuPembayaran: "1x",
+        statusCicilan: "Ya",
+        nominal: 15000000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "SPP",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 600000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Makan Siang",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 200000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Jemputan",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 150000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Kamping",
+        waktuPembayaran: "Tahunan",
+        statusCicilan: "Ya",
+        nominal: 1500000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+    ]
   },
   {
     label: "Budi",
     value: "Budi",
     kelas: '1-B',
     nis: '123590',
+    daftarTagihan: [
+      {
+        jenisPembayaran: "DPP",
+        waktuPembayaran: "1x",
+        statusCicilan: "Ya",
+        nominal: 15000000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "SPP",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 600000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Makan Siang",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 200000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+    ]
   },
   {
     label: "Cici",
     value: "Cici",
     kelas: '2-C',
     nis: '123591',
+    daftarTagihan: [
+      {
+        jenisPembayaran: "DPP",
+        waktuPembayaran: "1x",
+        statusCicilan: "Ya",
+        nominal: 15000000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Makan Siang",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 200000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Jemputan",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 150000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Kamping",
+        waktuPembayaran: "Tahunan",
+        statusCicilan: "Ya",
+        nominal: 1500000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+    ]
   },
   {
     label: "Dodi",
     value: "Dodi",
     kelas: '5-D',
     nis: '123592',
+    daftarTagihan: [
+      {
+        jenisPembayaran: "DPP",
+        waktuPembayaran: "1x",
+        statusCicilan: "Ya",
+        nominal: 15000000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "SPP",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 600000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+    ]
   },
   {
     label: "Euis",
     value: "Euis",
     kelas: '6-E',
     nis: '123593',
+    daftarTagihan: [
+      {
+        jenisPembayaran: "DPP",
+        waktuPembayaran: "1x",
+        statusCicilan: "Ya",
+        nominal: 15000000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "SPP",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 600000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+      {
+        jenisPembayaran: "Makan Siang",
+        waktuPembayaran: "Bulanan",
+        statusCicilan: "Tidak",
+        nominal: 200000,
+        metodePembayaran: "",
+        namaBank: "",
+      },
+    ]
   }
 ] as const
 
@@ -185,13 +332,17 @@ export default function PenerimaanDanaForm() {
       namaBank: "",
     },
   ]);
-
+  
   const form = useForm<penerimaanDanaFormValues>({
     resolver: zodResolver(penerimaanDanaSchema),
     defaultValues: {
       tanggalTransaksi: undefined,
     },
   })
+
+  // how to get daftartagihan from exampleData based on namaSiswa?
+  // can you use usestate?
+  const [daftarTagihan, setDaftarTagihan] = useState<PaymentItem[]>([])
 
   const handleAddRow = () => {
     setPaymentItems((prev) => [
@@ -281,7 +432,7 @@ export default function PenerimaanDanaForm() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row gap-4 w-full">
             {/* AUTO COMPLETE SEARCH SISWA */}
             <FormField
               control={form.control}
@@ -289,7 +440,7 @@ export default function PenerimaanDanaForm() {
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <div className="flex flex-col">
+                  <div className="flex flex-col w-full">
                     <FormItem className="flex flex-col">
                       <FormLabel 
                         className={cn(
@@ -335,6 +486,8 @@ export default function PenerimaanDanaForm() {
                                     key={siswa.value}
                                     onSelect={() => {
                                       form.setValue("namaSiswa", siswa.value)
+                                      // @ts-ignore
+                                      setDaftarTagihan(siswa.daftarTagihan)
                                     }}
                                   >
                                     {siswa.label}
@@ -390,7 +543,7 @@ export default function PenerimaanDanaForm() {
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-col w-full">
                     <FormLabel
                       className={cn(
                         error ? "text-destructive": "text-muted-foreground",
@@ -416,62 +569,67 @@ export default function PenerimaanDanaForm() {
             />
           </div>
 
-          {/* JUDUL DAFTAR TAGIHAN YANG SUDAH DITAMBAHKAN */}
-          <h2 className="font-bold mb-2">
-            Daftar Tagihan
-          </h2>
+          
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+            {/* JUDUL DAFTAR TAGIHAN YANG SUDAH DITAMBAHKAN */}
+            <div className="flex flex-col gap-2 w-full">
+              <h2 className="font-bold mb-2">
+                Daftar Tagihan
+              </h2>
 
-          {/* TABEL DAFTAR TAGIHAN YANG DITAMBAHKAN - READ ONLY */}
-          <div className="table-container">
-            <table className="w-full border text-left text-sm">
-              <thead>
-                <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2 text-center">Jenis Pembayaran</th>
-                  <th className="p-2 text-center">Waktu Pembayaran</th>
-                  <th className="p-2 text-center">Status Cicilan</th>
-                  <th className="p-2 text-center">Nominal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paymentItems.map((item, index) => {
-                  const formatted = formatToIDR(item.nominal)
-                  return (
-                    <tr key={index} className="border-b">
-                      <td className="p-2">
-                        {item.jenisPembayaran ? item.jenisPembayaran : "-"}
-                      </td>
-  
-                      {/* Waktu Pembayaran (read-only) */}
-                      <td className="p-2 text-center">
-                        {item.waktuPembayaran ? item.waktuPembayaran : "-"}
-                      </td>
-  
-                      {/* Status Cicilan (read-only) */}
-                      <td className="p-2 text-center">
-                        {item.statusCicilan ? item.statusCicilan : "-"}
-                      </td>
-  
-                      {/* Nominal (masih input, jika mau diisi manual) */}
-                      <td className="p-2">
-                        {item.nominal ? formatted : "-"}
-                      </td>
+              {/* TABEL DAFTAR TAGIHAN YANG DITAMBAHKAN - READ ONLY */}
+              <div className="table-container">
+                <table className="w-full border text-left text-sm">
+                  <thead>
+                    <tr className="border-b bg-gray-50 text-sm font-semibold">
+                      <th className="p-2 text-center">Jenis Pembayaran</th>
+                      <th className="p-2 text-center">Waktu Pembayaran</th>
+                      <th className="p-2 text-center">Status Cicilan</th>
+                      <th className="p-2 text-center">Nominal</th>
                     </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
+                  </thead>
+                  <tbody>
+                    {daftarTagihan.map((item, index) => {
+                      const formatted = formatToIDR(item.nominal)
+                      return (
+                        <tr key={index} className="border-b">
+                          <td className="p-2">
+                            {item.jenisPembayaran ? item.jenisPembayaran : "-"}
+                          </td>
+      
+                          {/* Waktu Pembayaran (read-only) */}
+                          <td className="p-2 text-center">
+                            {item.waktuPembayaran ? item.waktuPembayaran : "-"}
+                          </td>
+      
+                          {/* Status Cicilan (read-only) */}
+                          <td className="p-2 text-center">
+                            {item.statusCicilan ? item.statusCicilan : "-"}
+                          </td>
+      
+                          {/* Nominal (masih input, jika mau diisi manual) */}
+                          <td className="p-2">
+                            {item.nominal ? formatted : "-"}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          {/* TOTAL PEMBAYARAN */}
-          <div className="flex flex-col justify-start items-start mb-2">
-            <h2 className="font-bold">
-              Total Pembayaran
-            </h2>
-            <p>
-              {formatToIDR(
-                paymentItems.reduce((acc, item) => acc + item.nominal, 0)
-              )}
-            </p>
+            {/* TOTAL PEMBAYARAN */}
+            <div className="flex flex-col justify-start items-start lg:min-w-[200px] xl:min-w-[300px]">
+              <h2 className="font-bold">
+                Total Pembayaran
+              </h2>
+              <p>
+                {formatToIDR(
+                  daftarTagihan.reduce((acc, item) => acc + item.nominal, 0)
+                )}
+              </p>
+            </div>
           </div>
 
           {/* TOMBOL TAMBAH BARIS */}
@@ -502,7 +660,7 @@ export default function PenerimaanDanaForm() {
                 {paymentItems.map((item, index) => (
                   <tr key={index} className="border-b">
                     {/* Pilih Jenis Pembayaran */}
-                    <td className="p-2">
+                    <td className="p-2 flex justify-center">
                       <Select
                         value={item.jenisPembayaran}
                         onValueChange={(val) =>
@@ -538,7 +696,7 @@ export default function PenerimaanDanaForm() {
                     </td>
 
                     {/* Nominal (masih input, jika mau diisi manual) */}
-                    <td className="p-2">
+                    <td className="p-2 flex justify-center">
                       <Input
                         type="number"
                         min={0}
@@ -550,32 +708,34 @@ export default function PenerimaanDanaForm() {
                     </td>
 
                     {/* Metode Pembayaran */}
-                    <td className="p-2">
-                      <Select
-                        value={item.metodePembayaran}
-                        onValueChange={(val) => 
-                          handleMetodePembayaranChange(index, val)
-                        }
-                        disabled={isLoading}
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue placeholder="Pilih Salah Satu" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {metodePembayaranContoh.map((option) => (
-                            <SelectItem
-                              key={option.value}
-                              value={option.value}
-                            >
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                    <td>
+                      <div className="flex justify-center">
+                        <Select
+                          value={item.metodePembayaran}
+                          onValueChange={(val) => 
+                            handleMetodePembayaranChange(index, val)
+                          }
+                          disabled={isLoading}
+                        >
+                          <SelectTrigger className="w-40">
+                            <SelectValue placeholder="Pilih Salah Satu" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {metodePembayaranContoh.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </td>
 
                     {/* Nama Bank */}
-                    <td className="p-2">
+                    <td className="p-2 flex justify-center">
                       {/* Jika metode pembayaran adalah transfer, tampilkan pilihan nama bank */}
                       {item.metodePembayaran === "transfer" ? (
                         <Select

@@ -348,12 +348,12 @@ export default function TagihanSiswaForm() {
                     </td>
 
                     {/* Waktu Pembayaran (read-only) */}
-                    <td className="p-2 text-center">
+                    <td className="p-2">
                       {item.waktuPembayaran ? item.waktuPembayaran : "-"}
                     </td>
 
                     {/* Status Cicilan (read-only) */}
-                    <td className="p-2 text-center">
+                    <td className="p-2">
                       {item.statusCicilan ? item.statusCicilan : "-"}
                     </td>
 

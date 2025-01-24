@@ -39,7 +39,8 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const { role, setRole } = useUserStore()
+  const [isLoading, setIsLoading] = useState(false)
+  const { setRole } = useUserStore()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,6 +52,7 @@ export default function LoginPage() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
     if (values.username === "ketuayayasan") {
       setRole("Ketua Yayasan")
     } else if (values.username === "bendahara") {
@@ -89,6 +91,7 @@ export default function LoginPage() {
                       placeholder="admin"
                       {...field}
                       className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50 h-14"
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage className="text-sm" />
@@ -109,6 +112,7 @@ export default function LoginPage() {
                         placeholder="*****" {...field} 
                         type={showPassword ? "text" : "password"}
                         className="bg-[#CBDCEB] focus-visible:ring-[#CBDCEB]/50 h-14"
+                        disabled={isLoading}
                       />
                       <TooltipProvider>
                         <Tooltip>
@@ -119,6 +123,7 @@ export default function LoginPage() {
                               className="absolute right-0 top-1/2 transform -translate-y-1/2 p-0 h-14 w-14 hover:bg-transparent"
                               onClick={() => setShowPassword((prev) => !prev)}
                               type="button"
+                              disabled={isLoading}
                             >
                               {showPassword ? 
                                 <EyeOff /> : 
@@ -142,6 +147,7 @@ export default function LoginPage() {
             <Button 
               type="submit"
               className="w-full h-14 bg-[#608BC1] hover:bg-[#5274A2] duration-200 text-white"
+              disabled={isLoading}
             >
               Login
             </Button>
