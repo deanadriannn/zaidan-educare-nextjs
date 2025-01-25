@@ -25,15 +25,11 @@ import { useUserStore } from "@/hooks/use-user"
 import { useRouter } from "next/navigation"
  
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username minimal 2 karakter",
-  }).max(50, {
-    message: "Username maksimal 50 karakter",
+  username: z.string().min(1, {
+    message: "Username wajib diisi",
   }),
-  password: z.string().min(8, {
-    message: "Password minimal 8 karakter",
-  }).max(50, {
-    message: "Password maksimal 50 karakter",
+  password: z.string().min(1, {
+    message: "Password wajib diisi",
   }),
 })
 
