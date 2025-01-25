@@ -520,42 +520,28 @@ export const rekapitulasiPenerimaanDanaData = [
   }
 ]
 
-export const pesanNotifikasiPenagihan = [
-  {
+export const pesanNotifikasiPenagihan = {
     id: '1',
-    label: 'Pesan Notifikasi Pembayaran Bulanan',
+    label: 'Pesan Notifikasi Pembayaran',
     value: `Assalamu’alaikum Ayah Bunda Andini Eka Putri.
 
-Izin mengingatkan agar dapat membayar SPP, Makan Siang, dan Jemputan untuk bulan Mei tahun 2025 dengan total Tagihan Rp 950.000. Rincian pembayaran sebagai berikut:
+Izin mengingatkan agar dapat membayar SPP, Makan Siang, dan Jemputan untuk bulan Mei tahun 2025 dengan total tagihan Rp 950.000. Rincian pembayaran sebagai berikut:
 1. SPP sebesar Rp 600.000
 2. Makan Siang sebesar Rp 200.000
 3. Jemputan sebesar Rp 150.000
 
-Jangan lupa dibayarkan paling lambat tanggal 10 Mei 2025. Terima kasih.`,
-  },
-  {
-    id: '2',
-    label: 'Pesan Notifikasi Pembayaran Tahunan',
-    value: `Assalamu’alaikum Ayah Bunda Andini Eka Putri.
+Jangan lupa dibayarkan paling lambat tanggal 10 Mei 2025.
 
-Izin mengingatkan agar dapat membayar program Kamping, Market Day, dan Pesantren Kilat untuk tahun 2025 dengan total Tagihan Rp 1.000.000. Rincian pembayaran sebagai berikut:
+Selain itu, Ananda masih memiliki tagihan Rp 1.000.000 pembayaran program tahunan untuk kegiatan Kamping, Market Day, dan Pesantren Kilat untuk tahun 2025. Rincian pembayaran sebagai berikut:
 1. Kamping sebesar Rp 500.000
 2. Market Day sebesar Rp 200.000
 3. Pesantren Kilat sebesar Rp 300.000
 
-Terima kasih.`
-  },
-  {
-    id: '3',
-    label: 'Pesan Notifikasi Pembayaran DPP',
-    value: `Assalamu’alaikum Ayah Bunda Andini Eka Putri.
+Terakhir, Ananda juga masih memiliki tagihan Rp 10.000.000 Dana Pengembangan Pendidikan (DPP) dengan total sisa tagihan Rp 5.000.000. Diharapkan dapat mengangsur selama 6 bulan dengan pembayaran paling lambat bulan Januari tahun 2025.
 
-Izin mengingatkan agar dapat membayar Dana Pengembangan Pendidikan (DPP) dengan total sisa tagihan Rp 5.000.000 dari total tagihan Rp 10.000.000.
-
-Diharapkan dapat mengangsur selama 6 bulan dengan pembayaran paling lambat bulan Januari tahun 2025.
-Terima kasih.`
+Note: Abaikan pesan ini, jika Anda sudah membayar.
+Terima kasih.`,
   }
-]
 
 export const allPaymentData = [
   {

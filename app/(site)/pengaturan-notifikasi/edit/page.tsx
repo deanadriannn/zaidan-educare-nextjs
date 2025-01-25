@@ -14,26 +14,17 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { CardNotificationMessage } from "@/components/card-notification-message";
+import { pesanNotifikasiPenagihan } from "@/lib/data";
 
 type pengaturanNotifikasiPenagihanFormValues = z.infer<typeof pengaturanNotifikasiPenagihanSchema>
 
 const pengaturanNotifikasiPenagihanSchema = z.object({
-  format: z
-  .string()
-  .min(10, {
-    message: "Format pesan notifikasi harus berisi minimal 10 karakter",
-  })
-  .max(200, {
-    message: "Format pesan notifikasi tidak boleh lebih dari 200 karakter",
-  }),
   pesan: z
   .string()
   .min(10, {
     message: "Pesan notifikasi harus berisi minimal 10 karakter",
   })
-  .max(160, {
-    message: "Pesan notifikasi harus berisi minimal 200 karakter",
-  }),
 })
 
 export default function PengaturanNotifikasiPenagihanEditPage() {
@@ -44,6 +35,26 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
 
   const form = useForm<pengaturanNotifikasiPenagihanFormValues>({
     resolver: zodResolver(pengaturanNotifikasiPenagihanSchema),
+    defaultValues: {
+      pesan: `Assalamu’alaikum Ayah Bunda {Nama Siswa}.
+
+Izin mengingatkan agar dapat membayar {{List Jenis Pembayaran Bulanan}} untuk bulan {nama bulan} tahun {tahun} dengan total tagihan Rp {Total Tagihan}. Rincian pembayaran sebagai berikut:
+{{Jenis Pembayaran} sebesar Rp {Nominal Tagihan}}
+
+Jangan lupa dibayarkan paling lambat tanggal 10 {bulan} {tahun}.
+
+<start (tagihan_program > 0)>
+Selain itu, Ananda masih memiliki tagihan Rp {Total Tagihan} pembayaran program tahunan untuk kegiatan {{List Program}} untuk tahun {tahun}. Rincian pembayaran sebagai berikut:
+{{Jenis Pembayaran} sebesar Rp {Nominal Tagihan}}
+<end tagihan_program>
+
+<start (tagihan_dpp > 0)>
+Terakhir, Ananda juga masih memiliki tagihan Rp {Total Tagihan} Dana Pengembangan Pendidikan (DPP) dengan total sisa tagihan Rp {sisa tagihan}. Diharapkan dapat mengangsur selama 6 bulan dengan pembayaran paling lambat bulan Januari tahun 2025.
+<end tagihan_dpp>
+
+Note: Abaikan pesan ini, jika Anda sudah membayar.
+Terima kasih.`
+    }
   })
 
   const handleAddPeriod = () => {
@@ -79,22 +90,27 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="format"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-bold text-muted-foreground text-md md:text-lg">Format Pesan Notifikasi</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Masukkan format pesan notifikasi"
-                    {...field}
-                    disabled={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+          <CardNotificationMessage
+            label={"Format Pesan Notifikasi"}
+            value={`Assalamu’alaikum Ayah Bunda {Nama Siswa}.
+
+Izin mengingatkan agar dapat membayar {{List Jenis Pembayaran Bulanan}} untuk bulan {nama bulan} tahun {tahun} dengan total tagihan Rp {Total Tagihan}. Rincian pembayaran sebagai berikut:
+{{Jenis Pembayaran} sebesar Rp {Nominal Tagihan}}
+
+Jangan lupa dibayarkan paling lambat tanggal 10 {bulan} {tahun}.
+
+<start (tagihan_program > 0)>
+Selain itu, Ananda masih memiliki tagihan Rp {Total Tagihan} pembayaran program tahunan untuk kegiatan {{List Program}} untuk tahun {tahun}. Rincian pembayaran sebagai berikut:
+{{Jenis Pembayaran} sebesar Rp {Nominal Tagihan}}
+<end tagihan_program>
+
+<start (tagihan_dpp > 0)>
+Terakhir, Ananda juga masih memiliki tagihan Rp {Total Tagihan} Dana Pengembangan Pendidikan (DPP) dengan total sisa tagihan Rp {sisa tagihan}. Diharapkan dapat mengangsur selama 6 bulan dengan pembayaran paling lambat bulan Januari tahun 2025.
+<end tagihan_dpp>
+
+Note: Abaikan pesan ini, jika Anda sudah membayar.
+Terima kasih.`}
+            showEditButton={false}
           />
 
           <FormField
@@ -108,6 +124,7 @@ export default function PengaturanNotifikasiPenagihanEditPage() {
                     placeholder="Masukkan pesan notifikasi"
                     {...field}
                     disabled={isLoading}
+                    rows={20}
                   />
                 </FormControl>
                 <FormMessage />
