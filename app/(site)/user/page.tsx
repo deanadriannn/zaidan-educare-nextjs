@@ -18,13 +18,16 @@ import {
 import { penggunaAplikasiData, penggunaAplikasiSelectOptions } from "@/lib/data";
 import Filter from "@/components/filter";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import StatusMessage from "@/components/status-message";
 
 export default function UserPage() {
   const [nama, setNama] = useState('')
   const [role, setRole] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -49,6 +52,27 @@ export default function UserPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Pengguna Aplikasi Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/user"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Pengguna Aplikasi Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/user"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Pengguna Aplikasi Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/user"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">

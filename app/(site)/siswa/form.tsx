@@ -7,17 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useDropzone } from "react-dropzone"
 import toast from "react-hot-toast"
-import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
+import { ArrowLeft, Check, ChevronsUpDown, CircleUserRound, CircleX, CloudUpload, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
@@ -28,7 +21,6 @@ import { kelasSelectOptions } from "@/lib/data";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import Link from "next/link";
-import { MonthPicker } from "@/components/month-picker";
 
 const studentSchema = z.object({
   nama: z.string().min(1, "Nama tidak boleh kosong"),
@@ -45,7 +37,7 @@ const studentSchema = z.object({
   alamat: z.string().optional(),
   namaWali: z.string().min(1, "Nama wali tidak boleh kosong"),
   hubunganWali: z.string().optional(),
-  jenisKelaminWali: z.enum(["laki_laki", "perempuan"]).optional(),
+  jenisKelaminWali: z.enum(["laki_laki", "perempuan", ""]).optional(),
   emailWali: z
   .string()
   .optional()
@@ -82,7 +74,7 @@ export default function StudentForm() {
       alamat: isEdit ? "Jl. Lorem Ipsum Dolor Sit Amet" : "",
       namaWali: isEdit ? "Vi" : "",
       hubunganWali: isEdit ? "Ibu" : "",
-      jenisKelaminWali: isEdit ? "perempuan" : undefined,
+      jenisKelaminWali: isEdit ? "perempuan" : "",
       emailWali: isEdit ? "m@gmail.com" : "",
       nomorTeleponWali: isEdit ? "081234567890" : "",
       tempatLahir: isEdit ? "Jakarta" : "",
@@ -111,8 +103,11 @@ export default function StudentForm() {
     setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Photo:", acceptedFiles)
-    toast.success(`Data siswa berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/siswa")
+    if (isEdit) {
+      router.push('/siswa?status=edit-success')
+    } else {
+      router.push('/siswa?status=add-success')
+    }
   }
 
   return (

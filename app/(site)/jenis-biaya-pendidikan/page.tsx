@@ -9,14 +9,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
 import { jenisBiayaPendidikanData } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import StatusMessage from "@/components/status-message";
 
 export default function JenisBiayaPendidikanPage() {
   const [nama, setNama] = useState('')
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -39,6 +42,27 @@ export default function JenisBiayaPendidikanPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Jenis Biaya Pendidikan Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/jenis-biaya-pendidikan"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Jenis Biaya Pendidikan Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/jenis-biaya-pendidikan"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Jenis Biaya Pendidikan Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/jenis-biaya-pendidikan"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex justify-center items-center gap-4">

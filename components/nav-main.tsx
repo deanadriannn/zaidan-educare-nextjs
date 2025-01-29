@@ -81,7 +81,11 @@ export function NavMain({
           ): (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title} className="h-10 hover:cursor-pointer" 
-              isActive={pathname === item.url}
+              isActive={
+                item.url === "/"
+                  ? pathname === "/"
+                  : pathname === item.url || pathname.startsWith(`${item.url}/`)
+              }
               >
                 <Link href={item.url}>
                   {/* <item.icon /> */}

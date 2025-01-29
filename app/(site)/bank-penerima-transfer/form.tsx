@@ -41,8 +41,11 @@ export default function BankPenerimaTransferForm() {
   function onSubmit(values: BankPenerimaTransferFormValues) {
     setIsLoading(true)
     console.log("Form Values:", values)
-    toast.success(`Data bank penerima transfer berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/bank-penerima-transfer")
+    if (isEdit) {
+      router.push('/bank-penerima-transfer?status=edit-success')
+    } else {
+      router.push('/bank-penerima-transfer?status=add-success')
+    }
   }
 
   return (

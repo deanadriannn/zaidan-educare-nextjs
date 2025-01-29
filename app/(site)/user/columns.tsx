@@ -4,7 +4,6 @@ import { CircleCheck, CircleX, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -62,7 +61,7 @@ export const columns: ColumnDef<User>[] = [
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data pengguna aplikasi berhasil dihapus")
+        router.push('/user?status=delete-success')
       }
  
       return (

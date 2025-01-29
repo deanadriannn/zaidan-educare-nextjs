@@ -4,7 +4,6 @@ import { CircleCheck, CircleX, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -62,7 +61,7 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data bank penerima transfer berhasil dihapus")
+        router.push('/bank-penerima-transfer?status=delete-success')
       }
  
       return (

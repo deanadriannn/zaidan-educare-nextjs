@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import toast from "react-hot-toast"
 import { ArrowLeft, CircleX, Eye, EyeOff, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,29 +21,33 @@ import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import Link from "next/link";
 
-const userSchema = z.object({
-  nama: z.string().min(1, "Nama wajib diisi"),
-  foto: z
-  .instanceof(File).optional(),
-  username: z.string().min(1, "Username wajib diisi"),
-  password: z.string().min(1, "Password wajib diisi"),
-  role: z.enum(["ketua_yayasan", "bendahara", "administrator"], {
-    required_error: "Role wajib diisi",
-  }),
-})
-
-type UserFormValues = z.infer<typeof userSchema>
+function getUserSchema(isEdit: boolean) {
+  return z.object({
+    nama: z.string().min(1, "Nama wajib diisi"),
+    foto: z
+    .instanceof(File).optional(),
+    username: z.string().min(1, "Username wajib diisi"),
+    password: isEdit
+    ? z.string().optional()
+    : z.string().min(1, "Password wajib diisi"),
+    role: z.enum(["ketua_yayasan", "bendahara", "administrator"], {
+      required_error: "Role wajib diisi",
+    }),
+  })
+}
 
 export default function UserForm() {
   const router = useRouter()
   const pathname = usePathname()
 
+  
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState(false)
-
+  
   const isEdit = pathname.includes("edit")
+  const userSchema = getUserSchema(isEdit)
 
-  const form = useForm<UserFormValues>({
+  const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       nama: isEdit ? "Ratna Puspita Sari" : "",
@@ -55,11 +58,14 @@ export default function UserForm() {
     },
   })
 
-  function onSubmit(values: UserFormValues) {
+  function onSubmit(values: z.infer<typeof userSchema>) {
     setIsLoading(true)
     console.log("Form Values:", values)
-    toast.success(`Data pengguna aplikasi berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/user")
+    if (isEdit) {
+      router.push('/user?status=edit-success')
+    } else {
+      router.push('/user?status=add-success')
+    }
   }
 
   return (
@@ -156,7 +162,6 @@ export default function UserForm() {
               }}
             />
 
-            {/* PASSWORD */}
             <FormField
               control={form.control}
               name="password"

@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { CardNotificationMessage } from "@/components/card-notification-message";
-import { pesanNotifikasiPenagihan } from "@/lib/data";
 
 type pengaturanNotifikasiPenagihanFormValues = z.infer<typeof pengaturanNotifikasiPenagihanSchema>
 
@@ -69,8 +68,7 @@ Terima kasih.`
     setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Daftar periode:", periodes)
-    toast.success("Pesan notifikasi berhasil diperbarui")
-    router.push("/pengaturan-notifikasi")
+    router.push("/pengaturan-notifikasi?status=edit-success")
   }
 
   return (

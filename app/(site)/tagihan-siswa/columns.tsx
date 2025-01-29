@@ -4,7 +4,6 @@ import { CircleCheck, CircleX, Eye, Pencil, Trash2 } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -119,7 +118,7 @@ export const columns: ColumnDef<TagihanSiswaColumns>[] = [
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data tagihan biaya pendidikan berhasil dihapus")
+        router.push('/tagihan-siswa?status=delete-success')
       }
  
       return (

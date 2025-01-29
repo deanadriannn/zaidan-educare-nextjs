@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { JenisBiayaPendidikan } from "@/types/data"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
   {
@@ -68,9 +69,10 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
     accessorKey: "aksi",
     cell: ({ row }) => {
       const jenisBiayaPendidikan = row.original
+      const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data jenis biaya pendidikan berhasil dihapus")
+        router.push('/jenis-biaya-pendidikan?status=delete-success')
       }
  
       return (

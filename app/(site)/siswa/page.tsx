@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
@@ -16,22 +16,25 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { kelasSelectOptions, siswaData } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ConfirmAlert } from "@/components/confirm-alert";
 import { StudentInfo } from "@/types/data";
 import { ClassPromotionForm } from "@/components/class-promotion-form";
 import { UploadFileDialog } from "@/components/upload-file-dialog";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import StatusMessage from "@/components/status-message";
 
 export default function StudentPage() {
   const [nama, setNama] = useState('')
   const [nis, setNis] = useState('')
   const [kelas, setKelas] = useState('')
-  const router = useRouter()
   const [selectedStudents, setSelectedStudents] = useState<StudentInfo[]>([])
   const [isPromotionFormOpen, setIsPromotionFormOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -66,6 +69,27 @@ export default function StudentPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Siswa Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/siswa"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Siswa Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/siswa"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Siswa Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/siswa"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">

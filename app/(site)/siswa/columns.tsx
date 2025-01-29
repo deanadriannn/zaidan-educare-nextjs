@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
 import { StudentInfo } from "@/types/data"
 import { format } from "date-fns"
 import { ConfirmAlert } from "@/components/confirm-alert"
@@ -227,7 +226,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
       const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data siswa berhasil dihapus")
+        router.push('/siswa?status=delete-success')
       }
  
       return (

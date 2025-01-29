@@ -29,7 +29,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { DatePicker } from "@/components/date-picker";
 import Link from "next/link";
-import { set } from "date-fns";
 
 type penerimaanDanaFormValues = z.infer<typeof penerimaanDanaSchema>
 
@@ -411,8 +410,7 @@ export default function PenerimaanDanaForm() {
     setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
-    toast.success("Data traksaksi pembayaran biaya pendidikan berhasil ditambahkan")
-    router.push("/penerimaan-dana")
+    router.push('/penerimaan-dana?status=add-success')
   }
 
   return (

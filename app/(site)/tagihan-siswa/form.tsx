@@ -109,6 +109,7 @@ type PaymentItem = {
 export default function TagihanSiswaForm() {
   const router = useRouter()
   const pathname = usePathname()
+  const isEdit = pathname.includes("edit")
 
   const [paymentItems, setPaymentItems] = useState<PaymentItem[]>([
     // Boleh awali dengan 1 baris “kosong” atau sesuai kebutuhan
@@ -124,7 +125,7 @@ export default function TagihanSiswaForm() {
   const form = useForm<tagihanSiswaFormValues>({
     resolver: zodResolver(tagihanSiswaSchema),
     defaultValues: {
-      
+      namaSiswa: ""
     },
   })
 
@@ -177,8 +178,11 @@ export default function TagihanSiswaForm() {
     setIsLoading(true)
     console.log("Form Values:", values)
     console.log("Data Tagihan:", paymentItems)
-    toast.success(`Data tagihan biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/tagihan-siswa")
+    if (isEdit) {
+      router.push('/tagihan-siswa?status=edit-success')
+    } else {
+      router.push('/tagihan-siswa?status=add-success')
+    }
   }
 
   return (
@@ -191,7 +195,7 @@ export default function TagihanSiswaForm() {
           <span 
             className="text-md md:text-lg font-bold"
           >
-            {`Formulir ${pathname.includes("edit") ? "Pengubahan" : "Penambahan"} Data Tagihan Biaya Pendidikan`}
+            {`Formulir ${isEdit ? "Pengubahan" : "Penambahan"} Data Tagihan Biaya Pendidikan`}
           </span>
         </div>
       </CardHeader>

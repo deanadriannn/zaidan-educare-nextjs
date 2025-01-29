@@ -23,10 +23,10 @@ import Link from "next/link";
 
 const jenisBiayaPendidikanSchema = z.object({
   namaTagihan: z.string().min(1, "Nama tagihan wajib diisi"),
-  waktuPembayaran: z.enum(["bulanan", "tahunan", "1x"], {
+  waktuPembayaran: z.enum(["bulanan", "tahunan", "1x", ""], {
     required_error: "Waktu pembayaran wajib diisi",
   }),
-  statusCicilan: z.enum(["ya", "tidak"], {
+  statusCicilan: z.enum(["ya", "tidak", ""], {
     required_error: "Status cicilan wajib diisi",
   }),
 })
@@ -43,17 +43,20 @@ export default function JenisBiayaPendidikanForm() {
   const form = useForm<JenisBiayaPendidikanFormValues>({
     resolver: zodResolver(jenisBiayaPendidikanSchema),
     defaultValues: {
-      namaTagihan: isEdit ? "SPP" : undefined,
-      waktuPembayaran: isEdit ? "bulanan" : undefined,
-      statusCicilan: isEdit ? "ya" : undefined,
+      namaTagihan: isEdit ? "SPP" : "",
+      waktuPembayaran: isEdit ? "bulanan" : "",
+      statusCicilan: isEdit ? "ya" : "",
     },
   })
 
   function onSubmit(values: JenisBiayaPendidikanFormValues) {
     setIsLoading(true)
     console.log("Form Values:", values)
-    toast.success(`Data jenis biaya pendidikan berhasil ${pathname.includes("edit") ? "diperbarui" : "ditambahkan"}`)
-    router.push("/jenis-biaya-pendidikan")
+    if (isEdit) {
+      router.push('/jenis-biaya-pendidikan?status=edit-success')
+    } else {
+      router.push('/jenis-biaya-pendidikan?status=add-success')
+    }
   }
 
   return (

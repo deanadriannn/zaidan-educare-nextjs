@@ -105,8 +105,7 @@ export default function PenerimaanDanaForm() {
   function onSubmit(values: tagihanSiswaFormValues) {
     setIsLoading(true)
     console.log("Form Values:", values)
-    toast.success("Data traksaksi pembayaran biaya pendidikan berhasil diperbarui")
-    router.push("/penerimaan-dana")
+    router.push('/penerimaan-dana?status=edit-success')
   }
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
@@ -16,15 +16,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { kelasSelectOptions, tagihanSiswaData } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import StatusMessage from "@/components/status-message";
 
 export default function TagihanSiswaPage() {
   const [nama, setNama] = useState('')
   const [kelas, setKelas] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -49,6 +52,27 @@ export default function TagihanSiswaPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Tagihan Biaya Pendidikan Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/tagihan-siswa"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Tagihan Biaya Pendidikan Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/tagihan-siswa"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Tagihan Biaya Pendidikan Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/tagihan-siswa"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">

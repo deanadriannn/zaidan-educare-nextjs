@@ -3,9 +3,7 @@
 import { 
   Card, 
   CardContent, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
+  CardFooter
 } from "@/components/ui/card";
 import { columns } from "./columns";
 import { PenerimaanDanaColumns } from "@/types/data";
@@ -26,11 +24,12 @@ import {
   jenisPembayaranSelectOptions, 
   kelasSelectOptions 
 } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { DatePicker } from "@/components/date-picker";
 import { UploadFileDialog } from "@/components/upload-file-dialog";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import StatusMessage from "@/components/status-message";
 
 const data: PenerimaanDanaColumns[] = [
   {
@@ -141,7 +140,9 @@ export default function TagihanSiswaPage() {
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [tanggalTransaksi, setTanggalTransaksi] = useState<Date | undefined>()
+
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -171,6 +172,27 @@ export default function TagihanSiswaPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Pembayaran Biaya Pendidikan Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/penerimaan-dana"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Pembayaran Biaya Pendidikan Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/penerimaan-dana"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Pembayaran Biaya Pendidikan Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/penerimaan-dana"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:grid md:grid-cols-2 justify-center items-center gap-4">

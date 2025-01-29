@@ -9,14 +9,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Search } from "lucide-react";
 import { bankData } from "@/lib/data";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import StatusMessage from "@/components/status-message";
 
 export default function BankPenerimaTransferPage() {
   const [nama, setNama] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleFilter = (e: any) => {
     setIsLoading(true)
@@ -39,6 +42,27 @@ export default function BankPenerimaTransferPage() {
   
   return (
     <>
+      {searchParams.get('status') === 'add-success' && (
+        <StatusMessage 
+          message="Data Bank Penerima Transfer Berhasil Ditambahkan"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/bank-penerima-transfer"
+        />
+      )}
+      {searchParams.get('status') === 'edit-success' && (
+        <StatusMessage 
+          message="Data Bank Penerima Transfer Berhasil Diperbarui"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/bank-penerima-transfer"
+        />
+      )}
+      {searchParams.get('status') === 'delete-success' && (
+        <StatusMessage 
+          message="Data Bank Penerima Transfer Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/bank-penerima-transfer"
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex justify-center items-center gap-4">

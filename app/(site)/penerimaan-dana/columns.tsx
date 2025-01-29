@@ -116,9 +116,10 @@ export const columns: ColumnDef<PenerimaanDanaColumns>[] = [
     accessorKey: "aksi",
     cell: ({ row }) => {
       const dana = row.original
+      const router = useRouter()
 
       const handleDelete = () => {
-        toast.success("Data transaksi pembayaran biaya pendidikan berhasil dihapus")
+        router.push('/penerimaan-dana?status=delete-success')
       }
  
       return (
