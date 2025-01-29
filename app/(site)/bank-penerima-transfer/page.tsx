@@ -14,13 +14,27 @@ import Filter from "@/components/filter";
 import Link from "next/link";
 
 export default function BankPenerimaTransferPage() {
-  const [name, setName] = useState('')
+  const [nama, setNama] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('Filtering')
-    console.log(name)
+
+    const query = new URLSearchParams({
+      nama: nama,
+    })
+
+    router.push(`/bank-penerima-transfer?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setNama('')
+    router.push("/bank-penerima-transfer")
   }
   
   return (
@@ -34,19 +48,20 @@ export default function BankPenerimaTransferPage() {
                 <Input
                   id="nama"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
                   placeholder="Temukan Nama Bank..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

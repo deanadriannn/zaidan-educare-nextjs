@@ -136,16 +136,37 @@ const data: PenerimaanDanaColumns[] = [
 ]
 
 export default function TagihanSiswaPage() {
-  const [name, setName] = useState('')
+  const [nama, setNama] = useState('')
   const [kelas, setKelas] = useState('')
   const [jenisPembayaran, setJenisPembayaran] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [tanggalTransaksi, setTanggalTransaksi] = useState<Date | undefined>()
   const router = useRouter()
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('Filtering')
-    console.log(name, kelas, jenisPembayaran, tanggalTransaksi)
+
+    // @ts-ignore
+    const query = new URLSearchParams({
+      nama: nama,
+      kelas: kelas,
+      jenisPembayaran: jenisPembayaran,
+      tanggalTransaksi: tanggalTransaksi?.toISOString(),
+    })
+
+    router.push(`/penerimaan-dana?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setNama('')
+    setKelas('')
+    setJenisPembayaran('')
+    setTanggalTransaksi(undefined)
+    router.push("/penerimaan-dana")
   }
   
   return (
@@ -159,16 +180,17 @@ export default function TagihanSiswaPage() {
                 <Input
                   id="nama"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
                   placeholder="Temukan Nama Siswa..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-              <Select onValueChange={(value) => setJenisPembayaran(value)}>
+              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Jenis Pembayaran" />
                 </SelectTrigger>
@@ -181,7 +203,7 @@ export default function TagihanSiswaPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
@@ -200,15 +222,16 @@ export default function TagihanSiswaPage() {
                 minDate={new Date("1900-01-01")}
                 maxDate={new Date()}
                 placeholder="Pilih Tanggal Transaksi"
+                disabled={isLoading}
               />
             </div>
             <div className="w-full hidden md:flex flex-col space-y-2"></div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" onClick={handleReset} disabled={isLoading}>
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

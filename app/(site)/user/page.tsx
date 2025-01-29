@@ -18,15 +18,33 @@ import {
 import { penggunaAplikasiData, penggunaAplikasiSelectOptions } from "@/lib/data";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function UserPage() {
-  const [name, setName] = useState('')
+  const [nama, setNama] = useState('')
   const [role, setRole] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('Filtering')
-    console.log(name, role)
+
+    const query = new URLSearchParams({
+      nama: nama,
+      role: role,
+    })
+
+    router.push(`/user?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setNama('')
+    setRole('')
+    router.push("/user")
   }
   
   return (
@@ -40,16 +58,17 @@ export default function UserPage() {
                 <Input
                   id="nama"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
                   placeholder="Temukan Nama..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="role" className="text-md">Role</Label>
-              <Select onValueChange={(value) => setRole(value)}>
+              <Select onValueChange={(value) => setRole(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Role" />
                 </SelectTrigger>
@@ -62,10 +81,17 @@ export default function UserPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
-              RESET
-            </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Link href={"/user"}>
+              <Button 
+                variant="ghost" 
+                className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit"
+                disabled={isLoading}
+                onClick={handleReset}
+              >
+                RESET
+              </Button>
+            </Link>
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

@@ -81,7 +81,7 @@ export function DatePicker({
       </PopoverTrigger>
 
       <PopoverContent className="w-auto p-0" align="start">
-        <div className="flex justify-between p-2">
+        {/* <div className="flex justify-between p-2">
           <Select
             onValueChange={handleMonthChange}
             value={months[getMonth(date)]}
@@ -112,7 +112,7 @@ export function DatePicker({
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </div> */}
         <Calendar
           locale={id}
           mode="single"

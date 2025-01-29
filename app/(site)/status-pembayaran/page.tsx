@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FileDown, Plus, Search } from "lucide-react";
+import { FileDown, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -15,20 +15,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData, tagihanSiswaData } from "@/lib/data";
+import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData } from "@/lib/data";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function StatusPembayaranPage() {
-  const [name, setName] = useState('')
+  const [nama, setNama] = useState('')
   const [kelas, setKelas] = useState('')
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [statusPembayaran, setStatusPembayaran] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('Filtering')
-    console.log(name, kelas, jenisPembayaran, statusPembayaran)
+
+    const query = new URLSearchParams({
+      nama: nama,
+      kelas: kelas,
+      jenisPembayaran: jenisPembayaran,
+      statusPembayaran: statusPembayaran,
+    })
+
+    router.push(`/status-pembayaran?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setNama('')
+    setKelas('')
+    setJenisPembayaran('')
+    setStatusPembayaran('')
+    router.push("/status-pembayaran")
   }
   
   return (
@@ -42,16 +65,17 @@ export default function StatusPembayaranPage() {
                 <Input
                   id="nama"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
                   placeholder="Temukan Nama Siswa..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
@@ -64,7 +88,7 @@ export default function StatusPembayaranPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-              <Select onValueChange={(value) => setJenisPembayaran(value)}>
+              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Jenis Pembayaran" />
                 </SelectTrigger>
@@ -77,7 +101,7 @@ export default function StatusPembayaranPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="statusPembayaran" className="text-md">Status Pembayaran</Label>
-              <Select onValueChange={(value) => setStatusPembayaran(value)}>
+              <Select onValueChange={(value) => setStatusPembayaran(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Status" />
                 </SelectTrigger>
@@ -89,10 +113,10 @@ export default function StatusPembayaranPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

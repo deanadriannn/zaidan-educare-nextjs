@@ -25,13 +25,15 @@ ChartJS.register(
 );
 
 type PaymentTrendChartProps = {
-  paymentType: string; 
+  paymentType: string;
+  label?: string;
   dateStart?: Date;
   dateEnd?: Date;
 };
 
 export function TrendChart({
   paymentType,
+  label,
   dateStart,
   dateEnd,
 }: PaymentTrendChartProps) {
@@ -101,7 +103,7 @@ export function TrendChart({
 
   const chartTitle = useMemo(() => {
     if (paymentType === "all") return "Transaksi Pembayaran (Semua Jenis)";
-    return `Transaksi Pembayaran - ${paymentType}`;
+    return `Transaksi Pembayaran - ${label}`;
   }, [paymentType]);
 
   const options = {
@@ -146,7 +148,7 @@ export function TrendChart({
 
       {paymentType !== "all" && (
         <p>
-          Jumlah Transaksi {paymentType}: {chartDataArray.length}
+          Jumlah Transaksi {label}: {chartDataArray.length}
         </p>
       )}
     </div>

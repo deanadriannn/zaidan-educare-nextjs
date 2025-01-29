@@ -11,10 +11,14 @@ import { FileDown, Search } from "lucide-react";
 import { rekapitulasiPenerimaanDanaData } from "@/lib/data";
 import Filter from "@/components/filter";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RekapitulasiPenerimaanDanaPage() {
   const [tahunAjaranStart, setTahunAjaranStart] = useState("")
   const [tahunAjaranEnd, setTahunAjaranEnd] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
 
   // Fungsi untuk memfilter input
   function handleTahunAjaranStartChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,10 +36,26 @@ export default function RekapitulasiPenerimaanDanaPage() {
   }
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
     const startNum = parseInt(tahunAjaranStart, 10) || 0
     const endNum = parseInt(tahunAjaranEnd, 10) || 0
-    console.log("Nilai start:", startNum, "end:", endNum)
+
+    const query = new URLSearchParams({
+      tahunAjaranStart: startNum.toString(),
+      tahunAjaranEnd: endNum.toString(),
+    })
+
+    router.push(`/rekapitulasi?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setTahunAjaranStart("")
+    setTahunAjaranEnd("")
+    router.push("/rekapitulasi")
   }
   
   return (
@@ -52,6 +72,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
                   value={tahunAjaranStart}
                   onChange={handleTahunAjaranStartChange}
                   placeholder="Masukkan Tahun Ajaran"
+                  disabled={isLoading}
                 />
                 <p>/</p>
                 <Input
@@ -60,15 +81,16 @@ export default function RekapitulasiPenerimaanDanaPage() {
                   value={tahunAjaranEnd}
                   onChange={handleTahunAjaranEndChange}
                   placeholder="Masukkan Tahun Ajaran"
+                  disabled={isLoading}
                 />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

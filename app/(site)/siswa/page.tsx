@@ -1,13 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CircleArrowUp, FileDown, FileUp, Plus, Search, Upload } from "lucide-react";
+import { CircleArrowUp, FileDown, FileUp, Plus, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -25,17 +25,33 @@ import Filter from "@/components/filter";
 import Link from "next/link";
 
 export default function StudentPage() {
-  const [name, setName] = useState('')
+  const [nama, setNama] = useState('')
   const [nis, setNis] = useState('')
   const [kelas, setKelas] = useState('')
   const router = useRouter()
   const [selectedStudents, setSelectedStudents] = useState<StudentInfo[]>([])
   const [isPromotionFormOpen, setIsPromotionFormOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('Filtering')
-    console.log(name, nis, kelas)
+    const query = new URLSearchParams({
+      nama: nama,
+      nis: nis,
+      kelas: kelas,
+    })
+
+    router.push(`/siswa?${query.toString()}`)
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setNama('')
+    setNis('')
+    setKelas('')
+    router.push("/siswa")
   }
 
   const handleNaikKelas = () => {
@@ -59,9 +75,10 @@ export default function StudentPage() {
                 <Input
                   id="nama"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
                   placeholder="Temukan Nama..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
@@ -75,13 +92,14 @@ export default function StudentPage() {
                   value={nis}
                   onChange={(e) => setNis(e.target.value)}
                   placeholder="Temukan NIS..."
+                  disabled={isLoading}
                 />
                 <Search className="text-muted-foreground absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
                 <SelectTrigger>
                   <SelectValue placeholder="Pilih Kelas" />
                 </SelectTrigger>
@@ -94,10 +112,15 @@ export default function StudentPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button 
+              variant="ghost" 
+              className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit"
+              disabled={isLoading}
+              onClick={handleReset}
+            >
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

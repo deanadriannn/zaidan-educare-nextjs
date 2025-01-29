@@ -18,6 +18,7 @@ import {
 import { Pie } from "react-chartjs-2";
 import { columns } from "./columns"
 import { DataTable } from "@/components/data-table";
+import { useRouter } from "next/navigation";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartTitle);
 
@@ -25,6 +26,9 @@ export default function StatusPembayaranPage() {
   const [tahunAjaranStart, setTahunAjaranStart] = useState("")
   const [tahunAjaranEnd, setTahunAjaranEnd] = useState("")
   const [bulan, setBulan] = useState<Date | undefined>()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter()
 
   // Fungsi untuk memfilter input
   function handleTahunAjaranStartChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -42,10 +46,30 @@ export default function StatusPembayaranPage() {
   }
 
   const handleFilter = (e: any) => {
+    setIsLoading(true)
+
     e.preventDefault()
-    console.log('TAHUN AJARAN MULAI', tahunAjaranStart)
-    console.log('TAHUN AJARAN AKHIR', tahunAjaranEnd)
-    console.log('BULAN', bulan)
+
+    const startNum = parseInt(tahunAjaranStart, 10) || 0
+    const endNum = parseInt(tahunAjaranEnd, 10) || 0
+
+    // @ts-ignore
+    const query = new URLSearchParams({
+      tahunAjaranStart: startNum.toString(),
+      tahunAjaranEnd: endNum.toString(),
+      bulan: bulan ? bulan.getMonth().toString() : undefined,
+    })
+
+    router.push(`/progres-transaksi-penerima-dana?${query.toString()}`)
+
+    setIsLoading(false)
+  }
+
+  const handleReset = () => {
+    setTahunAjaranStart("")
+    setTahunAjaranEnd("")
+    setBulan(undefined)
+    router.push("/progres-transaksi-penerima-dana")
   }
 
   const data = [
@@ -163,6 +187,7 @@ export default function StatusPembayaranPage() {
                   value={tahunAjaranStart}
                   onChange={handleTahunAjaranStartChange}
                   placeholder="Masukkan Tahun Ajaran"
+                  disabled={isLoading}
                 />
                 <p>/</p>
                 <Input
@@ -171,6 +196,7 @@ export default function StatusPembayaranPage() {
                   value={tahunAjaranEnd}
                   onChange={handleTahunAjaranEndChange}
                   placeholder="Masukkan Tahun Ajaran"
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -180,14 +206,15 @@ export default function StatusPembayaranPage() {
                 value={bulan || undefined}
                 onChange={(date) => setBulan(date || undefined)}
                 placeholder="Pilih Bulan"
+                disabled={isLoading}
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit">
+            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
               RESET
             </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
               <Search /> Cari
             </Button>
           </CardFooter>

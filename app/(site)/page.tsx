@@ -16,25 +16,68 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useUserStore } from "@/hooks/use-user";
 import { jenisPembayaranSelectOptions } from "@/lib/data";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const { role } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false)
+
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [bulanStart, setBulanStart] = useState<Date | undefined>()
   const [bulanEnd, setBulanEnd] = useState<Date | undefined>()
+
+  const [jenisPembayaranQuery, setJenisPembayaranQuery] = useState('')
+  const [bulanStartQuery, setBulanStartQuery] = useState<Date | undefined>()
+  const [bulanEndQuery, setBulanEndQuery] = useState<Date | undefined>()
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const jenis = searchParams.get("jenisPembayaran");
+    const start = searchParams.get("bulanStart");
+    const end = searchParams.get("bulanEnd");
+
+    // Tetapkan ke state *query*
+    if (jenis) setJenisPembayaranQuery(jenis);
+    else setJenisPembayaranQuery("all");
+
+    if (start) {
+      // parse ke Date
+      setBulanStartQuery(new Date(start));
+    } else {
+      setBulanStartQuery(undefined);
+    }
+    if (end) {
+      setBulanEndQuery(new Date(end));
+    } else {
+      setBulanEndQuery(undefined);
+    }
+  }, [searchParams]);
   
   const handleFilter = (e: any) => {
+    setIsLoading(true)
     e.preventDefault()
-    console.log('BULAN MULAI', bulanStart)
-    console.log('BULAN AKHIR', bulanEnd)
-    console.log('JENIS PEMBAYARAN', jenisPembayaran)
+
+    if (bulanStart && bulanEnd) {
+      const query = new URLSearchParams({
+        jenisPembayaran: jenisPembayaran,
+        bulanStart: bulanStart?.toISOString(),
+        bulanEnd: bulanEnd?.toISOString()
+      })
+
+      router.push(`/?${query.toString()}`)
+
+    }
+    setIsLoading(false)
   }
 
   const handleReset = () => {
     setBulanStart(undefined)
     setBulanEnd(undefined)
-    setJenisPembayaran('')
+    setJenisPembayaran('all')
+    router.push("/")
   }
 
   return (
@@ -49,6 +92,7 @@ export default function DashboardPage() {
                   value={bulanStart || undefined}
                   onChange={(date) => setBulanStart(date || undefined)}
                   placeholder="Pilih Bulan"
+                  disabled={isLoading}
                 />
               </div>
               <div className="w-full flex flex-col space-y-2">
@@ -57,15 +101,17 @@ export default function DashboardPage() {
                   value={bulanEnd || undefined}
                   onChange={(date) => setBulanEnd(date || undefined)}
                   placeholder="Pilih Bulan"
+                  disabled={isLoading}
                 />
               </div>
               <div className="w-full flex flex-col space-y-2">
                 <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-                <Select onValueChange={(value) => setJenisPembayaran(value)}>
+                <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
                   <SelectTrigger>
                     <SelectValue placeholder="Semua Jenis Pembayaran" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="all">Semua Jenis Pembayaran</SelectItem>
                     {jenisPembayaranSelectOptions.map((option) => (
                       <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                     ))}
@@ -79,10 +125,11 @@ export default function DashboardPage() {
                 className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit"
                 type="button"
                 onClick={handleReset}
+                disabled={isLoading}
               >
                 RESET
               </Button>
-              <Button type="submit" variant="primary-red" className="w-full md:w-fit">
+              <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
                 <Search /> Cari
               </Button>
             </CardFooter>
@@ -109,9 +156,10 @@ export default function DashboardPage() {
             {/* Menampilkan grafik untuk semua jenis pembayaran */}
             <CardContent className="w-full">
               <TrendChart
-                paymentType={jenisPembayaran || 'all'}
-                dateStart={bulanStart}
-                dateEnd={bulanEnd}
+                paymentType={jenisPembayaranQuery || 'all'}
+                label={jenisPembayaranSelectOptions.find((option) => option.value === jenisPembayaranQuery)?.label || 'Semua Jenis Pembayaran'}
+                dateStart={bulanStartQuery}
+                dateEnd={bulanEndQuery}
               />
             </CardContent>
           </div>
