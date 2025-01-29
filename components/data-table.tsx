@@ -66,7 +66,6 @@ export function DataTable<TData, TValue>({
   className,
   onSelectionChange,
 }: DataTableProps<TData, TValue>) {
-  const pathname = usePathname()
   const [tableData, setTableData] = useState<TData[]>(() => data)
   const [rowSelection, setRowSelection] = useState({})
   const isMobile = useIsMobile()
@@ -92,7 +91,7 @@ export function DataTable<TData, TValue>({
   })
 
   const table = useReactTable({
-    data: tableData,
+    data: data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
@@ -188,7 +187,7 @@ export function DataTable<TData, TValue>({
           ): (
             <tr>
               <td className='h-24 text-center' colSpan={columns.length}>
-                No Results.
+                Data tidak ada.
               </td>
             </tr>
           )}

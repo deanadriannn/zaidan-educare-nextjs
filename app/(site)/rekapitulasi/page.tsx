@@ -3,7 +3,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,36 +11,53 @@ import { FileDown, Search } from "lucide-react";
 import { rekapitulasiPenerimaanDanaData } from "@/lib/data";
 import Filter from "@/components/filter";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+
+const FilterSchema = z.object({
+  tahunAjaranStart: z
+  .string()
+  .regex(/^\d{4}$/, "Tahun harus 4 digit angka"),
+  tahunAjaranEnd: z
+  .string()
+  .regex(/^\d{4}$/, "Tahun harus 4 digit angka"),
+});
 
 export default function RekapitulasiPenerimaanDanaPage() {
-  const [tahunAjaranStart, setTahunAjaranStart] = useState("")
-  const [tahunAjaranEnd, setTahunAjaranEnd] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState([])
 
   const router = useRouter()
+  const searchParams = useSearchParams()
 
-  // Fungsi untuk memfilter input
-  function handleTahunAjaranStartChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let val = e.target.value
-    val = val.replace(/\D/g, "")
-    val = val.replace(/^0+/, "")
-    setTahunAjaranStart(val)
-  }
+  const form = useForm<z.infer<typeof FilterSchema>>({
+    resolver: zodResolver(FilterSchema),
+    defaultValues: {
+      tahunAjaranStart: "",
+      tahunAjaranEnd: "",
+    }
+  });
 
-  function handleTahunAjaranEndChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let val = e.target.value
-    val = val.replace(/\D/g, "")
-    val = val.replace(/^0+/, "")
-    setTahunAjaranEnd(val)
-  }
+  useEffect(() => {
+    const start = searchParams.get("tahunAjaranStart")
+    const end   = searchParams.get("tahunAjaranEnd")
 
-  const handleFilter = (e: any) => {
+    if (start && end) {
+      // @ts-ignore
+      setData(rekapitulasiPenerimaanDanaData)
+    } else {
+      setData([])
+    }
+  }, [searchParams])
+
+  const handleFilter = (values: z.infer<typeof FilterSchema>) => {
     setIsLoading(true)
 
-    e.preventDefault()
-    const startNum = parseInt(tahunAjaranStart, 10) || 0
-    const endNum = parseInt(tahunAjaranEnd, 10) || 0
+    const startNum = parseInt(values.tahunAjaranStart, 10) || 0
+    const endNum = parseInt(values.tahunAjaranEnd, 10) || 0
 
     const query = new URLSearchParams({
       tahunAjaranStart: startNum.toString(),
@@ -53,48 +70,69 @@ export default function RekapitulasiPenerimaanDanaPage() {
   }
 
   const handleReset = () => {
-    setTahunAjaranStart("")
-    setTahunAjaranEnd("")
+    form.reset()
+    setData([])
     router.push("/rekapitulasi")
   }
   
   return (
     <>
       <Filter>
-        <form onSubmit={handleFilter}>
-          <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
-            <div className="w-full flex flex-col space-y-2">
-              <Label htmlFor="tahunAjaranStart" className="text-md">Tahun Ajaran</Label>
-              <div className="w-full flex gap-4 items-center">
-                <Input
-                  id="tahunAjaranStart"
-                  type="text"
-                  value={tahunAjaranStart}
-                  onChange={handleTahunAjaranStartChange}
-                  placeholder="Masukkan Tahun Ajaran"
-                  disabled={isLoading}
-                />
-                <p>/</p>
-                <Input
-                  id="tahunAjaranStart"
-                  type="text"
-                  value={tahunAjaranEnd}
-                  onChange={handleTahunAjaranEndChange}
-                  placeholder="Masukkan Tahun Ajaran"
-                  disabled={isLoading}
-                />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleFilter)}>
+            <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
+              <div className="w-full flex flex-col space-y-2">
+                <Label htmlFor="tahunAjaranStart" className="text-md">
+                  Tahun Ajaran <span className="text-destructive">*</span>
+                </Label>
+                <div className="w-full flex gap-4 items-center">
+                  <FormField
+                    control={form.control}
+                    name="tahunAjaranStart"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Masukkan Tahun Ajaran"
+                            disabled={isLoading}
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <p>/</p>
+                  <FormField
+                    control={form.control}
+                    name="tahunAjaranEnd"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormControl>
+                          <Input
+                            id="tahunAjaranStart"
+                            type="text"
+                            placeholder="Masukkan Tahun Ajaran"
+                            disabled={isLoading}
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
-            <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
-              RESET
-            </Button>
-            <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
-              <Search /> Cari
-            </Button>
-          </CardFooter>
-        </form>
+            </CardContent>
+            <CardFooter className="flex flex-col md:flex-row justify-end gap-4">
+              <Button variant="ghost" className="hover:bg-transparent text-[#F5365C] hover:text-[#D12C50] w-full md:w-fit" disabled={isLoading} onClick={handleReset}>
+                RESET
+              </Button>
+              <Button type="submit" variant="primary-red" className="w-full md:w-fit" disabled={isLoading}>
+                <Search /> Cari
+              </Button>
+            </CardFooter>
+          </form>
+        </Form>
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex justify-end gap-4">
@@ -132,7 +170,11 @@ export default function RekapitulasiPenerimaanDanaPage() {
 
                 return (
                   <span key={data.id}>
-                    Rp {totalPerJenis.toLocaleString("id-ID")}
+                    {(searchParams.get("tahunAjaranStart") && searchParams.get("tahunAjaranEnd")) ? (
+                      `Rp ${totalPerJenis.toLocaleString("id-ID")}`
+                    ): (
+                      "Rp 0"
+                    )}
                   </span>
                 );
               })}
@@ -144,15 +186,19 @@ export default function RekapitulasiPenerimaanDanaPage() {
             <span className="font-bold">Total Dana Terkumpul</span>
             <span className="font-bold text-green-600">
               Rp{" "}
-              {rekapitulasiPenerimaanDanaData.reduce((acc, data) => {
-                // Hitung total keseluruhan
-                const totalPerJenis = Object.entries(data)
-                  .filter(([key]) => key !== "id" && key !== "jenisPembayaran")
-                  // @ts-ignore
-                  .reduce((sum, [, value]) => sum + value, 0);
+              {(searchParams.get("tahunAjaranStart") && searchParams.get("tahunAjaranEnd")) ? (
+                rekapitulasiPenerimaanDanaData.reduce((acc, data) => {
+                  // Hitung total keseluruhan
+                  const totalPerJenis = Object.entries(data)
+                    .filter(([key]) => key !== "id" && key !== "jenisPembayaran")
+                    // @ts-ignore
+                    .reduce((sum, [, value]) => sum + value, 0);
 
-                return acc + totalPerJenis;
-              }, 0).toLocaleString("id-ID")}
+                  return acc + totalPerJenis;
+                }, 0).toLocaleString("id-ID")
+              ): (
+                "0"
+              )}
             </span>
           </div>
         </div>
@@ -163,7 +209,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
           Detail Data
         </span>
         {/* @ts-ignore */}
-        <DataTable columns={columns} data={rekapitulasiPenerimaanDanaData} />
+        <DataTable columns={columns} data={data} />
       </Card>
     </>
   )
