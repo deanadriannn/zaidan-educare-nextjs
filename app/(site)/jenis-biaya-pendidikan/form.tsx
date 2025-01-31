@@ -23,12 +23,8 @@ import Link from "next/link";
 
 const jenisBiayaPendidikanSchema = z.object({
   namaTagihan: z.string().min(1, "Nama tagihan wajib diisi"),
-  waktuPembayaran: z.enum(["bulanan", "tahunan", "1x", ""], {
-    required_error: "Waktu pembayaran wajib diisi",
-  }),
-  statusCicilan: z.enum(["ya", "tidak", ""], {
-    required_error: "Status cicilan wajib diisi",
-  }),
+  waktuPembayaran: z.string().min(1, "Waktu pembayaran wajib diisi"),
+  statusCicilan: z.string().min(1, "Status cicilan wajib diisi"),
 })
 
 type JenisBiayaPendidikanFormValues = z.infer<typeof jenisBiayaPendidikanSchema>

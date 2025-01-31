@@ -45,12 +45,12 @@ export default function DashboardPage() {
 
     if (start) {
       // parse ke Date
-      setBulanStartQuery(new Date(start));
+      setBulanStartQuery(new Date(start))
     } else {
       setBulanStartQuery(undefined);
     }
     if (end) {
-      setBulanEndQuery(new Date(end));
+      setBulanEndQuery(new Date(end))
     } else {
       setBulanEndQuery(undefined);
     }
@@ -87,7 +87,9 @@ export default function DashboardPage() {
           <form onSubmit={handleFilter}>
             <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
               <div className="w-full flex flex-col space-y-2">
-                <Label htmlFor="bulanStart" className="text-md">Bulan dari</Label>
+                <Label htmlFor="bulanStart" className="text-md">
+                  Bulan dari <span className="text-destructive">*</span>
+                </Label>
                 <MonthPicker
                   value={bulanStart || undefined}
                   onChange={(date) => setBulanStart(date || undefined)}
@@ -96,7 +98,9 @@ export default function DashboardPage() {
                 />
               </div>
               <div className="w-full flex flex-col space-y-2">
-                <Label htmlFor="bulanEnd" className="text-md">Sampai Bulan</Label>
+                <Label htmlFor="bulanEnd" className="text-md">
+                  Sampai Bulan <span className="text-destructive">*</span>
+                </Label>
                 <MonthPicker
                   value={bulanEnd || undefined}
                   onChange={(date) => setBulanEnd(date || undefined)}
@@ -146,23 +150,29 @@ export default function DashboardPage() {
         )}
 
         {(role === "Bendahara" || role === "Ketua Yayasan") && (
-          <div className="flex flex-col w-full ">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">
-                Trend Data Ringkasan Jumlah Transaksi
-              </CardTitle>
-            </CardHeader>
+          bulanStartQuery !== undefined && bulanEndQuery !== undefined ? (
+            <div className="flex flex-col w-full">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold">
+                  Trend Data Ringkasan Jumlah Transaksi
+                </CardTitle>
+              </CardHeader>
 
-            {/* Menampilkan grafik untuk semua jenis pembayaran */}
-            <CardContent className="w-full">
-              <TrendChart
-                paymentType={jenisPembayaranQuery || 'all'}
-                label={jenisPembayaranSelectOptions.find((option) => option.value === jenisPembayaranQuery)?.label || 'Semua Jenis Pembayaran'}
-                dateStart={bulanStartQuery}
-                dateEnd={bulanEndQuery}
-              />
-            </CardContent>
-          </div>
+              {/* Menampilkan grafik untuk semua jenis pembayaran */}
+              <CardContent className="w-full">
+                <TrendChart
+                  paymentType={jenisPembayaranQuery || 'all'}
+                  label={jenisPembayaranSelectOptions.find((option) => option.value === jenisPembayaranQuery)?.label || 'Semua Jenis Pembayaran'}
+                  dateStart={bulanStartQuery}
+                  dateEnd={bulanEndQuery}
+                />
+              </CardContent>
+            </div>
+          ) : (
+            <div className="flex min-h-[50vh] w-full justify-center items-center">
+              <p className="text-lg">Data Tidak Ada</p>
+            </div>
+          )
         )}
       </Card>
     </>

@@ -146,8 +146,10 @@ export function AppSidebar({ ...props }) {
       </SidebarHeader>
       <SidebarContent>
         <ScrollArea>
-          {/* @ts-ignore */}
-          <NavMain items={data.navMain[currentUser]} />
+          {currentUser !== "" && (
+            // @ts-ignore
+            <NavMain items={data.navMain[currentUser]} />
+          )}
         </ScrollArea>
       </SidebarContent>
       <SidebarRail />

@@ -314,7 +314,7 @@ export default function StatusPembayaranPage() {
             <DataTable columns={columns} data={dataTable} />
           </>
         ): (
-          <CardContent>
+          <CardContent className="min-h-[50vh] flex justify-center items-center">
             <p className="text-center">Data Tidak Ada.</p>
           </CardContent>
         )}

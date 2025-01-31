@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/alert-dialog"
 import "./site.css"
 import { useUserStore } from "@/hooks/use-user";
+import { useEffect, useState } from "react";
+import { set } from "date-fns";
 
 const footerContent = [
   {
@@ -52,6 +54,14 @@ export default function SiteLayout({
   const pathname = usePathname()
   const { role } = useUserStore()
   const router = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    if (role === "") {
+      router.push("/login")
+    }
+    setIsMounted(true)
+  }, [])
 
   const locationName: Record<string, string> = {
     '/': `Dasbor - ${role}`,
@@ -70,6 +80,8 @@ export default function SiteLayout({
   const handleLogout = () => {
     router.push("/login")
   }
+
+  if (!isMounted) return null
 
   return (
     <SidebarProvider>

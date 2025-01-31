@@ -121,36 +121,40 @@ export function TrendChart({
   };
 
   return (
-    <div className="flex gap-4 flex-col lg:flex-row w-full has-[p]:flex-col">
-      {/* Chart */}
-      <div className="w-full"> 
-        <Line data={data} options={options} className="w-full" />
-      </div>
+    <>
+      {(dateStart !== undefined && dateEnd !== undefined) && (
+        <div className="flex gap-4 flex-col lg:flex-row w-full has-[p]:flex-col">
+          {/* Chart */}
+          <div className="w-full max-w-72 lg:max-w-96 xl:max-w-full"> 
+            <Line data={data} options={options} className="w-full" />
+          </div>
 
-      {paymentType === "all" && (
-        <table className="border-collapse border text-sm w-full max-w-96 flex-1">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2 text-center">Jenis Pembayaran</th>
-              <th className="border p-2 text-center">Jumlah Transaksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allPaymentData.map((item) => (
-              <tr key={item.jenis}>
-                <td className="border p-2">{item.jenis}</td>
-                <td className="border p-2 text-center">{item.totalTransaksi}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          {paymentType === "all" && (
+            <table className="border-collapse border text-sm w-full max-w-96 flex-1">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border p-2 text-center">Jenis Pembayaran</th>
+                  <th className="border p-2 text-center">Jumlah Transaksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allPaymentData.map((item) => (
+                  <tr key={item.jenis}>
+                    <td className="border p-2">{item.jenis}</td>
+                    <td className="border p-2 text-center">{item.totalTransaksi}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
 
-      {paymentType !== "all" && (
-        <p>
-          Jumlah Transaksi {label}: {chartDataArray.length}
-        </p>
+          {paymentType !== "all" && (
+            <p>
+              Jumlah Transaksi {label}: {chartDataArray.length}
+            </p>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }

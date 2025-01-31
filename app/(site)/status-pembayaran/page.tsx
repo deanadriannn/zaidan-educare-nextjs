@@ -80,6 +80,7 @@ export default function StatusPembayaranPage() {
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="all">Semua Kelas</SelectItem>
                   {kelasSelectOptions.map((option) => (
                     <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                   ))}
@@ -93,6 +94,7 @@ export default function StatusPembayaranPage() {
                   <SelectValue placeholder="Semua Jenis Pembayaran" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="all">Semua Jenis Pembayaran</SelectItem>
                   {jenisPembayaranSelectOptions.map((option) => (
                     <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                   ))}
@@ -106,6 +108,7 @@ export default function StatusPembayaranPage() {
                   <SelectValue placeholder="Semua Status" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="all">Semua Status</SelectItem>
                   <SelectItem value="lunas">Lunas</SelectItem>
                   <SelectItem value="belum_lunas">Belum Lunas</SelectItem>
                 </SelectContent>
