@@ -9,7 +9,7 @@ type UserStore = {
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
-      role: "administrator", // Default value
+      role: "Administrator", // Default value
       setRole: (role) => set({ role }),
     }),
     {
