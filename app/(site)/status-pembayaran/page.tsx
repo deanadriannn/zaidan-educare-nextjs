@@ -91,7 +91,7 @@ export default function StatusPembayaranPage() {
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
               <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Semua Jenis Pembayaran" />
+                  <SelectValue placeholder="Pilih Salah Satu" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Semua Jenis Pembayaran</SelectItem>

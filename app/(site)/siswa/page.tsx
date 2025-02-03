@@ -59,7 +59,12 @@ export default function StudentPage() {
 
   const handleNaikKelas = () => {
     console.log("Siswa terpilih: ", selectedStudents)
-    setIsPromotionFormOpen(true);
+    const studentsPG = selectedStudents.filter((s) => s.kelas === "PG")
+    const studentsTKB = selectedStudents.filter((s) => s.kelas === "TK-B")
+
+    if (studentsPG.length > 0 || studentsTKB.length > 0) {
+      setIsPromotionFormOpen(true);
+    }
   }
 
   const handlePromotionSubmit = (data: StudentInfo[]) => {
