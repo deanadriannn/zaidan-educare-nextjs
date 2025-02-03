@@ -246,6 +246,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
           </ConfirmAlert>
           <Switch
             checked={student.status === "Aktif"}
+            disabled={student.status === "Lulus"}
           />
         </div>
       )

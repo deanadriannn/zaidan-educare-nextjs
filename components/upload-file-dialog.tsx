@@ -13,7 +13,7 @@ import {
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Input } from "./ui/input"
-import { CloudUpload, X } from "lucide-react"
+import { CloudUpload, Upload, X } from "lucide-react"
 
 export function UploadFileDialog({
   children,
@@ -25,6 +25,7 @@ export function UploadFileDialog({
   description?: string
 }) {
   const [files, setFiles] = useState<File[]>([])
+  const [open, setOpen] = useState(false)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (!acceptedFiles?.length) return
@@ -40,9 +41,15 @@ export function UploadFileDialog({
   function handleRemoveFile(index: number) {
     setFiles((prev) => prev.filter((_, i) => i !== index))
   }
+
+  const handleSubmit = () => {
+    console.log(files)
+    setOpen(false)
+    setFiles([])
+  }
   
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
@@ -100,6 +107,11 @@ export function UploadFileDialog({
             </div>
           ))}
         </div>
+        <DialogFooter>
+          <Button type="submit" onClick={handleSubmit} variant="primary-blue"> 
+            <Upload /> Unggah
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

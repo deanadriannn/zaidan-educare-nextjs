@@ -33,7 +33,14 @@ export function ClassPromotionForm ({
   }, [selectedStudents])
   
   const studentsPG = data.filter((s) => s.kelas === "PG")
+  const studentsTKA = data.filter((s) => s.kelas === "TK-A")
   const studentsTKB = data.filter((s) => s.kelas === "TK-B")
+  const studentsKelas1 = data.filter((s) => s.kelas === "1A")
+  const studentsKelas2 = data.filter((s) => s.kelas === "2A")
+  const studentsKelas3 = data.filter((s) => s.kelas === "3A")
+  const studentsKelas4 = data.filter((s) => s.kelas === "4A")
+  const studentsKelas5 = data.filter((s) => s.kelas === "5A")
+  const studentsKelas6 = data.filter((s) => s.kelas === "6A")
 
   function handleSelectChange(studentId: string, value: string) {
     setData((prev) =>
@@ -55,7 +62,48 @@ export function ClassPromotionForm ({
           <AlertDialogDescription>
             Anda akan memproses kenaikan kelas atau meluluskan siswa.
             <br />
-            Total Siswa: {data.length}
+            {studentsTKA.length > 0 && (
+              <>
+                <span>{`Tk-A: ${studentsTKA.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas1.length > 0 && (
+              <>
+                <span>{`Kelas 1: ${studentsKelas1.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas2.length > 0 && (
+              <>
+                <span>{`Kelas 2: ${studentsKelas2.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas3.length > 0 && (
+              <>
+                <span>{`Kelas 3: ${studentsKelas3.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas4.length > 0 && (
+              <>
+                <span>{`Kelas 4: ${studentsKelas4.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas5.length > 0 && (
+              <>
+                <span>{`Kelas 5: ${studentsKelas5.length} orang`}</span>
+                <br />
+              </>
+            )}
+            {studentsKelas6.length > 0 && (
+              <>
+                <span>{`Kelas 6: ${studentsKelas6.length} orang`}</span>
+                <br />
+              </>
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -147,7 +195,7 @@ export function ClassPromotionForm ({
           </div>
         )}
 
-        <AlertDialogFooter className="flex justify-end mt-6 gap-4">
+        <AlertDialogFooter className="flex sm:justify-end mt-6 gap-4">
           <AlertDialogCancel className="bg-[#FFC31E] hover:bg-[#E0A900] text-white hover:text-white">
             <CircleX className="mr-1" /> Batal
           </AlertDialogCancel>
