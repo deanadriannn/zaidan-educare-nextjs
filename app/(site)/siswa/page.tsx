@@ -31,6 +31,8 @@ export default function StudentPage() {
   const [kelas, setKelas] = useState('')
   const [selectedStudents, setSelectedStudents] = useState<StudentInfo[]>([])
   const [isPromotionFormOpen, setIsPromotionFormOpen] = useState(false);
+  const [isConfirmationAlertOpen, setIsConfirmationAlertOpen] = useState(false);
+  const [isDownloadSuccess, setIsDownloadSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
@@ -64,7 +66,15 @@ export default function StudentPage() {
 
     if (studentsPG.length > 0 || studentsTKB.length > 0) {
       setIsPromotionFormOpen(true);
+    } else {
+      setIsConfirmationAlertOpen(true);
     }
+  }
+
+  const handleNaikKelasConfirm = () => {
+    console.log("Kenaikan kelas siswa berhasil diproses");
+    console.log("Siswa terpilih: ", selectedStudents);
+    setIsConfirmationAlertOpen(false);
   }
 
   const handlePromotionSubmit = (data: StudentInfo[]) => {
@@ -86,6 +96,21 @@ export default function StudentPage() {
           message="Data Siswa Berhasil Diperbarui"
           backgroundColor="bg-[#DEF7EC]"
           backUrl="/siswa"
+        />
+      )}
+      {searchParams.get('status') === 'upload-success' && (
+        <StatusMessage 
+          message="Data Siswa Berhasil Ditambahkan Melalui Import Data"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/siswa"
+        />
+      )}
+      {isDownloadSuccess && (
+        <StatusMessage 
+          message="Template Import Berhasil Diunduh"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/siswa"
+          handleDelete={() => setIsDownloadSuccess(prev => !prev)}
         />
       )}
       {searchParams.get('status') === 'delete-success' && (
@@ -157,18 +182,13 @@ export default function StudentPage() {
       </Filter>
       <Card className="rounded-lg border md:mx-4 mt-4 shrink-0 flex flex-col gap-4 pt-4">
         <CardContent className="flex flex-col md:flex-row justify-end gap-4">
-          <ConfirmAlert
-            title="Kenaikan Kelas"
-            description="Apakah Anda yakin akan memproses kenaikan kelas siswa?"
-            handleAction={handleNaikKelas}
-          >
-            <Button variant="primary-red">
+          <Button variant="primary-red" onClick={handleNaikKelas}>
               <CircleArrowUp /> Naik Kelas
             </Button>
-          </ConfirmAlert>
           <Link 
             href="/download/Template Import Data Siswa.xlsx"
             download="Template Import Data Siswa.xlsx"
+            onClick={() => setIsDownloadSuccess(true)}
           >
             <Button variant="primary-red">
               <FileDown /> Unduh Template Import
@@ -176,6 +196,7 @@ export default function StudentPage() {
           </Link>
           <UploadFileDialog
             title="Import Data Siswa"
+            successUrl="/siswa?status=upload-success"
           >
             <Button variant="primary-red">
               <FileUp /> Impor Data
@@ -198,6 +219,13 @@ export default function StudentPage() {
           }}
         />
       </Card>
+      <ConfirmAlert
+        title="Kenaikan Kelas"
+        description="Apakah Anda yakin akan memproses kenaikan kelas siswa?"
+        open={isConfirmationAlertOpen}
+        onOpenChange={setIsConfirmationAlertOpen}
+        handleAction={handleNaikKelasConfirm}
+      />
       <ClassPromotionForm
         open={isPromotionFormOpen}
         onOpenChange={setIsPromotionFormOpen}

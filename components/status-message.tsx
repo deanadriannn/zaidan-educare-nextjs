@@ -9,11 +9,13 @@ import { cn } from "@/lib/utils"
 const StatusMessage = ({
   message,
   backgroundColor,
-  backUrl
+  backUrl,
+  handleDelete
 }: {
   message: string
   backgroundColor: string
-  backUrl: string
+  backUrl?: string
+  handleDelete?: () => void
 }) => {
   const router = useRouter()
 
@@ -24,7 +26,10 @@ const StatusMessage = ({
         <Button 
           variant='ghost' 
           className="hover:bg-transparent"
-          onClick={() => router.push(backUrl)}
+          onClick={() => {
+            if (backUrl) router.push(backUrl)
+            if (handleDelete) handleDelete()
+          }}
         >
           <X />
         </Button>

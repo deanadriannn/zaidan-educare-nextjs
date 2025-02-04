@@ -23,19 +23,19 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import Link from "next/link";
 
 const studentSchema = z.object({
-  nama: z.string().min(1, "Nama tidak boleh kosong"),
-  nis: z.string().min(1, "NIS tidak boleh kosong"),
+  nama: z.string().min(1, "Nama wajib diisi"),
+  nis: z.string().min(1, "NIS wajib diisi"),
   jenisKelamin: z.enum(["laki_laki", "perempuan"])
   .optional(),
   tanggalLahir: z.date().optional(),
   kelas: z.string({
-    required_error: "Kelas tidak boleh kosong",
+    required_error: "Kelas wajib diisi",
   }),
   tahunMasuk: z
   .string()
   .regex(/^\d{4}$/, "Tahun harus 4 digit angka"),
   alamat: z.string().optional(),
-  namaWali: z.string().min(1, "Nama wali tidak boleh kosong"),
+  namaWali: z.string().min(1, "Nama wali wajib diisi"),
   hubunganWali: z.string().optional(),
   jenisKelaminWali: z.enum(["laki_laki", "perempuan", ""]).optional(),
   emailWali: z
@@ -45,7 +45,7 @@ const studentSchema = z.object({
     message: "Email wajib diisi dengan format yang benar",
   }),
   nomorTeleponWali: z.string({
-    required_error: "Nomor telepon wali tidak boleh kosong",
+    required_error: "Nomor telepon wali wajib diisi",
   })
   .min(10, "Nomor telepon harus minimal 10 karakter"),
   tempatLahir: z.string().optional(),
@@ -415,6 +415,7 @@ export default function StudentForm() {
                         className=""
                         {...field}
                         disabled={isLoading}
+                        rows={3}
                       />
                     </FormControl>
                     <FormMessage />

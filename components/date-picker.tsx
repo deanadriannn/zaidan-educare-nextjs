@@ -36,31 +36,31 @@ export function DatePicker({
 }: DatePickerProps) {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date>(new Date())
-  const months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ]
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i)
+  // const months = [
+  //   "Januari",
+  //   "Februari",
+  //   "Maret",
+  //   "April",
+  //   "Mei",
+  //   "Juni",
+  //   "Juli",
+  //   "Agustus",
+  //   "September",
+  //   "Oktober",
+  //   "November",
+  //   "Desember",
+  // ]
+  // const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i)
 
-  const handleMonthChange = (month: string) => {
-    const newDate = setMonth(date, months.indexOf(month));
-    setDate(newDate)
-  }
+  // const handleMonthChange = (month: string) => {
+  //   const newDate = setMonth(date, months.indexOf(month));
+  //   setDate(newDate)
+  // }
 
-  const handleYearChange = (year: string) => {
-    const newDate = setYear(date, parseInt(year));
-    setDate(newDate)
-  }
+  // const handleYearChange = (year: string) => {
+  //   const newDate = setYear(date, parseInt(year));
+  //   setDate(newDate)
+  // }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -116,7 +116,6 @@ export function DatePicker({
         <Calendar
           locale={id}
           mode="single"
-          captionLayout="dropdown"
           selected={value}
           onSelect={(date) => {
             onChange?.(date)
@@ -124,8 +123,8 @@ export function DatePicker({
           }}
           disabled={(date) => date < minDate || date > maxDate}
           initialFocus
-          month={date}
-          onMonthChange={setDate}
+          // month={date}
+          // onMonthChange={setDate}
         />
       </PopoverContent>
     </Popover>

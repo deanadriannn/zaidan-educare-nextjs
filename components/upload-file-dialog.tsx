@@ -14,18 +14,22 @@ import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { Input } from "./ui/input"
 import { CloudUpload, Upload, X } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function UploadFileDialog({
   children,
   title,
-  description
+  description,
+  successUrl
 }: {
   children: React.ReactNode
   title?: string
   description?: string
+  successUrl?: string
 }) {
   const [files, setFiles] = useState<File[]>([])
   const [open, setOpen] = useState(false)
+  const router = useRouter()
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (!acceptedFiles?.length) return
@@ -46,6 +50,7 @@ export function UploadFileDialog({
     console.log(files)
     setOpen(false)
     setFiles([])
+    if (successUrl) router.push(successUrl)
   }
   
   return (

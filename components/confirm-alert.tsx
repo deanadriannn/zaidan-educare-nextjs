@@ -17,15 +17,19 @@ export function ConfirmAlert ({
   children,
   title,
   description,
-  handleAction
+  handleAction,
+  open,
+  onOpenChange
 }: {
-  children: React.ReactNode
+  children?: React.ReactNode
   title: string
   description?: string
-  handleAction: () => void
+  handleAction?: () => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }) {
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogTrigger asChild>
         {children}
       </AlertDialogTrigger>

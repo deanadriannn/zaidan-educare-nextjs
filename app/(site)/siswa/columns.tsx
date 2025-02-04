@@ -56,7 +56,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
     accessorKey: "nama",
     header: () => (
       <div className="text-center">
-        <p>Nama</p>
+        <p>Nama Siswa</p>
       </div>
     ),
     size: 150,
@@ -96,7 +96,7 @@ export const columns: ColumnDef<StudentInfo>[] = [
         <p>Jenis Kelamin</p>
       </div>
     ),
-    size: 200
+    size: 150
   },
   {
     accessorKey: "tempatLahir",
