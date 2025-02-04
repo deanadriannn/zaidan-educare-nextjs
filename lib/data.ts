@@ -541,46 +541,77 @@ Terakhir, Ananda juga masih memiliki tagihan Rp 10.000.000 Dana Pengembangan Pen
 
 Note: Abaikan pesan ini, jika Anda sudah membayar.
 Terima kasih.`,
-  }
+}
+
+// Menggunakan fungsi ini karena ketika data dimasukkan, tanggal satu malah bergeser ke tanggal 2
+function makeMidnight(dateString: string) {
+  const d = new Date(dateString);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
 
 export const allPaymentData = [
   {
     jenis: "SPP",
-    totalTransaksi: 116,
+    totalTransaksi: 529,
     detail: [
-      { date: new Date("2025-01-01"), jumlah: 3 },
-      { date: new Date("2025-01-02"), jumlah: 6 },
-      { date: new Date("2025-01-03"), jumlah: 4 },
+      { date: makeMidnight("2025-01-01"), jumlah: 2 },
+      { date: makeMidnight("2025-01-02"), jumlah: 15 },
+      { date: makeMidnight("2025-01-03"), jumlah: 16 },
+      { date: makeMidnight("2025-01-04"), jumlah: 13 },
+      { date: makeMidnight("2025-01-05"), jumlah: 40 },
+      { date: makeMidnight("2025-01-06"), jumlah: 45 },
+      { date: makeMidnight("2025-01-07"), jumlah: 50 },
+      { date: makeMidnight("2025-01-08"), jumlah: 60 },
+      { date: makeMidnight("2025-01-09"), jumlah: 70 },
+      { date: makeMidnight("2025-01-10"), jumlah: 15 },
+      { date: makeMidnight("2025-01-11"), jumlah: 67 },
+      { date: makeMidnight("2025-01-12"), jumlah: 15 },
+      { date: makeMidnight("2025-01-13"), jumlah: 10 },
+      { date: makeMidnight("2025-01-14"), jumlah: 2 },
+      { date: makeMidnight("2025-01-15"), jumlah: 3 },
+      { date: makeMidnight("2025-01-16"), jumlah: 7 },
+      { date: makeMidnight("2025-01-17"), jumlah: 6 },
+      { date: makeMidnight("2025-01-18"), jumlah: 2 },
+      { date: makeMidnight("2025-01-19"), jumlah: 1 },
+      { date: makeMidnight("2025-01-20"), jumlah: 2 },
+      { date: makeMidnight("2025-01-21"), jumlah: 4 },
+      { date: makeMidnight("2025-01-22"), jumlah: 5 },
+      { date: makeMidnight("2025-01-23"), jumlah: 0 },
+      { date: makeMidnight("2025-01-24"), jumlah: 1 },
+      { date: makeMidnight("2025-01-25"), jumlah: 5 },
+      { date: makeMidnight("2025-01-26"), jumlah: 30 },
+      { date: makeMidnight("2025-01-27"), jumlah: 10 },
+      { date: makeMidnight("2025-01-28"), jumlah: 3 },
+      { date: makeMidnight("2025-01-29"), jumlah: 9 },
+      { date: makeMidnight("2025-01-30"), jumlah: 8 },
+      { date: makeMidnight("2025-01-31"), jumlah: 6 },
     ],
   },
   {
     jenis: "Makan Siang",
-    totalTransaksi: 100,
+    totalTransaksi: 0,
     detail: [
-      { date: new Date("2025-01-02"), jumlah: 2 },
-      { date: new Date("2025-01-03"), jumlah: 5 },
+      { date: makeMidnight("2025-01-01"), jumlah: 7 },
     ],
   },
   {
     jenis: "Jemputan",
-    totalTransaksi: 110,
-    detail: [
-      { date: new Date("2025-01-01"), jumlah: 10 },
-    ],
+    totalTransaksi: 0,
+    detail: [],
   },
   {
     jenis: "Program",
-    totalTransaksi: 75,
-    detail: [
-    ],
+    totalTransaksi: 0,
+    detail: [],
   },
   {
     jenis: "DPP",
-    totalTransaksi: 65,
-    detail: [
-    ],
+    totalTransaksi: 0,
+    detail: [],
   },
 ];
+  
 
 
 // SELECT OPTIONS

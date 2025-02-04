@@ -14,7 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useUserStore } from "@/hooks/use-user";
-import { jenisPembayaranSelectOptions } from "@/lib/data";
+import { allPaymentData, jenisPembayaranSelectOptions } from "@/lib/data";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -164,6 +164,7 @@ export default function DashboardPage() {
                   label={jenisPembayaranSelectOptions.find((option) => option.value === jenisPembayaranQuery)?.label || 'Semua Jenis Pembayaran'}
                   dateStart={bulanStartQuery}
                   dateEnd={bulanEndQuery}
+                  dataSource={allPaymentData}
                 />
               </CardContent>
             </div>
