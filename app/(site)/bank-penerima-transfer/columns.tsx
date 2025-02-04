@@ -30,7 +30,8 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
       <div className="pl-4">
         <p>{row.original.namaBank}</p>
       </div>
-    )
+    ),
+    size: 400
   },
   {
     accessorKey: "nomorRekening",
@@ -39,6 +40,7 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
         <p>Nomor Rekening</p>
       </div>
     ),
+    size: 400
   },
   {
     accessorKey: "namaPemilikRekening",
@@ -47,6 +49,7 @@ export const columns: ColumnDef<BankPenerimaTransfer>[] = [
         <p>Nama Pemilik Rekening</p>
       </div>
     ),
+    size: 400
   },
   {
     id: "aksi",

@@ -31,7 +31,8 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
       <div className="pl-4">
         <p>{row.original.namaTagihan}</p>
       </div>
-    )
+    ),
+    size: 400
   },
   {
     accessorKey: "waktuPembayaran",
@@ -44,7 +45,8 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
       <div className="text-center">
         <p>{row.original.waktuPembayaran}</p>
       </div>
-    )
+    ),
+    size: 400
   },
   {
     accessorKey: "statusCicilan",
@@ -57,7 +59,8 @@ export const columns: ColumnDef<JenisBiayaPendidikan>[] = [
       <div className="text-center">
         <p>{row.original.statusCicilan}</p>
       </div>
-    )
+    ),
+    size: 400
   },
   {
     id: "aksi",

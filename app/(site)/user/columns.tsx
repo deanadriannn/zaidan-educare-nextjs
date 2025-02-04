@@ -30,7 +30,8 @@ export const columns: ColumnDef<User>[] = [
       <div className="pl-4">
         <p>{row.original.username}</p>
       </div>
-    )
+    ),
+    size: 400
   },
   {
     accessorKey: "nama",
@@ -39,6 +40,7 @@ export const columns: ColumnDef<User>[] = [
         <p>Nama</p>
       </div>
     ),
+    size: 400
   },
   {
     accessorKey: "role",
@@ -47,6 +49,7 @@ export const columns: ColumnDef<User>[] = [
         <p>Role</p>
       </div>
     ),
+    size: 400
   },
   {
     id: "aksi",
