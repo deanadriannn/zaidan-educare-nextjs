@@ -624,7 +624,7 @@ export default function PenerimaanDanaForm() {
               </h2>
               <p>
                 {formatToIDR(
-                  daftarTagihan.reduce((acc, item) => acc + item.nominal, 0)
+                  paymentItems.reduce((acc, item) => acc + item.nominal, 0)
                 )}
               </p>
             </div>
@@ -667,7 +667,7 @@ export default function PenerimaanDanaForm() {
                         required
                         disabled={isLoading}
                       >
-                        <SelectTrigger className="w-44">
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
@@ -698,7 +698,7 @@ export default function PenerimaanDanaForm() {
                       <Input
                         type="number"
                         min={0}
-                        className="w-28"
+                        className="w-full"
                         value={item.nominal || ""}
                         onChange={(e) => handleNominalChange(index, e.target.value)}
                         disabled={isLoading}
@@ -715,7 +715,7 @@ export default function PenerimaanDanaForm() {
                           }
                           disabled={isLoading}
                         >
-                          <SelectTrigger className="w-40">
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Pilih Salah Satu" />
                           </SelectTrigger>
                           <SelectContent>
@@ -743,7 +743,7 @@ export default function PenerimaanDanaForm() {
                           }
                           disabled={isLoading}
                         >
-                          <SelectTrigger className="w-44">
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Pilih Salah Satu" />
                           </SelectTrigger>
                           <SelectContent>
