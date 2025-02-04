@@ -17,9 +17,10 @@ import {
 import { Card, CardHeader } from "@/components/ui/card"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, useFormField } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import Link from "next/link";
+import { penggunaAplikasiSelectOptions } from "@/lib/data";
 
 function getUserSchema(isEdit: boolean) {
   return z.object({
@@ -39,7 +40,6 @@ function getUserSchema(isEdit: boolean) {
 export default function UserForm() {
   const router = useRouter()
   const pathname = usePathname()
-
   
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -120,16 +120,30 @@ export default function UserForm() {
                       Foto
                     </FormLabel>
                     <FormControl>
-                      <Input 
-                        {...fieldProps}
-                        type="file"
-                        accept="image/*"
-                        onChange={(event) =>
-                          onChange(event.target.files && event.target.files[0])
-                        }
-                        className="hover:cursor-pointer"
-                        disabled={isLoading}
-                      />
+                      <div className="relative">
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          accept="image/*"
+                          onChange={(event) =>
+                            onChange(event.target.files && event.target.files[0])
+                          }
+                          className="hover:cursor-pointer opacity-0 absolute w-full h-full"
+                          disabled={isLoading}
+                        />
+                        <Button 
+                          className="w-full bg-[#f1f2f3] hover:bg-[#f1f2f3] flex justify-start items-center gap-2" 
+                          disabled={isLoading} 
+                          type="button"
+                        >
+                          <span className="border-2 p-0.5 border-gray-500 text-muted-foreground rounded-md hover:cursor-pointer">Pilih File</span>
+                          {value ? (
+                            <span className="text-muted-foreground">{value?.name}</span>
+                          ): (
+                            <span className="text-muted-foreground">Tidak ada file yang dipilih</span>
+                          )}
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -239,9 +253,11 @@ export default function UserForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="ketua_yayasan">Ketua Yayasan</SelectItem>
-                        <SelectItem value="bendahara">Bendahara</SelectItem>
-                        <SelectItem value="administrator">Administrator</SelectItem>
+                        {penggunaAplikasiSelectOptions.map(option => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
