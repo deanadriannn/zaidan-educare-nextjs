@@ -19,6 +19,7 @@ import { jenisPembayaranSelectOptions, kelasSelectOptions, statusPembayaranData 
 import Filter from "@/components/filter";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import StatusMessage from "@/components/status-message";
 
 export default function StatusPembayaranPage() {
   const [nama, setNama] = useState('')
@@ -26,6 +27,7 @@ export default function StatusPembayaranPage() {
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [statusPembayaran, setStatusPembayaran] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isDownloadSuccess, setIsDownloadSuccess] = useState(false)
 
   const router = useRouter()
 
@@ -56,6 +58,13 @@ export default function StatusPembayaranPage() {
   
   return (
     <>
+      {isDownloadSuccess && (
+        <StatusMessage 
+          message="File Data Status Pembayaran Berhasil Diunduh"
+          backgroundColor="bg-[#DEF7EC]"
+          handleDelete={() => setIsDownloadSuccess(prev => !prev)}
+        />
+      )}
       <Filter>
         <form onSubmit={handleFilter}>
           <CardContent className="flex flex-col md:flex-row justify-center items-center gap-4">
@@ -87,7 +96,9 @@ export default function StatusPembayaranPage() {
               </Select>
             </div>
             <div className="w-full flex flex-col space-y-2">
-              <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
+              <Label htmlFor="jenisPembayaran" className="text-md">
+                Jenis Pembayaran <span className="text-destructive">*</span>
+              </Label>
               <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading} value={jenisPembayaran}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Jenis Pembayaran" />
@@ -128,6 +139,7 @@ export default function StatusPembayaranPage() {
           <Link
             href="/download/Data Unduh Status Pembayaran.xlsx"
             download="Data Unduh Status Pembayaran.xlsx"
+            onClick={() => setIsDownloadSuccess(true)}
           >
             <Button variant="primary-red">
               <FileDown /> Unduh
