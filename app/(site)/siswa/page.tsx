@@ -109,7 +109,6 @@ export default function StudentPage() {
         <StatusMessage 
           message="Template Import Berhasil Diunduh"
           backgroundColor="bg-[#DEF7EC]"
-          backUrl="/siswa"
           handleDelete={() => setIsDownloadSuccess(prev => !prev)}
         />
       )}

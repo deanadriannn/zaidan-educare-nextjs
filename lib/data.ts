@@ -586,6 +586,7 @@ export const allPaymentData = [
 // SELECT OPTIONS
 
 export const kelasSelectOptions = [
+  { value: 'all', label: 'Semua Kelas' },
   { value: 'PG', label: 'PG' },
   { value: 'TK-A', label: 'TK-A' },
   { value: 'TK-B', label: 'TK-B' },
@@ -598,12 +599,14 @@ export const kelasSelectOptions = [
 ]
 
 export const penggunaAplikasiSelectOptions = [
+  { value: 'all', label: 'Semua Role' },
   { value: 'ketua_yayasan', label: 'Ketua Yayasan' },
   { value: 'bendahara', label: 'Bendahara' },
   { value: 'administrator', label: 'Administrator' },
 ]
 
 export const jenisPembayaranSelectOptions = [
+  { value: 'all', label: 'Semua Jenis Pembayaran' },
   { value: 'dpp', label: 'DPP' },
   { value: 'spp', label: 'SPP' },
   { value: 'makan_siang', label: 'Makan Siang' },
