@@ -100,7 +100,7 @@ export default function StudentPage() {
       )}
       {searchParams.get('status') === 'upload-success' && (
         <StatusMessage 
-          message="Data Siswa Berhasil Ditambahkan Melalui Import Data"
+          message="Data Siswa Berhasil Ditambahkan Melalui Impor Data"
           backgroundColor="bg-[#DEF7EC]"
           backUrl="/siswa"
         />

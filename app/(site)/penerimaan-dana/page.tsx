@@ -140,6 +140,7 @@ export default function TagihanSiswaPage() {
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [tanggalTransaksi, setTanggalTransaksi] = useState<Date | undefined>()
+  const [isDownloadSuccess, setIsDownloadSuccess] = useState(false)
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -184,6 +185,20 @@ export default function TagihanSiswaPage() {
           message="Data Pembayaran Biaya Pendidikan Berhasil Diperbarui"
           backgroundColor="bg-[#DEF7EC]"
           backUrl="/penerimaan-dana"
+        />
+      )}
+      {searchParams.get('status') === 'upload-success' && (
+        <StatusMessage 
+          message="Data Pembayaran Biaya Pendidikan Berhasil Ditambahkan Melalui Impor Data"
+          backgroundColor="bg-[#DEF7EC]"
+          backUrl="/penerimaan-dana"
+        />
+      )}
+      {isDownloadSuccess && (
+        <StatusMessage 
+          message="Template Import Berhasil Diunduh"
+          backgroundColor="bg-[#DEF7EC]"
+          handleDelete={() => setIsDownloadSuccess(prev => !prev)}
         />
       )}
       {searchParams.get('status') === 'delete-success' && (
@@ -264,6 +279,7 @@ export default function TagihanSiswaPage() {
           <Link
             href="/download/Template Data Import Pembayaran.xlsx"
             download="Template Data Import Pembayaran.xlsx"
+            onClick={() => setIsDownloadSuccess(true)}
           >
             <Button variant="primary-red">
               <FileDown /> Unduh Template Import
@@ -271,6 +287,7 @@ export default function TagihanSiswaPage() {
           </Link>
           <UploadFileDialog
             title="Import Data Transaksi Pembayaran"
+            successUrl="/penerimaan-dana?status=upload-success"
           >
             <Button variant="primary-red">
               <FileUp /> Impor Data
