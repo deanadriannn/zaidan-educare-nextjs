@@ -41,7 +41,7 @@ const footerContent = [
     url: "https://www.instagram.com/sekolah_zaidan_educare/"
   },
   {
-    icon: "/footer/Youtube.svg",
+    icon: "/footer/YouTube.svg",
     url: "https://www.youtube.com/channel/UCNmieE6rUWz0MUbEV13EqGA"
   }
 ]
