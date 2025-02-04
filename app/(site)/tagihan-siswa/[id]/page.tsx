@@ -159,10 +159,23 @@ export default function TagihanSiswaPage() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4 font-spartan px-0">
         <div className="flex flex-col gap-4 font-normal text-lg">
+          {Object.entries(exampleData['biodata'])
+          .filter(([key]) => ['nama', 'kelas'].includes(key))
+          .map(([key, value]) => (
+            <div key={key} className="flex flex-wrap gap-4 items-center">
+              <p className="flex-none w-1/3 font-semibold capitalize">
+                {key.replace(/([A-Z])/g, " $1")} {/* Format key menjadi lebih rapi */}
+              </p>
+              <p className="flex-1">{value}</p>
+            </div>
+          ))}
+          
           <h1 className="font-extrabold text-xl">Biodata Siswa</h1>
 
           {/* Loop Data */}
-          {Object.entries(exampleData['biodata']).map(([key, value]) => (
+          {Object.entries(exampleData['biodata'])
+          .filter(([key]) => !['nama', 'kelas'].includes(key))
+          .map(([key, value]) => (
             <div key={key} className="flex flex-wrap gap-4 items-center">
               <p className="flex-none w-1/3 font-semibold capitalize">
                 {key.replace(/([A-Z])/g, " $1")} {/* Format key menjadi lebih rapi */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -93,7 +93,7 @@ const jenisPembayaranContoh = [
 ] as const;
 
 const tagihanSiswaSchema = z.object({
-  namaSiswa: z.string().min(1, "Nama siswa harus dipilih"),
+  namaSiswa: z.string().min(1, "Nama siswa wajib diisi"),
 })
 
 type PaymentItem = {
@@ -117,6 +117,44 @@ export default function TagihanSiswaForm() {
       nominal: 0,
     },
   ]);
+
+  useEffect(() => {
+    if (isEdit) {
+      setPaymentItems([
+        {
+          jenisPembayaran: "DPP",
+          waktuPembayaran: "1x",
+          statusCicilan: "Ya",
+          nominal: 500000,
+        },
+        {
+          jenisPembayaran: "SPP",
+          waktuPembayaran: "Bulanan",
+          statusCicilan: "Ya",
+          nominal: 100000,
+        },
+        {
+          jenisPembayaran: "Makan Siang",
+          waktuPembayaran: "Harian",
+          statusCicilan: "Tidak",
+          nominal: 15000,
+        },
+        {
+          jenisPembayaran: "Jemputan",
+          waktuPembayaran: "Bulanan",
+          statusCicilan: "Ya",
+          nominal: 10000,
+        },
+        {
+          jenisPembayaran: "Kamping",
+          waktuPembayaran: "Tahunan",
+          statusCicilan: "Tidak",
+          nominal: 200000,
+        },
+      ])
+    }
+  }, [])
+
   const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<tagihanSiswaFormValues>({
@@ -327,10 +365,10 @@ export default function TagihanSiswaForm() {
             <table className="w-full border text-left text-sm">
               <thead>
                 <tr className="border-b bg-gray-50 text-sm font-semibold">
-                  <th className="p-2">Jenis Pembayaran</th>
-                  <th className="p-2">Waktu Pembayaran</th>
-                  <th className="p-2">Status Cicilan</th>
-                  <th className="p-2">Nominal</th>
+                  <th className="p-2 text-center">Jenis Pembayaran</th>
+                  <th className="p-2 text-center">Waktu Pembayaran</th>
+                  <th className="p-2 text-center">Status Cicilan</th>
+                  <th className="p-2 text-center">Nominal</th>
                   <th className="p-2 text-center sticky right-0 z-10">Aksi</th>
                 </tr>
               </thead>
@@ -346,7 +384,7 @@ export default function TagihanSiswaForm() {
                         }
                         disabled={isLoading}
                       >
-                        <SelectTrigger className="w-44">
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
@@ -360,15 +398,18 @@ export default function TagihanSiswaForm() {
                           ))}
                         </SelectContent>
                       </Select>
+                      {item.jenisPembayaran === "" && (
+                        <span className="text-xs text-destructive">Jenis pembayaran wajib diisi</span>
+                      )}
                     </td>
 
                     {/* Waktu Pembayaran (read-only) */}
-                    <td className="p-2">
+                    <td className="p-2 text-center">
                       {item.waktuPembayaran ? item.waktuPembayaran : "-"}
                     </td>
 
                     {/* Status Cicilan (read-only) */}
-                    <td className="p-2">
+                    <td className="p-2 text-center">
                       {item.statusCicilan ? item.statusCicilan : "-"}
                     </td>
 
@@ -376,11 +417,21 @@ export default function TagihanSiswaForm() {
                     <td className="p-2">
                       <Input
                         type="number"
-                        className="w-28"
+                        className="w-full"
                         value={item.nominal || ""}
                         onChange={(e) => handleNominalChange(index, e.target.value)}
                         disabled={isLoading}
+                        min={0}
+                        required
                       />
+                      <span>
+                        {item.nominal === 0 && (
+                          <span className="text-xs text-destructive">Nominal wajib diisi</span>
+                        )}
+                        {item.nominal < 0 && (
+                          <span className="text-xs text-destructive">Nominal tidak boleh kurang dari 0</span>
+                        )}
+                      </span>
                     </td>
 
                     {/* Tombol Hapus Baris */}
