@@ -46,7 +46,7 @@ export default function UserPage() {
 
   const handleReset = () => {
     setNama('')
-    setRole('')
+    setRole('all')
     router.push("/user")
   }
   
@@ -92,7 +92,7 @@ export default function UserPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="role" className="text-md">Role</Label>
-              <Select onValueChange={(value) => setRole(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setRole(value)} disabled={isLoading} value={role}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Role" />
                 </SelectTrigger>

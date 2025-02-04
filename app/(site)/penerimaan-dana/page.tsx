@@ -164,8 +164,8 @@ export default function TagihanSiswaPage() {
 
   const handleReset = () => {
     setNama('')
-    setKelas('')
-    setJenisPembayaran('')
+    setKelas('all')
+    setJenisPembayaran('all')
     setTanggalTransaksi(undefined)
     router.push("/penerimaan-dana")
   }
@@ -212,7 +212,7 @@ export default function TagihanSiswaPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading} value={jenisPembayaran}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Jenis Pembayaran" />
                 </SelectTrigger>
@@ -225,7 +225,7 @@ export default function TagihanSiswaPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading} value={kelas}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>

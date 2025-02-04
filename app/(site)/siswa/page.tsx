@@ -55,7 +55,7 @@ export default function StudentPage() {
   const handleReset = () => {
     setNama('')
     setNis('')
-    setKelas('')
+    setKelas('all')
     router.push("/siswa")
   }
 
@@ -152,9 +152,9 @@ export default function StudentPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading} value={kelas}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Pilih Kelas" />
+                  <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
                 <SelectContent>
                   {kelasSelectOptions.map((option) => (

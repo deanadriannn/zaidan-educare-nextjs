@@ -110,12 +110,11 @@ export default function DashboardPage() {
               </div>
               <div className="w-full flex flex-col space-y-2">
                 <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-                <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
+                <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading} value={jenisPembayaran}>
                   <SelectTrigger>
                     <SelectValue placeholder="Semua Jenis Pembayaran" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Semua Jenis Pembayaran</SelectItem>
                     {jenisPembayaranSelectOptions.map((option) => (
                       <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                     ))}

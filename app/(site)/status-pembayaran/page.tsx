@@ -48,9 +48,9 @@ export default function StatusPembayaranPage() {
 
   const handleReset = () => {
     setNama('')
-    setKelas('')
-    setJenisPembayaran('')
-    setStatusPembayaran('')
+    setKelas('all')
+    setJenisPembayaran('all')
+    setStatusPembayaran('all')
     router.push("/status-pembayaran")
   }
   
@@ -75,12 +75,11 @@ export default function StatusPembayaranPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="kelas" className="text-md">Kelas</Label>
-              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setKelas(value)} disabled={isLoading} value={kelas}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Kelas" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Semua Kelas</SelectItem>
                   {kelasSelectOptions.map((option) => (
                     <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                   ))}
@@ -89,12 +88,11 @@ export default function StatusPembayaranPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="jenisPembayaran" className="text-md">Jenis Pembayaran</Label>
-              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setJenisPembayaran(value)} disabled={isLoading} value={jenisPembayaran}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Pilih Salah Satu" />
+                  <SelectValue placeholder="Semua Jenis Pembayaran" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Semua Jenis Pembayaran</SelectItem>
                   {jenisPembayaranSelectOptions.map((option) => (
                     <SelectItem value={option.value} key={option.value}>{option.label}</SelectItem>
                   ))}
@@ -103,7 +101,7 @@ export default function StatusPembayaranPage() {
             </div>
             <div className="w-full flex flex-col space-y-2">
               <Label htmlFor="statusPembayaran" className="text-md">Status Pembayaran</Label>
-              <Select onValueChange={(value) => setStatusPembayaran(value)} disabled={isLoading}>
+              <Select onValueChange={(value) => setStatusPembayaran(value)} disabled={isLoading} value={statusPembayaran}>
                 <SelectTrigger>
                   <SelectValue placeholder="Semua Status" />
                 </SelectTrigger>
