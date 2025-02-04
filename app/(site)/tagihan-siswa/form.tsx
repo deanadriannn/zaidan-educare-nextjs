@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import toast from "react-hot-toast"
 import { ArrowLeft, Check, ChevronsUpDown, CircleX, Minus, Plus, Save } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader } from "@/components/ui/card"
@@ -94,15 +93,13 @@ const jenisPembayaranContoh = [
 ] as const;
 
 const tagihanSiswaSchema = z.object({
-  namaSiswa: z.string({
-    required_error: "Nama siswa harus dipilih",
-  }),
+  namaSiswa: z.string().min(1, "Nama siswa harus dipilih"),
 })
 
 type PaymentItem = {
   jenisPembayaran: string;
   waktuPembayaran: string;
-  statusCicilan: "Ya" | "Tidak" | "";
+  statusCicilan: string;
   nominal: number;
 };
 
@@ -125,7 +122,7 @@ export default function TagihanSiswaForm() {
   const form = useForm<tagihanSiswaFormValues>({
     resolver: zodResolver(tagihanSiswaSchema),
     defaultValues: {
-      namaSiswa: ""
+      namaSiswa: isEdit ? "Abdul" : "",
     },
   })
 
@@ -210,79 +207,93 @@ export default function TagihanSiswaForm() {
               const { error } = useFormField()
               return (
                 <>
-                  <FormItem className="flex flex-col">
-                    <FormLabel 
-                      className={cn(
-                        error ? "text-destructive": "text-muted-foreground",
-                        "text-lg font-bold"
-                      )}
-                    >
-                      Nama Siswa <span className="text-destructive">*</span>
-                    </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                              "w-full md:w-full justify-between",
-                              !field.value && "text-muted-foreground"
-                            )}
-                            disabled={isLoading}
-                          >
-                            {field.value
-                              ? exampleData.find(
-                                  (siswa) => siswa.value === field.value
-                                )?.label
-                              : "Pilih Nama Siswa"}
-                            <ChevronsUpDown className="opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="popover-content-width-full p-0">
-                        <Command>
-                          <CommandInput
-                            placeholder="Cari nama siswa..."
-                            className="h-9"
-                          />
-                          <CommandList>
-                            <CommandEmpty>Tidak menemukan nama siswa.</CommandEmpty>
-                            <CommandGroup>
-                              {exampleData.map((siswa) => (
-                                <CommandItem
-                                  value={siswa.label}
-                                  key={siswa.value}
-                                  onSelect={() => {
-                                    form.setValue("namaSiswa", siswa.value)
-                                  }}
-                                >
-                                  {siswa.label}
-                                  <Check
-                                    className={cn(
-                                      "ml-auto",
-                                      siswa.value === field.value
-                                        ? "opacity-100"
-                                        : "opacity-0"
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
+                  {!isEdit && (
+                    <FormItem className="flex flex-col">
+                      <FormLabel 
+                        className={cn(
+                          error ? "text-destructive": "text-muted-foreground",
+                          "text-lg font-bold"
+                        )}
+                      >
+                        Nama Siswa <span className="text-destructive">*</span>
+                      </FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              className={cn(
+                                "w-full md:w-full justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                              disabled={isLoading || isEdit}
+                            >
+                              {field.value
+                                ? exampleData.find(
+                                    (siswa) => siswa.value === field.value
+                                  )?.label
+                                : "Pilih Nama Siswa"}
+                              <ChevronsUpDown className="opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="popover-content-width-full p-0">
+                          <Command>
+                            <CommandInput
+                              placeholder="Cari nama siswa..."
+                              className="h-9"
+                            />
+                            <CommandList>
+                              <CommandEmpty>Tidak menemukan nama siswa.</CommandEmpty>
+                              <CommandGroup>
+                                {exampleData.map((siswa) => (
+                                  <CommandItem
+                                    value={siswa.label}
+                                    key={siswa.value}
+                                    onSelect={() => {
+                                      form.setValue("namaSiswa", siswa.value)
+                                    }}
+                                  >
+                                    {siswa.label}
+                                    <Check
+                                      className={cn(
+                                        "ml-auto",
+                                        siswa.value === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
 
                   {/* DATA SISWA YANG TERISI OTOMATIS */}
                   <div className="mt-4 flex gap-8 font-spartan pl-1">
                     <div className="flex flex-col gap-2">
+                      {isEdit && (
+                        <Label className="text-lg font-semibold text-muted-foreground">Nama Siswa</Label>
+                      )}
                       <Label className="text-lg font-semibold text-muted-foreground">Kelas</Label>
                       <Label className="text-lg font-semibold text-muted-foreground">NIS</Label>
                     </div>
                     <div className="flex flex-col gap-2">
+                      {isEdit && (
+                        <p className="text-lg text-black">
+                          {field.value
+                            ? exampleData.find(
+                                (siswa) => siswa.value === field.value
+                              )?.label
+                            : ""}
+                        </p>
+                      )}
                       <p className="text-lg text-black">
                         {field.value
                           ? exampleData.find(
