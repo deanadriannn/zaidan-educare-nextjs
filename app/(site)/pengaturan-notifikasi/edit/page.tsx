@@ -155,7 +155,7 @@ Terima kasih.`}
                       })
                     }}
                     placeholder="Masukkan tanggal pengiriman"
-                    className="w-40"
+                    className="w-64"
                     disabled={isLoading}
                   />
                   <p className="text-sm text-muted-foreground">
