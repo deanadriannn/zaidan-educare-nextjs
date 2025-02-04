@@ -152,7 +152,8 @@ export default function RekapitulasiPenerimaanDanaPage() {
           <div className="flex justify-start items-start gap-8 w-full">
             {/* Kolom Jenis Pembayaran */}
             <div className="flex flex-col gap-2">
-              <span className="font-bold">Jenis Pembayaran</span>
+              {/* <span className="font-bold">Jenis Pembayaran</span> */}
+              <span>Total Dana Terkumpul</span>
               {rekapitulasiPenerimaanDanaData.map((data) => (
                 <span key={data.id}>{data.jenisPembayaran}</span>
               ))}
@@ -160,7 +161,23 @@ export default function RekapitulasiPenerimaanDanaPage() {
 
             {/* Kolom Total Dana */}
             <div className="flex flex-col gap-2">
-              <span className="font-bold">Total Dana</span>
+              <span className="">
+                Rp{" "}
+                {(searchParams.get("tahunAjaranStart") && searchParams.get("tahunAjaranEnd")) ? (
+                  rekapitulasiPenerimaanDanaData.reduce((acc, data) => {
+                    // Hitung total keseluruhan
+                    const totalPerJenis = Object.entries(data)
+                      .filter(([key]) => key !== "id" && key !== "jenisPembayaran")
+                      // @ts-ignore
+                      .reduce((sum, [, value]) => sum + value, 0);
+
+                    return acc + totalPerJenis;
+                  }, 0).toLocaleString("id-ID")
+                ): (
+                  "0"
+                )}
+              </span>
+              {/* <span className="font-bold">Total Dana</span> */}
               {rekapitulasiPenerimaanDanaData.map((data) => {
                 // Hitung total semua properti kecuali `id` dan `jenisPembayaran`
                 const totalPerJenis = Object.entries(data)
@@ -182,7 +199,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
           </div>
 
           {/* Kolom Total Dana Terkumpul */}
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <span className="font-bold">Total Dana Terkumpul</span>
             <span className="font-bold text-green-600">
               Rp{" "}
@@ -200,7 +217,7 @@ export default function RekapitulasiPenerimaanDanaPage() {
                 "0"
               )}
             </span>
-          </div>
+          </div> */}
         </div>
 
         <span 
