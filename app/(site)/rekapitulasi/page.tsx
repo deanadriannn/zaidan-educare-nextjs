@@ -226,7 +226,11 @@ export default function RekapitulasiPenerimaanDanaPage() {
           Detail Data
         </span>
         {/* @ts-ignore */}
-        <DataTable columns={columns} data={data} />
+        {data.length > 0 ? (
+          <DataTable columns={columns} data={data} />
+        ): (
+          <span className="w-full min-h-[300px] flex justify-center items-center">Data Tidak Ada.</span>
+        )}
       </Card>
     </>
   )

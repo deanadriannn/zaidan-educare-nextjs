@@ -631,16 +631,16 @@ export const kelasSelectOptions = [
 
 export const penggunaAplikasiSelectOptions = [
   { value: 'all', label: 'Semua Role' },
-  { value: 'ketua_yayasan', label: 'Ketua Yayasan' },
-  { value: 'bendahara', label: 'Bendahara' },
-  { value: 'administrator', label: 'Administrator' },
+  { value: 'Ketua Yayasan', label: 'Ketua Yayasan' },
+  { value: 'Bendahara', label: 'Bendahara' },
+  { value: 'Administrator', label: 'Administrator' },
 ]
 
 export const jenisPembayaranSelectOptions = [
   { value: 'all', label: 'Semua Jenis Pembayaran' },
-  { value: 'dpp', label: 'DPP' },
-  { value: 'spp', label: 'SPP' },
-  { value: 'makan_siang', label: 'Makan Siang' },
-  { value: 'jemputan', label: 'Jemputan' },
-  { value: 'kamping', label: 'Kamping' },
+  { value: 'DPP', label: 'DPP' },
+  { value: 'SPP', label: 'SPP' },
+  { value: 'Makan Siang', label: 'Makan Siang' },
+  { value: 'Jemputan', label: 'Jemputan' },
+  { value: 'Kamping', label: 'Kamping' },
 ]

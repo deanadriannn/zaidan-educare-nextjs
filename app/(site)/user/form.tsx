@@ -31,9 +31,9 @@ function getUserSchema(isEdit: boolean) {
     password: isEdit
     ? z.string().optional()
     : z.string().min(1, "Password wajib diisi"),
-    role: z.enum(["ketua_yayasan", "bendahara", "administrator"], {
+    role: z.string({
       required_error: "Role wajib diisi",
-    }),
+    }).min(1, "Role wajib diisi"),
   })
 }
 
@@ -253,11 +253,10 @@ export default function UserForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {penggunaAplikasiSelectOptions.map(option => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
+                        <SelectItem value="Ketua Yayasan">Ketua Yayasan</SelectItem>
+                        <SelectItem value="Bendahara">Bendahara</SelectItem>
+                        <SelectItem value="Administrator">Administrator</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

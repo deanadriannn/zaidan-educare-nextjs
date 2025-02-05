@@ -37,7 +37,7 @@ const studentSchema = z.object({
   alamat: z.string().optional(),
   namaWali: z.string().min(1, "Nama wali wajib diisi"),
   hubunganWali: z.string().optional(),
-  jenisKelaminWali: z.enum(["laki_laki", "perempuan", ""]).optional(),
+  jenisKelaminWali: z.enum(["laki_laki", "perempuan"]).optional(),
   emailWali: z
   .string()
   .optional()
