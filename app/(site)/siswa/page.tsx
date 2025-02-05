@@ -64,6 +64,11 @@ export default function StudentPage() {
     const studentsPG = selectedStudents.filter((s) => s.kelas === "PG")
     const studentsTKB = selectedStudents.filter((s) => s.kelas === "TK-B")
 
+    if (selectedStudents.length === 0) {
+      router.push('/siswa?status=no-student-selected')
+      return;
+    }
+
     if (studentsPG.length > 0 || studentsTKB.length > 0) {
       setIsPromotionFormOpen(true);
     } else {
@@ -115,6 +120,13 @@ export default function StudentPage() {
       {searchParams.get('status') === 'delete-success' && (
         <StatusMessage 
           message="Data Siswa Berhasil Dihapus"
+          backgroundColor="bg-[#ffecec]"
+          backUrl="/siswa"
+        />
+      )}
+      {searchParams.get('status') === 'no-student-selected' && (
+        <StatusMessage 
+          message="Proses Naik Kelas tidak dapat dilanjutkan, siswa aktif harus dipilih terlebih dahulu"
           backgroundColor="bg-[#ffecec]"
           backUrl="/siswa"
         />

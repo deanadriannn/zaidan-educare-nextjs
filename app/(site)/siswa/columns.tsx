@@ -29,9 +29,10 @@ export const columns: ColumnDef<StudentInfo>[] = [
     cell: ({ row }) => (
       <div className="text-center">
         <Checkbox
-          checked={row.getIsSelected()}
+          checked={row.original.status === "Aktif" && row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
+          disabled={row.original.status === "Lulus" || row.original.status === "Mengundurkan Diri"}
         />
       </div>
     ),
