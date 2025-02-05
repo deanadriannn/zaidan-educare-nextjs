@@ -161,6 +161,9 @@ export function TrendChart({
       title: {
         display: true,
         text: chartTitle,
+        font: {
+          size: 17
+        }
       },
       legend: {
         display: false,
@@ -175,6 +178,10 @@ export function TrendChart({
         title: {
           display: true,
           text: "Tanggal Transaksi",
+          font: {
+            weight: "bold",
+            size: 16
+          }
         },
       },
       y: {
@@ -182,6 +189,10 @@ export function TrendChart({
         title: {
           display: true,
           text: "Jumlah Transaksi",
+          font: {
+            weight: "bold",
+            size: 16
+          }
         },
       },
     },
@@ -195,7 +206,7 @@ export function TrendChart({
   return (
     <>
       {dateStart && dateEnd && (
-        <div className="flex flex-col lg:flex-row w-full max-w-[1000px] gap-4">
+        <div className="flex flex-col lg:flex-row w-full gap-4 has-[p]:flex-col">
           <div className="w-full">
             <Line data={chartData} options={options} />
           </div>
