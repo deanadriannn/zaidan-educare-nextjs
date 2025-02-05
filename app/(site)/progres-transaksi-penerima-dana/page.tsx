@@ -23,8 +23,9 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartTitle);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartTitle, ChartDataLabels);
 
 const exampleData = [
   {
@@ -190,8 +191,21 @@ export default function StatusPembayaranPage() {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: false,
         position: "bottom" as const,
+      },
+      datalabels: {
+        display: true,
+        color: "#fff",       // warna teks
+        font: {
+          weight: "bold",    // gaya teks
+          size: 14,
+        },
+        // formatter untuk menampilkan label
+        formatter: (value: any, ctx: any) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label; // misalnya "Sisa 33%"
+        },
       },
     },
   };
@@ -290,6 +304,7 @@ export default function StatusPembayaranPage() {
                   <div key={item.id} className="min-w-[200px] max-w-[300px] ">
                     {/* @ts-ignore */}
                     <h3 className="font-semibold mb-2">{item.title}</h3>
+                    {/* @ts-ignore */}
                     <Pie data={item} options={pieOptions} />
                   </div>
                 ))}
@@ -303,6 +318,7 @@ export default function StatusPembayaranPage() {
                   <div key={item.id} className="min-w-[200px] max-w-[300px] ">
                     {/* @ts-ignore */}
                     <h3 className="font-semibold mb-2">{item.title}</h3>
+                    {/* @ts-ignore */}
                     <Pie data={item} options={pieOptions} />
                   </div>
                 ))}
