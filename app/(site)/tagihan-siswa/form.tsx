@@ -388,6 +388,7 @@ export default function TagihanSiswaForm() {
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="Pilih Salah Satu">Pilih Salah Satu</SelectItem>
                           {jenisPembayaranContoh.map((option) => (
                             <SelectItem
                               key={option.jenisPembayaran}

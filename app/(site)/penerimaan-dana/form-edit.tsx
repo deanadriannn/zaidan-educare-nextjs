@@ -79,7 +79,7 @@ const namaBankContoh = [
 const penerimaanDanaSchema = z.object({
   nominal: z.number({
     required_error: "Nominal wajib diisi",
-    invalid_type_error: "Nominal harus berupa angka",
+    invalid_type_error: "Nominal wajib diisi",
   })
   .positive("Nominal tidak boleh negatif atau nol"),
   metodePembayaran: z
@@ -174,7 +174,7 @@ export default function PenerimaanDanaForm() {
               <div className="md:col-span-2 lg:col-span-4 xl:col-span-6"></div>
 
               <Label className={cn(
-                form.getFieldState("nominal").error ? "text-destructive": "text-muted-foreground",
+                form.getFieldState("nominal").error ? "": "text-muted-foreground",
                 "text-lg font-semibold col-span-1"
               )}>Nominal</Label>
               <FormField

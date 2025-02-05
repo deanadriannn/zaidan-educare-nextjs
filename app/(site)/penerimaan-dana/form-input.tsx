@@ -335,7 +335,8 @@ export default function PenerimaanDanaForm() {
   const form = useForm<penerimaanDanaFormValues>({
     resolver: zodResolver(penerimaanDanaSchema),
     defaultValues: {
-      tanggalTransaksi: undefined,
+      namaSiswa: "",
+      tanggalTransaksi: new Date(),
     },
   })
 
@@ -658,7 +659,7 @@ export default function PenerimaanDanaForm() {
                 {paymentItems.map((item, index) => (
                   <tr key={index} className="border-b">
                     {/* Pilih Jenis Pembayaran */}
-                    <td className="p-2 flex justify-center">
+                    <td className="p-2 flex justify-center flex-col">
                       <Select
                         value={item.jenisPembayaran}
                         onValueChange={(val) =>
@@ -671,6 +672,7 @@ export default function PenerimaanDanaForm() {
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="Pilih Salah Satu">Pilih Salah Satu</SelectItem>
                           {jenisPembayaranContoh.map((option) => (
                             <SelectItem
                               key={option.jenisPembayaran}
@@ -681,6 +683,9 @@ export default function PenerimaanDanaForm() {
                           ))}
                         </SelectContent>
                       </Select>
+                      {item.jenisPembayaran === "" && (
+                        <span className="text-xs text-destructive">Jenis pembayaran wajib diisi</span>
+                      )}
                     </td>
 
                     {/* Waktu Pembayaran (read-only) */}
@@ -694,7 +699,7 @@ export default function PenerimaanDanaForm() {
                     </td>
 
                     {/* Nominal (masih input, jika mau diisi manual) */}
-                    <td className="p-2 flex justify-center">
+                    <td className="p-2 flex flex-col justify-center">
                       <Input
                         type="number"
                         min={0}
@@ -703,6 +708,14 @@ export default function PenerimaanDanaForm() {
                         onChange={(e) => handleNominalChange(index, e.target.value)}
                         disabled={isLoading}
                       />
+                      <span>
+                        {item.nominal === 0 && (
+                          <span className="text-xs text-destructive">Nominal wajib diisi</span>
+                        )}
+                        {item.nominal < 0 && (
+                          <span className="text-xs text-destructive">Nominal tidak boleh kurang dari 0</span>
+                        )}
+                      </span>
                     </td>
 
                     {/* Metode Pembayaran */}
@@ -719,6 +732,7 @@ export default function PenerimaanDanaForm() {
                             <SelectValue placeholder="Pilih Salah Satu" />
                           </SelectTrigger>
                           <SelectContent>
+                            <SelectItem value="Pilih Salah Satu">Pilih Salah Satu</SelectItem>
                             {metodePembayaranContoh.map((option) => (
                               <SelectItem
                                 key={option.value}
@@ -730,33 +744,41 @@ export default function PenerimaanDanaForm() {
                           </SelectContent>
                         </Select>
                       </div>
+                      {item.metodePembayaran === "" && (
+                        <span className="text-xs text-destructive">Metode pembayaran wajib diisi</span>
+                      )}
                     </td>
 
                     {/* Nama Bank */}
-                    <td className="p-2 flex justify-center">
+                    <td className="p-2 flex flex-col justify-center">
                       {/* Jika metode pembayaran adalah transfer, tampilkan pilihan nama bank */}
                       {item.metodePembayaran === "transfer" ? (
-                        <Select
-                          value={item.namaBank}
-                          onValueChange={(val) => 
-                            handleNamaBankChange(index, val)
-                          }
-                          disabled={isLoading}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Pilih Salah Satu" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {namaBankContoh.map((option) => (
-                              <SelectItem
-                                key={option.value}
-                                value={option.value}
-                              >
-                                {option.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <div>
+                          <Select
+                            value={item.namaBank}
+                            onValueChange={(val) => 
+                              handleNamaBankChange(index, val)
+                            }
+                            disabled={isLoading}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Pilih Salah Satu" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {namaBankContoh.map((option) => (
+                                <SelectItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {item.namaBank === "" && (
+                            <span className="text-xs text-destructive">Nama bank wajib diisi</span>
+                          )}
+                        </div>
                       ): (
                         <div></div>
                       )}
