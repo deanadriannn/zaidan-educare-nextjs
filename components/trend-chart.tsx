@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import {
   Chart as ChartJS,
-  TimeScale,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -11,14 +10,11 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartOptions
+  ChartOptions,
 } from "chart.js";
-import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 
-// Registrasi chart.js
 ChartJS.register(
-  TimeScale,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -28,34 +24,36 @@ ChartJS.register(
   Legend
 );
 
+// Tipe data item
 export interface PaymentDataItem {
-  date: Date;
+  date: Date;   
   jumlah: number;
 }
 
+// Tipe data group
 export interface PaymentDataGroup {
   jenis: string;
   totalTransaksi: number;
   detail: PaymentDataItem[];
 }
 
-function generateDateRange(start: Date, end: Date): Date[] {
-  const dates: Date[] = [];
-  const current = new Date(start);
-  while (current <= end) {
-    dates.push(new Date(current));
-    current.setDate(current.getDate() + 1);
-  }
-  return dates;
-}
-
 type TrendChartProps = {
   dataSource: PaymentDataGroup[];
-  paymentType: string;
+  paymentType: string;        
   label?: string;
-  dateStart?: Date;
-  dateEnd?: Date;
+  /** Misal user pilih "Januari 2025" => dateStart = 2025-01-01 */
+  dateStart?: Date;           
+  /** Misal user pilih "Januari 2025" => dateEnd   = 2025-01-31 */
+  dateEnd?: Date;             
 };
+
+// Fungsi helper: kembalikan “last day of month”
+function lastDayOfMonth(d: Date) {
+  const year = d.getFullYear();
+  const month = d.getMonth();
+  // set ke tgl 1 di bulan d, +1 bulan, lalu 0 => last day
+  return new Date(year, month + 1, 0);
+}
 
 export function TrendChart({
   dataSource,
@@ -64,97 +62,120 @@ export function TrendChart({
   dateStart,
   dateEnd,
 }: TrendChartProps) {
-  // Menggabungkan detail data
+
+  // 0) Normalisasi agar misal start=2025-01-01 => end=2025-01-31
+  //    (Jika mau dipaksa full satu bulan)
+  const normalizedStart = useMemo(() => {
+    if (!dateStart) return undefined;
+    const d = new Date(dateStart.getFullYear(), dateStart.getMonth(), 1);
+    return d;
+  }, [dateStart]);
+
+  const normalizedEnd = useMemo(() => {
+    if (!dateEnd) return undefined;
+    // misalnya user pilih "Januari 2025" => dateEnd=2025-01-01 => kita jadikan last day of january
+    return lastDayOfMonth(dateEnd);
+  }, [dateEnd]);
+
+  // 1) Gabungkan detail data
   const combinedDetails = useMemo(() => {
     if (paymentType === "all") {
-      let allDetails: PaymentDataItem[] = [];
-      dataSource.forEach((group) => {
-        allDetails = allDetails.concat(group.detail);
+      let all: PaymentDataItem[] = [];
+      dataSource.forEach(g => {
+        all = all.concat(g.detail);
       });
-      return allDetails;
+      return all;
     } else {
-      const found = dataSource.find((x) => x.jenis === paymentType);
+      const found = dataSource.find(x => x.jenis === paymentType);
       return found ? found.detail : [];
     }
   }, [dataSource, paymentType]);
 
-  // Filter date range
-  const filteredByDate = useMemo(() => {
-    if (!dateStart || !dateEnd) return combinedDetails;
-    return combinedDetails.filter((item) => {
+  // 2) Filter by date range
+  const filteredDetails = useMemo(() => {
+    if (!normalizedStart || !normalizedEnd) return combinedDetails;
+    return combinedDetails.filter(item => {
       const d = item.date;
-      return d >= dateStart && d <= dateEnd;
+      return d >= normalizedStart && d <= normalizedEnd;
     });
-  }, [combinedDetails, dateStart, dateEnd]);
+  }, [combinedDetails, normalizedStart, normalizedEnd]);
 
-  // Summation jika "all"
-  const summedData = useMemo(() => {
-    if (paymentType !== "all") {
-      return [...filteredByDate].sort((a, b) => +a.date - +b.date);
+  // 3) Cari month range => maxDay
+  const monthRange = useMemo(() => {
+    if (!normalizedStart || !normalizedEnd) return [];
+    // misal user pilih jan->maret => 3 entry
+    // tapi di snippet ini, kita manual loop day
+    const result: { year: number; month: number }[] = [];
+    let cur = new Date(normalizedStart);
+    while (cur <= normalizedEnd) {
+      result.push({ year: cur.getFullYear(), month: cur.getMonth() });
+      cur.setMonth(cur.getMonth() + 1, 1); 
     }
-    const mapDate: Record<string, number> = {};
-    filteredByDate.forEach((item) => {
-      const key = item.date.toISOString().split("T")[0];
-      mapDate[key] = (mapDate[key] || 0) + item.jumlah;
-    });
-    const arr = Object.entries(mapDate).map(([k, v]) => ({
-      date: new Date(k),
-      jumlah: v,
-    }));
-    arr.sort((a, b) => +a.date - +b.date);
-    return arr;
-  }, [filteredByDate, paymentType]);
+    return result;
+  }, [normalizedStart, normalizedEnd]);
 
-  // Generate range + fill 0
+  function daysInMonth(year: number, month0: number) {
+    return new Date(year, month0 + 1, 0).getDate();
+  }
+
+  const maxDay = useMemo(() => {
+    let m = 0;
+    for (const { year, month } of monthRange) {
+      const dd = daysInMonth(year, month);
+      if (dd > m) m = dd;
+    }
+    return m; 
+  }, [monthRange]);
+
+  // 4) Summation day=1..maxDay
   const finalData = useMemo(() => {
-    if (!dateStart || !dateEnd) return summedData;
-    const range = generateDateRange(dateStart, dateEnd);
-
-    const dateMap = new Map<string, number>();
-    for (const item of summedData) {
-      const key = item.date.toISOString().split("T")[0];
-      dateMap.set(key, item.jumlah);
+    if (!monthRange.length) return [];
+    const result: { day: number; jumlah: number }[] = [];
+    for (let day = 1; day <= maxDay; day++) {
+      let sum = 0;
+      for (const { year, month } of monthRange) {
+        const dayItems = filteredDetails.filter(it => (
+          it.date.getFullYear() === year &&
+          it.date.getMonth() === month &&
+          it.date.getDate() === day
+        ));
+        sum += dayItems.reduce((acc, cur) => acc + cur.jumlah, 0);
+      }
+      result.push({ day, jumlah: sum });
     }
-    return range.map((d) => {
-      const key = d.toISOString().split("T")[0];
-      const jumlah = dateMap.get(key) || 0;
-      return { date: d, jumlah };
-    });
-  }, [summedData, dateStart, dateEnd]);
+    return result;
+  }, [filteredDetails, monthRange, maxDay]);
 
-  // Data chart: gunakan x=Date, y=jumlah
+  // 5) Chart data => label=1..maxDay
   const chartData = useMemo(() => {
     return {
+      labels: finalData.map(d => d.day.toString()),
       datasets: [
         {
           label: "Jumlah Transaksi",
-          data: finalData.map((item) => ({
-            x: item.date,
-            y: item.jumlah,
-          })),
+          data: finalData.map(d => d.jumlah),
           borderColor: "rgba(75,192,192,1)",
           backgroundColor: "rgba(75,192,192,0.2)",
           tension: 0.2,
-        },
-      ],
+        }
+      ]
     };
   }, [finalData]);
 
-  // Judul multiline
+  // 6) Title
   const chartTitle = useMemo(() => {
-    if (!dateStart || !dateEnd) {
+    if (!normalizedStart || !normalizedEnd) {
       return "Jumlah Transaksi Pembayaran";
     }
-    const fmtOpts: Intl.DateTimeFormatOptions = { month: "long", year: "numeric" };
-    const startStr = dateStart.toLocaleString("id-ID", fmtOpts);
-    const endStr = dateEnd.toLocaleString("id-ID", fmtOpts);
+    const opt: Intl.DateTimeFormatOptions = { month: "long", year: "numeric" };
+    const startStr = normalizedStart.toLocaleString("id-ID", opt); 
+    const endStr   = normalizedEnd.toLocaleString("id-ID", opt);
     const line1 = `Jumlah Transaksi Pembayaran Periode ${startStr} s.d. ${endStr}`;
     const typedLabel = paymentType === "all" ? "Semua Jenis Pembayaran" : label || "";
     const line2 = `Penerimaan ${typedLabel}`;
     return [line1, line2];
-  }, [dateStart, dateEnd, paymentType, label]);
+  }, [normalizedStart, normalizedEnd, paymentType, label]);
 
-  // Inilah bedanya: definisikan tipe ChartOptions<"line">
   const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
@@ -162,7 +183,8 @@ export function TrendChart({
         display: true,
         text: chartTitle,
         font: {
-          size: 17
+          weight: "bold",
+          size: 18,
         }
       },
       legend: {
@@ -171,16 +193,13 @@ export function TrendChart({
     },
     scales: {
       x: {
-        type: "time" as const, // Pastikan "as const"
-        time: {
-          unit: "day",
-        },
+        type: "category",
         title: {
           display: true,
           text: "Tanggal Transaksi",
           font: {
             weight: "bold",
-            size: 16
+            size: 16,
           }
         },
       },
@@ -191,7 +210,7 @@ export function TrendChart({
           text: "Jumlah Transaksi",
           font: {
             weight: "bold",
-            size: 16
+            size: 16,
           }
         },
       },
@@ -203,47 +222,48 @@ export function TrendChart({
     return dataSource.reduce((acc, item) => acc + item.totalTransaksi, 0);
   }, [dataSource]);
 
+  if (!normalizedStart || !normalizedEnd) {
+    return <p>Data Tidak Ada</p>;
+  }
+
   return (
-    <>
-      {dateStart && dateEnd && (
-        <div className="flex flex-col lg:flex-row w-full gap-4 has-[p]:flex-col">
-          <div className="w-full">
-            <Line data={chartData} options={options} />
-          </div>
-
-          {paymentType === "all" && (
-            <table className="border-collapse border text-sm w-full lg:w-auto">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border p-2 text-center">Jenis Pembayaran</th>
-                  <th className="border p-2 text-center">Jumlah Transaksi</th>
+    <div className="flex flex-col lg:flex-row w-full gap-4 has-[p]:flex-col">
+      <div className="w-full">
+        <Line data={chartData} options={options} />
+      </div>
+      {paymentType === "all" && (
+        <div className="h-full">
+          <table className="border-collapse border text-sm w-full lg:w-auto h-[400px]">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border p-2 text-center">Jenis Pembayaran</th>
+                <th className="border p-2 text-center">Jumlah Transaksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataSource.map((item) => (
+                <tr key={item.jenis}>
+                  <td className="border p-2">{item.jenis}</td>
+                  <td className="border p-2 text-center">{item.totalTransaksi}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {dataSource.map((item) => (
-                  <tr key={item.jenis}>
-                    <td className="border p-2">{item.jenis}</td>
-                    <td className="border p-2 text-center">{item.totalTransaksi}</td>
-                  </tr>
-                ))}
-                <tr>
-                  <td className="border p-2 font-semibold">Total</td>
-                  <td className="border p-2 text-center font-semibold">
-                    {totalTransaksiAll}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          )}
-
-          {paymentType !== "all" && (
-            <p>
-              Jumlah Transaksi {label}:{" "}
-              {finalData.reduce((acc, cur) => acc + cur.jumlah, 0)}
-            </p>
-          )}
+              ))}
+              <tr>
+                <td className="border p-2 font-semibold">Total</td>
+                <td className="border p-2 text-center font-semibold">
+                  {totalTransaksiAll}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
-    </>
+
+      {paymentType !== "all" && (
+        <p>
+          Jumlah Transaksi {label}:{" "}
+          {finalData.reduce((acc, cur) => acc + cur.jumlah, 0)}
+        </p>
+      )}
+    </div>
   );
 }

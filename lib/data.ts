@@ -553,10 +553,10 @@ function makeMidnight(dateString: string) {
 export const allPaymentData = [
   {
     jenis: "SPP",
-    totalTransaksi: 529,
+    totalTransaksi: 116,
     detail: [
       { date: makeMidnight("2025-01-01"), jumlah: 2 },
-      { date: makeMidnight("2025-01-02"), jumlah: 15 },
+      { date: makeMidnight("2025-01-02"), jumlah: 10 },
       { date: makeMidnight("2025-01-03"), jumlah: 16 },
       { date: makeMidnight("2025-01-04"), jumlah: 13 },
       { date: makeMidnight("2025-01-05"), jumlah: 40 },
@@ -590,24 +590,26 @@ export const allPaymentData = [
   },
   {
     jenis: "Makan Siang",
-    totalTransaksi: 0,
+    totalTransaksi: 100,
     detail: [
-      { date: makeMidnight("2025-01-01"), jumlah: 7 },
+      { date: makeMidnight("2025-02-01"), jumlah: 7 },
+      { date: makeMidnight("2025-02-02"), jumlah: 5 },
+      { date: makeMidnight("2025-03-01"), jumlah: 5 },
     ],
   },
   {
     jenis: "Jemputan",
-    totalTransaksi: 0,
+    totalTransaksi: 110,
     detail: [],
   },
   {
     jenis: "Program",
-    totalTransaksi: 0,
+    totalTransaksi: 75,
     detail: [],
   },
   {
     jenis: "DPP",
-    totalTransaksi: 0,
+    totalTransaksi: 65,
     detail: [],
   },
 ];
