@@ -22,7 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useUserStore } from "@/hooks/use-user"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
  
 const formSchema = z.object({
   username: z.string().min(1, {

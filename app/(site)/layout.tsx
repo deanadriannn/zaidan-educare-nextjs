@@ -7,7 +7,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { Globe, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -25,7 +26,6 @@ import {
 import "./site.css"
 import { useUserStore } from "@/hooks/use-user";
 import { useEffect, useState } from "react";
-import { set } from "date-fns";
 
 const footerContent = [
   {
