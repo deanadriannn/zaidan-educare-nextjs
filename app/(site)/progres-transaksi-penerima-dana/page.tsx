@@ -199,7 +199,7 @@ export default function StatusPembayaranPage() {
         color: "#fff",       // warna teks
         font: {
           weight: "bold",    // gaya teks
-          size: 14,
+          size: 16,
         },
         // formatter untuk menampilkan label
         formatter: (value: any, ctx: any) => {
