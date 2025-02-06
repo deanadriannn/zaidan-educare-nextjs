@@ -139,6 +139,7 @@ export function ClassPromotionForm ({
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                           <SelectItem value="Ya">Ya</SelectItem>
                           <SelectItem value="Tidak">Tidak</SelectItem>
                         </SelectContent>

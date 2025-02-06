@@ -117,6 +117,7 @@ export default function JenisBiayaPendidikanForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                         <SelectItem value="bulanan">Bulanan</SelectItem>
                         <SelectItem value="tahunan">Tahunan</SelectItem>
                         <SelectItem value="1x">1x</SelectItem>
@@ -151,6 +152,7 @@ export default function JenisBiayaPendidikanForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                         <SelectItem value="ya">Ya</SelectItem>
                         <SelectItem value="tidak">Tidak</SelectItem>
                       </SelectContent>

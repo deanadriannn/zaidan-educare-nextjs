@@ -672,7 +672,7 @@ export default function PenerimaanDanaForm() {
                           <SelectValue placeholder="Pilih Salah Satu" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="Pilih Salah Satu">Pilih Salah Satu</SelectItem>
+                          <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                           {jenisPembayaranContoh.map((option) => (
                             <SelectItem
                               key={option.jenisPembayaran}
@@ -732,7 +732,7 @@ export default function PenerimaanDanaForm() {
                             <SelectValue placeholder="Pilih Salah Satu" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="Pilih Salah Satu">Pilih Salah Satu</SelectItem>
+                            <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                             {metodePembayaranContoh.map((option) => (
                               <SelectItem
                                 key={option.value}
@@ -765,6 +765,7 @@ export default function PenerimaanDanaForm() {
                               <SelectValue placeholder="Pilih Salah Satu" />
                             </SelectTrigger>
                             <SelectContent>
+                            <SelectItem value="Pilih Salah Satu" disabled>Pilih Salah Satu</SelectItem>
                               {namaBankContoh.map((option) => (
                                 <SelectItem
                                   key={option.value}

@@ -232,7 +232,7 @@ export function TrendChart({
         <Line data={chartData} options={options} />
       </div>
       {paymentType === "all" && (
-        <div className="h-full">
+        <div className="mt-24">
           <table className="border-collapse border text-sm w-full lg:w-auto h-[400px]">
             <thead>
               <tr className="bg-gray-100">
