@@ -709,11 +709,13 @@ export default function PenerimaanDanaForm() {
                         disabled={isLoading}
                       />
                       <span>
-                        {item.nominal === 0 && (
-                          <span className="text-xs text-destructive">Nominal wajib diisi</span>
+                        {item.nominal === 0 ? (
+                          <div className="text-xs text-destructive h-3">Nominal wajib diisi</div>
+                        ): (
+                          <div className="h-3" />
                         )}
                         {item.nominal < 0 && (
-                          <span className="text-xs text-destructive">Nominal tidak boleh kurang dari 0</span>
+                          <div className="text-xs text-destructive h-3">Nominal tidak boleh kurang dari 0</div>
                         )}
                       </span>
                     </td>
@@ -744,8 +746,10 @@ export default function PenerimaanDanaForm() {
                           </SelectContent>
                         </Select>
                       </div>
-                      {item.metodePembayaran === "" && (
-                        <span className="text-xs text-destructive">Metode pembayaran wajib diisi</span>
+                      {item.metodePembayaran === "" ? (
+                        <div className="text-xs text-destructive h-3">Metode pembayaran wajib diisi</div>
+                      ): (
+                        <div className="h-3" />
                       )}
                     </td>
 
@@ -776,8 +780,10 @@ export default function PenerimaanDanaForm() {
                               ))}
                             </SelectContent>
                           </Select>
-                          {item.namaBank === "" && (
-                            <span className="text-xs text-destructive">Nama bank wajib diisi</span>
+                          {item.namaBank === "" ? (
+                            <div className="text-xs text-destructive h-3">Nama bank wajib diisi</div>
+                          ): (
+                            <div className="h-3" />
                           )}
                         </div>
                       ): (

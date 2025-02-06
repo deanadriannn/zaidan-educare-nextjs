@@ -163,23 +163,38 @@ export function TrendChart({
 
   // 6) Title
   const chartTitle = useMemo(() => {
-    let line1: string;
     if (!normalizedStart || !normalizedEnd) {
       return "Jumlah Transaksi Pembayaran";
     }
-    const opt: Intl.DateTimeFormatOptions = { month: "long", year: "numeric" };
-    const startStr = normalizedStart.toLocaleString("id-ID", opt); 
-    const endStr   = normalizedEnd.toLocaleString("id-ID", opt);
-
-    if (startStr === endStr) {
-      line1 = `Jumlah Transaksi Pembayaran Periode ${startStr}`;
+    const locale = "id-ID";
+    const monthOpt: Intl.DateTimeFormatOptions = { month: "long" };
+    const yearOpt: Intl.DateTimeFormatOptions = { year: "numeric" };
+  
+    const startMonth = normalizedStart.toLocaleString(locale, monthOpt);
+    const startYear  = normalizedStart.toLocaleString(locale, yearOpt);
+  
+    const endMonth   = normalizedEnd.toLocaleString(locale, monthOpt);
+    const endYear    = normalizedEnd.toLocaleString(locale, yearOpt);
+  
+    let line1 = "Jumlah Transaksi Pembayaran Periode ";
+    if (startYear === endYear) {
+      // Tahun sama => "Januari s.d. Februari 2025"
+      if (startMonth === endMonth) {
+        // Kalau bulannya juga sama => "Januari 2025"
+        line1 += `${startMonth} ${startYear}`;
+      } else {
+        line1 += `${startMonth} s.d. ${endMonth} ${startYear}`;
+      }
     } else {
-      line1 = `Jumlah Transaksi Pembayaran Periode ${startStr} s.d. ${endStr}`;
+      // Tahun beda => "Desember 2024 s.d. Januari 2025"
+      line1 += `${startMonth} ${startYear} s.d. ${endMonth} ${endYear}`;
     }
+  
     const typedLabel = paymentType === "all" ? "Semua Jenis Pembayaran" : label || "";
     const line2 = `Penerimaan ${typedLabel}`;
+  
     return [line1, line2];
-  }, [normalizedStart, normalizedEnd, paymentType, label]);
+  }, [normalizedStart, normalizedEnd, paymentType, label]);  
 
   const options: ChartOptions<"line"> = {
     responsive: true,

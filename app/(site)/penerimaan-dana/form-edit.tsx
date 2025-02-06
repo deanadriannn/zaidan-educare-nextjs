@@ -174,7 +174,7 @@ export default function PenerimaanDanaForm() {
               <div className="md:col-span-2 lg:col-span-4 xl:col-span-6"></div>
 
               <Label className={cn(
-                form.getFieldState("nominal").error ? "": "text-muted-foreground",
+                form.getFieldState("nominal").error ? "text-muted-foreground": "text-muted-foreground",
                 "text-lg font-semibold col-span-1"
               )}>Nominal</Label>
               <FormField
@@ -204,7 +204,7 @@ export default function PenerimaanDanaForm() {
               <div className="md:col-span-2 lg:col-span-4 xl:col-span-6"></div>
 
               <Label className={cn(
-                form.getFieldState("metodePembayaran").error ? "text-destructive": "text-muted-foreground",
+                form.getFieldState("metodePembayaran").error ? "text-muted-foreground": "text-muted-foreground",
                 "text-lg font-semibold col-span-1"
               )}>Metode Pembayaran</Label>
               <FormField
@@ -243,7 +243,7 @@ export default function PenerimaanDanaForm() {
               {form.watch("metodePembayaran") === "transfer" && (
                 <>
                   <Label className={cn(
-                    form.getFieldState("namaBank").error ? "text-destructive": "text-muted-foreground",
+                    form.getFieldState("namaBank").error ? "text-muted-foreground": "text-muted-foreground",
                     "text-lg font-semibold col-span-1"
                   )}>Nama Bank</Label>
                   <FormField

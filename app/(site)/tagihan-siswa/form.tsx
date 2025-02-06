@@ -399,8 +399,10 @@ export default function TagihanSiswaForm() {
                           ))}
                         </SelectContent>
                       </Select>
-                      {item.jenisPembayaran === "" && (
-                        <span className="text-xs text-destructive">Jenis pembayaran wajib diisi</span>
+                      {item.jenisPembayaran === "" ? (
+                        <div className="text-xs text-destructive h-3">Jenis pembayaran wajib diisi</div>
+                      ): (
+                        <div className="h-3" />
                       )}
                     </td>
 
@@ -426,11 +428,13 @@ export default function TagihanSiswaForm() {
                         required
                       />
                       <span>
-                        {item.nominal === 0 && (
-                          <span className="text-xs text-destructive">Nominal wajib diisi</span>
+                        {item.nominal === 0 ? (
+                          <div className="text-xs text-destructive h-3">Nominal wajib diisi</div>
+                        ): (
+                          <div className="h-3" />
                         )}
                         {item.nominal < 0 && (
-                          <span className="text-xs text-destructive">Nominal tidak boleh kurang dari 0</span>
+                          <div className="text-xs text-destructive h-3">Nominal tidak boleh kurang dari 0</div>
                         )}
                       </span>
                     </td>
