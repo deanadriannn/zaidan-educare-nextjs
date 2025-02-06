@@ -2,6 +2,7 @@
 
 import Filter from "@/components/filter";
 import { MonthPicker } from "@/components/month-picker";
+import StatusMessage from "@/components/status-message";
 import { TrendChart } from "@/components/trend-chart";
 import { Button } from "@/components/ui/button";
 import { 
@@ -22,6 +23,11 @@ import { useEffect, useState } from "react";
 export default function DashboardPage() {
   const { role } = useUserStore();
   const [isLoading, setIsLoading] = useState(false)
+
+  const [bulanStartError, setbulanStartError] = useState(false)
+  const [bulanEndError, setbulanEndError] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const [jenisPembayaran, setJenisPembayaran] = useState('')
   const [bulanStart, setBulanStart] = useState<Date | undefined>()
@@ -60,6 +66,27 @@ export default function DashboardPage() {
     setIsLoading(true)
     e.preventDefault()
 
+    if (!bulanStart && !bulanEnd) {
+      setShowError(true)
+      setErrorMessage("Field Bulan dari dan Bulan sampai wajib diisi untuk melakukan pencarian")
+      setIsLoading(false)
+      return;
+    }
+
+    if (!bulanStart) {
+      setShowError(true)
+      setErrorMessage("Field Bulan dari wajib diisi untuk melakukan pencarian")
+      setIsLoading(false)
+      return;
+    }
+
+    if (!bulanEnd) {
+      setShowError(true)
+      setErrorMessage("Field Bulan sampai wajib diisi untuk melakukan pencarian")
+      setIsLoading(false)
+      return;
+    }
+
     if (bulanStart && bulanEnd) {
       const query = new URLSearchParams({
         jenisPembayaran: jenisPembayaran,
@@ -68,6 +95,7 @@ export default function DashboardPage() {
       })
 
       router.push(`/?${query.toString()}`)
+      setShowError(false)
 
     }
     setIsLoading(false)
@@ -82,6 +110,13 @@ export default function DashboardPage() {
 
   return (
     <>
+      {showError && (
+        <StatusMessage 
+          message={errorMessage}
+          backgroundColor="bg-[#ffecec]"
+          handleDelete={() => setShowError(prev => !prev)}
+        />
+      )}
       {(role === "Bendahara" || role === "Ketua Yayasan") && (
         <Filter>
           <form onSubmit={handleFilter}>
