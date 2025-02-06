@@ -134,7 +134,7 @@ export default function DashboardPage() {
               </div>
               <div className="w-full flex flex-col space-y-2">
                 <Label htmlFor="bulanEnd" className="text-md">
-                  Sampai Bulan <span className="text-destructive">*</span>
+                  Bulan sampai <span className="text-destructive">*</span>
                 </Label>
                 <MonthPicker
                   value={bulanEnd || undefined}
