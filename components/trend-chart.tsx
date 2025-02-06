@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -62,7 +62,6 @@ export function TrendChart({
   dateStart,
   dateEnd,
 }: TrendChartProps) {
-
   // 0) Normalisasi agar misal start=2025-01-01 => end=2025-01-31
   //    (Jika mau dipaksa full satu bulan)
   const normalizedStart = useMemo(() => {
@@ -164,13 +163,19 @@ export function TrendChart({
 
   // 6) Title
   const chartTitle = useMemo(() => {
+    let line1: string;
     if (!normalizedStart || !normalizedEnd) {
       return "Jumlah Transaksi Pembayaran";
     }
     const opt: Intl.DateTimeFormatOptions = { month: "long", year: "numeric" };
     const startStr = normalizedStart.toLocaleString("id-ID", opt); 
     const endStr   = normalizedEnd.toLocaleString("id-ID", opt);
-    const line1 = `Jumlah Transaksi Pembayaran Periode ${startStr} s.d. ${endStr}`;
+
+    if (startStr === endStr) {
+      line1 = `Jumlah Transaksi Pembayaran Periode ${startStr}`;
+    } else {
+      line1 = `Jumlah Transaksi Pembayaran Periode ${startStr} s.d. ${endStr}`;
+    }
     const typedLabel = paymentType === "all" ? "Semua Jenis Pembayaran" : label || "";
     const line2 = `Penerimaan ${typedLabel}`;
     return [line1, line2];
